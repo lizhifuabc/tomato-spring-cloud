@@ -1,0 +1,19 @@
+server:
+  port: 9002
+
+# Spring 配置
+spring:
+  # 开启配置文件，默认配置在 POM 文件中
+  profiles:
+    active: @profiles.active@
+  application:
+    name: tomato-server-sys
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # 配置RSA的公钥访问地址
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+# 日志配置
+logging:
+  config: classpath:logback-@profiles.active@.xml

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <groupId>com.tomato.cloud</groupId>
+    <packaging>pom</packaging>
+    <version>${revision}</version>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tomato-bom</artifactId>
+    <description>基础 bom 文件，管理整个项目的依赖版本</description>
+
+    <properties>
+        <!-- 统一依赖管理 -->
+        <!-- bom 版本 -->
+        <revision>1.0-SNAPSHOT</revision>
+        <!-- 统一依赖管理 -->
+        <!--  spring 相关版本控制  -->
+        <spring-boot.version>2.7.0</spring-boot.version>
+        <spring-cloud.version>2021.0.2</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+        <spring-boot.mybatis>2.2.2</spring-boot.mybatis>
+        <spring-boot.auth.version>0.2.3</spring-boot.auth.version>
+
+        <!-- 第三方 jar 依赖 -->
+        <!--  knife4j swagger 版本控制  -->
+        <knife4j.version>3.0.2</knife4j.version>
+        <swagger-annotations.version>1.5.22</swagger-annotations.version>
+        <!--  验证码  -->
+        <kaptcha.version>2.3.2</kaptcha.version>
+        <captcha.version>1.6.2</captcha.version>
+        <!--  MyBatis的脚本语言配置功能  -->
+        <mybatis-freemarker.version>1.2.3</mybatis-freemarker.version>
+    </properties>
+    <!--      声明依赖，非引入      -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud 微服务配置 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--Spring Cloud & Alibaba 相关依赖-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- SpringBoot 依赖配置 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- knife4j 依赖配置 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <!-- Mybatis 依赖配置 -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${spring-boot.mybatis}</version>
+            </dependency>
+            <!-- spring boot 授权服务器依赖配置 -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>${spring-boot.auth.version}</version>
+            </dependency>
+            <!-- 验证码 -->
+            <dependency>
+                <groupId>com.github.penggle</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>${kaptcha.version}</version>
+            </dependency>
+            <!-- 好看的验证码 -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${captcha.version}</version>
+            </dependency>
+            <!--  MyBatis的脚本语言配置功能  -->
+            <dependency>
+                <groupId>org.mybatis.scripting</groupId>
+                <artifactId>mybatis-freemarker</artifactId>
+                <version>${mybatis-freemarker.version}</version>
+            </dependency>
+            <!-- 项目版本控制 -->
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-captcha-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-web-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-validator-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- 系统工具类 -->
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-utils</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- redis 依赖 -->
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-redis-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-data</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>validator-spring-boot-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>swagger2-spring-boot-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>common-spring-boot-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>web-spring-boot-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

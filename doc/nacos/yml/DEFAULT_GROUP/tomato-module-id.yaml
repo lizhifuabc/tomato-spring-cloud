@@ -1,0 +1,10 @@
+spring:
+  redis:
+    timeout: PT30S
+    database: 0
+    host: ${redis.host}
+    port: ${redis.port}
+    lettuce:
+      pool:
+        # 连接池最小空闲连接数
+        min-idle: 1

@@ -1,0 +1,103 @@
+spring:
+# security:
+#   oauth2: 
+#     resourceserver:
+#       jwt:
+#         jwk-set-uri: 'http://localhost:9999/youlai-auth/oauth/public-key'
+  redis:
+    timeout: PT30S
+    database: 0
+    host: ${redis.host}
+    port: ${redis.port}
+    lettuce:
+      pool:
+        # 连接池最小空闲连接数
+        min-idle: 1
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 启用服务发现
+          lower-case-service-id: true
+      routes:
+        - id: 认证中心
+          uri: lb://youlai-auth
+          predicates:
+            - Path=/youlai-auth/**
+          filters:
+            - StripPrefix=1
+        - id: 系统服务
+          uri: lb://youlai-admin
+          predicates:
+            - Path=/youlai-admin/**
+          filters:
+            - StripPrefix=1
+        - id: 订单服务
+          uri: lb://mall-oms
+          predicates:
+            - Path=/mall-oms/**
+          filters:
+            - StripPrefix=1
+        - id: 商品服务
+          uri: lb://mall-pms
+          predicates:
+            - Path=/mall-pms/**
+          filters:
+            - StripPrefix=1
+        - id: 会员服务
+          uri: lb://mall-ums
+          predicates:
+            - Path=/mall-ums/**
+          filters:
+            - StripPrefix=1
+        - id: 营销服务
+          uri: lb://mall-sms
+          predicates:
+            - Path=/mall-sms/**
+          filters:
+            - StripPrefix=1
+        - id: 实验室
+          uri: lb://youlai-lab
+          predicates:
+            - Path=/youlai-lab/**
+          filters:
+            - StripPrefix=1
+
+# 白名单(忽略鉴权)配置
+security:
+  ignoreUrls:
+      # 登录接口
+      - /youlai-auth/oauth/token/**
+      # Knife4j
+      - /webjars/**
+      - /doc.html
+      - /swagger-resources/**
+      - /*/v2/api-docs
+      # 系统服务
+      - /youlai-admin/api/v1/users/me
+      - /youlai-admin/api/v1/menus/route
+      - /youlai-auth/sms-code
+      - /captcha
+      # 商城服务
+      - /mall-pms/app-api/v1/categories/**
+      - /mall-pms/app-api/v1/spu/**
+      - /mall-pms/app-api/v1/sku/**
+      - /mall-sms/app-api/v1/adverts
+
+
+# Ribbon 配置
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 10000
+  SocketTimeout: 10000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+ 
+# Feign 配置
+feign:
+  httpclient:
+    enabled: true
+  okhttp:
+    enabled: false
+  sentinel:  # 开启feign对sentinel的支持
+    enabled: false 
