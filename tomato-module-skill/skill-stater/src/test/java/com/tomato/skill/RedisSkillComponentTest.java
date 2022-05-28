@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * @date 2022/5/28
  */
 @SpringBootTest
-public class RedisSkillSkuRelationComponentTest {
+public class RedisSkillComponentTest {
     @Resource
     private RedisSkillSkuRelationComponent redisSkillSkuRelationComponent;
     @Test

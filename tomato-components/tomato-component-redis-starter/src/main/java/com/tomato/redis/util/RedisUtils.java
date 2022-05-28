@@ -1,6 +1,7 @@
 package com.tomato.redis.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -135,7 +136,18 @@ public class RedisUtils {
             return false;
         }
     }
-
+    /**
+     * 分布式锁
+     * @param key               锁住的key
+     * @param lockExpireMils    锁住的时长。如果超时未解锁，视为加锁线程死亡，其他线程可夺取锁
+     * @return
+     */
+    public boolean setNx(String key, Long lockExpireMils) {
+        return (boolean) redisTemplate.execute((RedisCallback) connection -> {
+            //获取锁
+            return connection.setNX(key.getBytes(), String.valueOf(System.currentTimeMillis() + lockExpireMils + 1).getBytes());
+        });
+    }
     /**
      * 递增
      *

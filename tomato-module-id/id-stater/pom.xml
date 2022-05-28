@@ -33,7 +33,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
+        <!-- web 依赖 -->
         <dependency>
             <groupId>com.tomato.cloud</groupId>
             <artifactId>tomato-component-web-starter</artifactId>

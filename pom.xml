@@ -18,6 +18,7 @@
         <module>tomato-oauth</module>
         <module>tomato-components</module>
         <module>tomato-module-id</module>
+        <module>tomato-module-skill</module>
     </modules>
 
 

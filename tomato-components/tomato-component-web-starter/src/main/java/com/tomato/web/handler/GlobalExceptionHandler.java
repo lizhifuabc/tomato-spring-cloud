@@ -3,6 +3,7 @@ package com.tomato.web.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tomato.data.dto.response.Response;
 import com.tomato.data.dto.response.ResponseCode;
+import com.tomato.data.exception.AbstractException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,6 +39,11 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    @ExceptionHandler(value = {AbstractException.class})
+    public Response serviceException(AbstractException e) {
+        log.warn("AbstractException:",e);
+        return Response.buildFailure(ResponseCode.FAILURE.getCode(), e.getMessage());
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValidationException.class)

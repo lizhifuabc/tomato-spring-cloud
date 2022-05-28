@@ -1,5 +1,7 @@
-package com.tomato.id;
+package com.tomato.skill;
 
+import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,9 +14,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class TomatoIdApplication {
+@Slf4j
+public class TomatoSkillApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TomatoIdApplication.class, args);
-        System.out.println("TomatoIdApplication 服务启动成功");
+        log.info("Begin to start Spring Boot Application");
+        long startTime = System.currentTimeMillis();
+        SpringApplication.run(TomatoSkillApplication.class, args);
+        long endTime = System.currentTimeMillis();
+        log.info("End starting Spring Boot Application, Time used: "+ (endTime - startTime) );
     }
 }

@@ -23,6 +23,7 @@
         <spring-boot.auth.version>0.2.3</spring-boot.auth.version>
 
         <!-- 第三方 jar 依赖 -->
+        <druid.version>1.2.9</druid.version>
         <!--  knife4j swagger 版本控制  -->
         <knife4j.version>3.0.2</knife4j.version>
         <swagger-annotations.version>1.5.22</swagger-annotations.version>
@@ -100,12 +101,19 @@
                 <artifactId>mybatis-freemarker</artifactId>
                 <version>${mybatis-freemarker.version}</version>
             </dependency>
+            <!--   数据库连接池 druid 依赖     -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
             <!-- 项目版本控制 -->
             <dependency>
                 <groupId>com.tomato.cloud</groupId>
                 <artifactId>tomato-component-captcha-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <!-- web 依赖 -->
             <dependency>
                 <groupId>com.tomato.cloud</groupId>
                 <artifactId>tomato-component-web-starter</artifactId>

@@ -1,5 +1,6 @@
 package com.tomato.skill.component;
 
+import com.tomato.skill.dto.SkillReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class SkillSkuRelationComponent {
-    public void skill(){
-        log.info("扣减库存");
+public class SkillComponent {
+    public void skill(SkillReq skillReq) {
+        log.info("获取秒杀资格skillReq:{}", skillReq);
+        // 1 查询用户是否有资格
+        // 2 查询用户是否已经秒杀过
     }
 }

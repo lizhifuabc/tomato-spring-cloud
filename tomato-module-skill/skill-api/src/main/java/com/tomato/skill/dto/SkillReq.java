@@ -6,15 +6,15 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * 秒杀
+ * 秒杀资格请求
  *
  * @author lizhifu
  * @date 2022/5/28
  */
 @Data
-public class SkillSkuRelationDeductReq extends Command {
-    @NotNull(message = "id不能为空")
-    private Long id;
+public class SkillReq extends Command {
+    @NotNull(message = "活动ID不能为空")
+    private Long activityId;
     @NotNull(message = "userId不能为空")
     private Long userId;
 }

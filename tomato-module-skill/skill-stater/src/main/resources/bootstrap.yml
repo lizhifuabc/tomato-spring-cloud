@@ -1,5 +1,5 @@
 spring:
   application:
-    name: tomato-module-id
+    name: tomato-module-skill
   profiles:
     active: dev

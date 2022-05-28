@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomato.skill.database.SkillActivityRelationMapper">
+    <update id="updateSkillSurplusCount" parameterType="map">
+        UPDATE skill_activity_relation SET skill_surplus_count = skill_surplus_count - 1,update_time = now()
+        WHERE activity_relation_id = #{activityRelationId} AND skill_surplus_count > 0
+    </update>
+
+    <select id="getByActivityRelationId" parameterType="map" resultType="skillActivityRelationDO">
+        select * from skill_activity_relation
+        WHERE activity_relation_id = #{activityRelationId}
+    </select>
+</mapper>

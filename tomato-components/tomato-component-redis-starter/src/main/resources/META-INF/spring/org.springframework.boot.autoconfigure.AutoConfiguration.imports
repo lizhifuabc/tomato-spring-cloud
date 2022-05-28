@@ -1,1 +1,2 @@
 com.tomato.redis.RedisConfig
+com.tomato.redis.util.RedisUtils
