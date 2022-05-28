@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tomato.skill.database.SkillSessionMapper">
+    <sql id="ALL_COLUMNS">
+        id, name, start_time, end_time, status, create_time, update_time
+    </sql>
+
+    <sql id="COMMON_SELECT">
+        SELECT
+        <include refid="ALL_COLUMNS"/>
+        FROM skill_session
+    </sql>
+
+    <insert id="create" parameterType="skillSessionDO">
+        INSERT INTO skill_session(
+        <include refid="ALL_COLUMNS"/>
+        ) VALUES (
+        null,
+        #{name},
+        #{startTime},
+        #{endTime},
+        null,
+        now(),
+        now()
+        )
+    </insert>
+
+    <delete id="delete" parameterType="map">
+        UPDATE skill_session SET status = 0 WHERE id = #{id} and status = 1
+    </delete>
+
+    <select id="getById" resultType="skillSessionDO" parameterType="map">
+        SELECT * FROM skill_session
+        WHERE id = #{id} and status = 1 LIMIT 1
+    </select>
+
+    <update id="update" parameterType="skillSessionDO">
+        UPDATE skill_session SET update_time = now()
+        <if test="name != null">
+            ,name = #{name}
+        </if>
+        <if test="startTime != null">
+            ,start_time = #{startTime}
+        </if>
+        <if test="endTime != null">
+            ,end_time = #{endTime}
+        </if>
+        WHERE id = #{id} and status = 1
+    </update>
+
+</mapper>
