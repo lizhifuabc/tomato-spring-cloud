@@ -51,5 +51,5 @@ CREATE TABLE `skill_activity_user` (
       `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
       PRIMARY KEY (`id`),
       UNIQUE KEY `unique_activity_user_id` (`activity_user_id`),
-      UNIQUE KEY `unique_activity_relation_id` (`activity_user_id`,`activity_relation_id`)
+      UNIQUE KEY `unique_activity_relation_id` (`user_id`,`activity_relation_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户参与活动记录';

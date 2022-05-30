@@ -33,4 +33,12 @@ public interface SkillActivityUserMapper {
      * @return
      */
     SkillActivityUserDO getByActivityUserId(@Param("activityUserId") Long activityUserId);
+
+    /**
+     * 查询用户秒杀数据
+     * @param activityRelationId
+     * @param userId
+     * @return
+     */
+    SkillActivityUserDO getByUserIdAndActivityRelationId(@Param("activityRelationId") Long activityRelationId,@Param("userId") Long userId);
 }

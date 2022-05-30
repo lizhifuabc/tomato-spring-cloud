@@ -2,8 +2,10 @@ package com.tomato.skill.service;
 
 import com.tomato.skill.database.SkillActivityMapper;
 import com.tomato.skill.database.SkillActivityRelationMapper;
+import com.tomato.skill.database.SkillActivityUserMapper;
 import com.tomato.skill.database.dataobject.SkillActivityDO;
 import com.tomato.skill.database.dataobject.SkillActivityRelationDO;
+import com.tomato.skill.database.dataobject.SkillActivityUserDO;
 import com.tomato.skill.exception.SkillException;
 import com.tomato.skill.exception.SkillResponseCode;
 import org.springframework.stereotype.Service;
@@ -21,9 +23,11 @@ import java.util.Optional;
 public class SkillService {
     private final SkillActivityMapper skillActivityMapper;
     private final SkillActivityRelationMapper skillActivityRelationMapper;
-    public SkillService(SkillActivityMapper skillActivityMapper, SkillActivityRelationMapper skillActivityRelationMapper) {
+    private final SkillActivityUserMapper skillActivityUserMapper;
+    public SkillService(SkillActivityMapper skillActivityMapper, SkillActivityRelationMapper skillActivityRelationMapper, SkillActivityUserMapper skillActivityUserMapper) {
         this.skillActivityMapper = skillActivityMapper;
         this.skillActivityRelationMapper = skillActivityRelationMapper;
+        this.skillActivityUserMapper = skillActivityUserMapper;
     }
 
     /**
@@ -61,5 +65,22 @@ public class SkillService {
             throw new SkillException(SkillResponseCode.SKILL_ACTIVITY_FAILURE_LIMIT);
         }
         return skillActivityRelationDO;
+    }
+    /**
+     * 校验用户秒杀活动记录
+     * @param activityRelationId
+     * @param userId
+     * @param skillLimit
+     * @return
+     */
+    public SkillActivityUserDO checkSkillActivityUser(Long activityRelationId, Long userId,Integer skillLimit) {
+        // 用户秒杀活动记录，校验用户秒杀活动记录 TODO 加入缓存
+        SkillActivityUserDO skillActivityUserDO = skillActivityUserMapper.getByUserIdAndActivityRelationId(activityRelationId, userId);
+        Optional.ofNullable(skillActivityUserDO).ifPresent(skill -> {
+            if (skill.getActivityCount() >= skillLimit) {
+                throw new SkillException(SkillResponseCode.SKILL_ACTIVITY_FAILURE_USER_LIMIT);
+            }
+        });
+        return skillActivityUserDO;
     }
 }
