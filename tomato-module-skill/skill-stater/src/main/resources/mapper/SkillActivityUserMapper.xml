@@ -36,7 +36,7 @@
         WHERE activity_relation_id = #{activityRelationId} AND user_id = #{userId} LIMIT 1
     </select>
 
-    <update id="updateActivityCount" parameterType="skillActivityUserDO">
+    <update id="updateActivityCount" parameterType="map">
         UPDATE skill_activity_user SET update_time = now(), activity_count = activity_count + 1
         WHERE activity_user_id = #{activityUserId} and activity_count <![CDATA[<]]> #{skillLimit}
     </update>
