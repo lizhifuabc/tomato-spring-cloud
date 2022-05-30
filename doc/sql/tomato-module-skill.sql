@@ -30,7 +30,7 @@ CREATE TABLE `skill_activity_relation`  (
      `skill_count` int NOT NULL  COMMENT '秒杀总量',
      `skill_surplus_count` int(11) NOT NULL COMMENT '秒杀剩余量',
      `skill_limit` int NOT NULL  COMMENT '每人限购数量',
-     `skill_sort` int NULL DEFAULT NULL COMMENT '排序',
+     `skill_sort` int NULL default 0 COMMENT '排序',
      `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
      `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
      PRIMARY KEY (`id`),

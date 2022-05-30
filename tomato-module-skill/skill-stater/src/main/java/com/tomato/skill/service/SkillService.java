@@ -1,7 +1,9 @@
 package com.tomato.skill.service;
 
 import com.tomato.skill.database.SkillActivityMapper;
+import com.tomato.skill.database.SkillActivityRelationMapper;
 import com.tomato.skill.database.dataobject.SkillActivityDO;
+import com.tomato.skill.database.dataobject.SkillActivityRelationDO;
 import com.tomato.skill.exception.SkillException;
 import com.tomato.skill.exception.SkillResponseCode;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,10 @@ import java.util.Optional;
 @Service
 public class SkillService {
     private final SkillActivityMapper skillActivityMapper;
-
-    public SkillService(SkillActivityMapper skillActivityMapper) {
+    private final SkillActivityRelationMapper skillActivityRelationMapper;
+    public SkillService(SkillActivityMapper skillActivityMapper, SkillActivityRelationMapper skillActivityRelationMapper) {
         this.skillActivityMapper = skillActivityMapper;
+        this.skillActivityRelationMapper = skillActivityRelationMapper;
     }
 
     /**
@@ -43,5 +46,20 @@ public class SkillService {
             throw new SkillException(SkillResponseCode.SKILL_ACTIVITY_FAILURE_START);
         }
         return skillActivityDO;
+    }
+    /**
+     * 校验秒杀活动商品记录
+     * @param activityRelationId
+     * @return
+     */
+    public SkillActivityRelationDO checkSkillActivityRelation(Long activityRelationId) {
+        // 秒杀活动商品记录，校验秒杀活动商品记录 TODO 加入缓存
+        SkillActivityRelationDO skillActivityRelationDO = skillActivityRelationMapper.getByActivityRelationId(activityRelationId);
+        Optional.ofNullable(skillActivityRelationDO)
+                .orElseThrow(() -> new SkillException(SkillResponseCode.SKILL_ACTIVITY_FAILURE));
+        if (skillActivityRelationDO.getSkillSurplusCount() <= 0) {
+            throw new SkillException(SkillResponseCode.SKILL_ACTIVITY_FAILURE_LIMIT);
+        }
+        return skillActivityRelationDO;
     }
 }

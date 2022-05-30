@@ -15,6 +15,7 @@ public enum SkillResponseCode implements IResponseCode {
     SKILL_ACTIVITY_FAILURE("SKILL100", "活动不存在"),
     SKILL_ACTIVITY_FAILURE_END("SKILL101", "活动已经结束"),
     SKILL_ACTIVITY_FAILURE_START("SKILL102", "活动尚未开始"),
+    SKILL_ACTIVITY_FAILURE_LIMIT("SKILL103", "库存不足")
     ;
     /**
      * 返回码

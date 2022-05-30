@@ -19,5 +19,6 @@ public class SkillServiceTest {
     @Test
     public void test() {
         System.out.println(skillService.checkSkillActivity(11L));
+        System.out.println(skillService.checkSkillActivityRelation(11L));
     }
 }
