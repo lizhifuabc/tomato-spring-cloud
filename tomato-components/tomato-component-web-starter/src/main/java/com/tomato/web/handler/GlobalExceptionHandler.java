@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {AbstractException.class})
     public Response serviceException(AbstractException e) {
         log.warn("AbstractException:",e);
-        return Response.buildFailure(ResponseCode.FAILURE.getCode(), e.getMessage());
+        return Response.buildFailure(e.getCode(), e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
