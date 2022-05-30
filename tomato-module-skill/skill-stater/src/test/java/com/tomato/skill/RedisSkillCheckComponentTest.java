@@ -1,6 +1,6 @@
 package com.tomato.skill;
 
-import com.tomato.skill.component.RedisSkillSkuRelationComponent;
+import com.tomato.skill.component.RedisSkillComponent;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,11 +13,11 @@ import javax.annotation.Resource;
  * @date 2022/5/28
  */
 @SpringBootTest
-public class RedisSkillComponentTest {
+public class RedisSkillCheckComponentTest {
     @Resource
-    private RedisSkillSkuRelationComponent redisSkillSkuRelationComponent;
+    private RedisSkillComponent redisSkillComponent;
     @Test
     public void test() {
-        System.out.println(redisSkillSkuRelationComponent.deduct(1L, 1));
+
     }
 }

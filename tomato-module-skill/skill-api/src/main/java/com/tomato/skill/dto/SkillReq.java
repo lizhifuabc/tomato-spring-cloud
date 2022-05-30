@@ -15,6 +15,10 @@ import javax.validation.constraints.NotNull;
 public class SkillReq extends Command {
     @NotNull(message = "活动ID不能为空")
     private Long activityId;
-    @NotNull(message = "userId不能为空")
+
+    @NotNull(message = "用户ID不能为空")
     private Long userId;
+
+    @NotNull(message = "秒杀活动商品记录ID不能为空")
+    private Long activityRelationId;
 }

@@ -17,6 +17,8 @@ public enum SkillResponseCode implements IResponseCode {
     SKILL_ACTIVITY_FAILURE_START("SKILL102", "活动尚未开始"),
     SKILL_ACTIVITY_FAILURE_LIMIT("SKILL103", "库存不足"),
     SKILL_ACTIVITY_FAILURE_USER_LIMIT("SKILL104", "用户达到最大抢购次数"),
+    SKILL_COUNT_NOT_ENOUGH("SKILL200", "秒杀数量不足"),
+    SKILL_COUNT_LOCK_FAIL("SKILL201", "秒杀失败，请稍后再试")
     ;
     /**
      * 返回码

@@ -1,21 +1,35 @@
 package com.tomato.skill.component;
 
+import com.tomato.skill.database.dataobject.SkillActivityRelationDO;
 import com.tomato.skill.dto.SkillReq;
-import lombok.extern.slf4j.Slf4j;
+import com.tomato.skill.pojo.clientObject.SkillCO;
+import com.tomato.skill.service.SkillActivityUserService;
 import org.springframework.stereotype.Component;
 
 /**
- * 获取秒杀资格
+ * 秒杀
  *
  * @author lizhifu
- * @date 2022/5/28
+ * @date 2022/5/30
  */
 @Component
-@Slf4j
 public class SkillComponent {
+    private final SkillCheckComponent skillCheckComponent;
+    private final RedisSkillComponent redisSkillComponent;
+    private final SkillActivityUserService skillActivityUserService;
+    public SkillComponent(SkillCheckComponent skillCheckComponent, RedisSkillComponent redisSkillComponent, SkillActivityUserService skillActivityUserService) {
+        this.skillCheckComponent = skillCheckComponent;
+        this.redisSkillComponent = redisSkillComponent;
+        this.skillActivityUserService = skillActivityUserService;
+    }
+
     public void skill(SkillReq skillReq) {
-        log.info("获取秒杀资格skillReq:{}", skillReq);
-        // 1 查询用户是否有资格
-        // 2 查询用户是否已经秒杀过
+        // 基本数据校验
+        SkillCO skillCO = skillCheckComponent.checkSkill(skillReq);
+        SkillActivityRelationDO skillActivityRelationDO = skillCO.getSkillActivityRelationDO();
+        // redis 扣减库存
+        redisSkillComponent.deduct(skillActivityRelationDO.getActivityRelationId(), skillActivityRelationDO.getSkillCount());
+        // 扣减库存后，更新个人抢购次数
+        skillActivityUserService.skillActivity(skillActivityRelationDO.getActivityRelationId(),skillReq.getUserId(), skillActivityRelationDO.getSkillLimit());
     }
 }
