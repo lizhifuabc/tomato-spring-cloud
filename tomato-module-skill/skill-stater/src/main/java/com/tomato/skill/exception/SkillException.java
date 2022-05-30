@@ -14,7 +14,7 @@ public class SkillException extends AbstractException {
         super(code, message);
     }
 
-    public SkillException(String code, String message, Throwable cause) {
-        super(code, message, cause);
+    public SkillException(SkillResponseCode skillResponseCode) {
+        super(skillResponseCode.getCode(), skillResponseCode.getMessage());
     }
 }
