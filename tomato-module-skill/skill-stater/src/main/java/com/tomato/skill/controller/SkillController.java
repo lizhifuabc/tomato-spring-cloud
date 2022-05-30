@@ -1,5 +1,7 @@
 package com.tomato.skill.controller;
 
+import com.tomato.data.dto.response.Response;
+import com.tomato.skill.component.SkillComponent;
 import com.tomato.skill.dto.SkillReq;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +17,17 @@ import javax.validation.Valid;
  * @date 2022/5/28
  */
 @RestController
-@RequestMapping("/skill/")
+@RequestMapping("/skill")
 public class SkillController {
-    @PostMapping
-    public void skill(@Valid @RequestBody SkillReq skillReq) {
+    private final SkillComponent skillComponent;
 
+    public SkillController(SkillComponent skillComponent) {
+        this.skillComponent = skillComponent;
+    }
+
+    @PostMapping("/skill")
+    public Response skill(@Valid @RequestBody SkillReq skillReq) {
+        skillComponent.skill(skillReq);
+        return Response.buildSuccess();
     }
 }
