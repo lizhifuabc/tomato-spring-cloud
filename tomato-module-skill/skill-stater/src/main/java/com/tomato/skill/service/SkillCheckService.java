@@ -20,11 +20,11 @@ import java.util.Optional;
  * @date 2022/5/28
  */
 @Service
-public class SkillService {
+public class SkillCheckService {
     private final SkillActivityMapper skillActivityMapper;
     private final SkillActivityRelationMapper skillActivityRelationMapper;
     private final SkillActivityUserMapper skillActivityUserMapper;
-    public SkillService(SkillActivityMapper skillActivityMapper, SkillActivityRelationMapper skillActivityRelationMapper, SkillActivityUserMapper skillActivityUserMapper) {
+    public SkillCheckService(SkillActivityMapper skillActivityMapper, SkillActivityRelationMapper skillActivityRelationMapper, SkillActivityUserMapper skillActivityUserMapper) {
         this.skillActivityMapper = skillActivityMapper;
         this.skillActivityRelationMapper = skillActivityRelationMapper;
         this.skillActivityUserMapper = skillActivityUserMapper;
