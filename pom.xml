@@ -15,10 +15,10 @@
         <module>tomato-modules</module>
         <module>tomato-gateway</module>
         <module>tomato-spring-boot-starter</module>
-        <module>tomato-oauth</module>
         <module>tomato-components</module>
         <module>tomato-module-id</module>
         <module>tomato-module-skill</module>
+        <module>tomato-auth</module>
     </modules>
 
 
