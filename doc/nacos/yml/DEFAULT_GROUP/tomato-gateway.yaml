@@ -87,12 +87,14 @@ security:
 
 # Ribbon 配置
 ribbon:
-  ReadTimeout: 120000
-  ConnectTimeout: 10000
+  ReadTimeout: 5000 # 请求连接的超时时间
+  ConnectTimeout: 10000 # 请求处理的超时时间
   SocketTimeout: 10000
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
- 
+
+
+
 # Feign 配置
 feign:
   httpclient:
