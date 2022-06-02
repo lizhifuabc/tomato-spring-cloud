@@ -9,10 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tomato-modules</artifactId>
+    <artifactId>tomato-module-sys</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>tomato-module-sys</module>
+        <module>sys-api</module>
+        <module>sys-stater</module>
     </modules>
 
     <properties>

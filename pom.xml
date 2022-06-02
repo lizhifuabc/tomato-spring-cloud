@@ -12,13 +12,13 @@
 
     <modules>
         <module>tomato-bom</module>
-        <module>tomato-modules</module>
         <module>tomato-gateway</module>
         <module>tomato-spring-boot-starter</module>
         <module>tomato-components</module>
         <module>tomato-module-id</module>
         <module>tomato-module-skill</module>
         <module>tomato-auth</module>
+        <module>tomato-module-sys</module>
     </modules>
 
 

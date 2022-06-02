@@ -3,18 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>tomato-modules</artifactId>
+        <artifactId>tomato-module-sys</artifactId>
         <groupId>com.tomato.cloud</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tomato-module-sys</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>tomato-module-sys-biz</module>
-        <module>tomato-module-sys-api</module>
-    </modules>
+    <artifactId>sys-api</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
