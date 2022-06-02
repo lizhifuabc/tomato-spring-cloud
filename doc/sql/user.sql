@@ -5,3 +5,4 @@ CREATE USER 'tomato'@'%' IDENTIFIED BY 'tomato';
 grant select ,insert ,update on nacos.* to 'nacos'@'%' with grant option ;
 grant select ,insert ,update on tomato_skill.* to 'tomato'@'%' with grant option ;
 grant select ,insert ,update on tomato_auth.* to 'tomato'@'%' with grant option ;
+grant select ,insert ,update on tomato_sys.* to 'tomato'@'%' with grant option ;

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: tomato-module-sys
+  profiles:
+    active: dev
