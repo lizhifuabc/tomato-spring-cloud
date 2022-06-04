@@ -183,7 +183,6 @@ public class GlobalExceptionHandler {
      * @param ex 异常
      */
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response otherExceptionHandler(Exception ex) {
         log.warn("Exception:", ex);
         return Response.buildFailure(ResponseCode.FAILURE.getCode(), ex.getMessage());

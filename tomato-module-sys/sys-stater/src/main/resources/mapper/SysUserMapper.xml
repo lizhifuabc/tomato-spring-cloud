@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tomato.sys.database.SysUserMapper">
+    <select id="selectByUsername" resultType="sysUserDO" parameterType="map">
+        SELECT * FROM sys_user
+        WHERE username = #{username} and deleted = 1 LIMIT 1
+    </select>
+
+    <select id="selectBySysUserId" resultType="sysUserDO" parameterType="map">
+        SELECT * FROM sys_user
+        WHERE sys_user_id = #{sysUserId} and deleted = 1 LIMIT 1
+    </select>
+
+    <insert id="insert" parameterType="sysUserDO">
+        INSERT INTO sys_user(sys_user_id, username, password)
+        VALUES(#{sysUserId}, #{username}, #{password})
+    </insert>
+</mapper>

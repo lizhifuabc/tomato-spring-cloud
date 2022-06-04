@@ -28,6 +28,13 @@ public class JwtConfiguration {
      * keytool -genkey -alias jwt -keyalg RSA -keysize 2048 -keystore jwt.jks -validity 3650
      * 正在为以下对象生成 2,048 位RSA密钥对和自签名证书 (SHA256withRSA) (有效期为 3,650 天):
      * 	 CN=l, OU=l, O=l, L=l, ST=l, C=l
+     *
+     * JWK：既然涉及到签名，就涉及到签名算法，对称加密还是非对称加密，那么就需要加密的 密钥或者公私钥对。
+     * 此处我们将 JWT的密钥或者公私钥对统一称为 JSON WEB KEY，即 JWK。
+     *
+     * JWS：指的是签过名的JWT，即拥有签名的JWT
+     *
+     * JWT：指的是 JSON Web Token，不存在签名的JWT是不安全的，存在签名的JWT是不可窜改的
      * @return
      */
     @SneakyThrows

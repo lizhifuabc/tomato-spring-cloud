@@ -7,3 +7,7 @@ mysql:
   port: 3306
   username: tomato
   password: tomato
+
+auth:
+  # 127.0.0.1 auth-server
+  server-url: http://auth-server:8801

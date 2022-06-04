@@ -1,9 +1,11 @@
 spring:
-# security:
-#   oauth2: 
-#     resourceserver:
-#       jwt:
-#         jwk-set-uri: 'http://localhost:9999/youlai-auth/oauth/public-key'
+  # 网关 + 授权服务器注册的OAuth2客户端，它需要配置到资源服务器的路由规则和令牌中继功能
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          # 配置RSA的公钥访问地址
+#          jwk-set-uri: ${auth.server-url}/oauth2/jwks
   redis:
     timeout: PT30S
     database: 0
@@ -15,75 +17,33 @@ spring:
         min-idle: 1
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       discovery:
         locator:
-          enabled: true # 启用服务发现
+          # 开启从注册中心动态创建路由的功能
+          enabled: true
           lower-case-service-id: true
+      # 路由数组：指当请求满足什么样的断言时，转发到哪个服务上
       routes:
-        - id: 认证中心
-          uri: lb://youlai-auth
+        # 路由标识，要求唯一，名称任意
+        - id: tomato-module-skill
+          uri: lb://tomato-module-skill
           predicates:
-            - Path=/youlai-auth/**
+            - Path=/tomato-module-skill/**
           filters:
             - StripPrefix=1
-        - id: 系统服务
-          uri: lb://youlai-admin
-          predicates:
-            - Path=/youlai-admin/**
-          filters:
-            - StripPrefix=1
-        - id: 订单服务
-          uri: lb://mall-oms
-          predicates:
-            - Path=/mall-oms/**
-          filters:
-            - StripPrefix=1
-        - id: 商品服务
-          uri: lb://mall-pms
-          predicates:
-            - Path=/mall-pms/**
-          filters:
-            - StripPrefix=1
-        - id: 会员服务
-          uri: lb://mall-ums
-          predicates:
-            - Path=/mall-ums/**
-          filters:
-            - StripPrefix=1
-        - id: 营销服务
-          uri: lb://mall-sms
-          predicates:
-            - Path=/mall-sms/**
-          filters:
-            - StripPrefix=1
-        - id: 实验室
-          uri: lb://youlai-lab
-          predicates:
-            - Path=/youlai-lab/**
-          filters:
-            - StripPrefix=1
-
-# 白名单(忽略鉴权)配置
-security:
-  ignoreUrls:
-      # 登录接口
-      - /youlai-auth/oauth/token/**
-      # Knife4j
-      - /webjars/**
-      - /doc.html
-      - /swagger-resources/**
-      - /*/v2/api-docs
-      # 系统服务
-      - /youlai-admin/api/v1/users/me
-      - /youlai-admin/api/v1/menus/route
-      - /youlai-auth/sms-code
-      - /captcha
-      # 商城服务
-      - /mall-pms/app-api/v1/categories/**
-      - /mall-pms/app-api/v1/spu/**
-      - /mall-pms/app-api/v1/sku/**
-      - /mall-sms/app-api/v1/adverts
-
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+#    org.springframework.boot.autoconfigure: DEBUG
 
 # Ribbon 配置
 ribbon:
