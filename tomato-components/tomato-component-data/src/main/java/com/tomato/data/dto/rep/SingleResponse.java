@@ -1,4 +1,4 @@
-package com.tomato.data.dto.response;
+package com.tomato.data.dto.rep;
 
 /**
  * 单条数据返回

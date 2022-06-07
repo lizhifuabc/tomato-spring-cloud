@@ -27,7 +27,7 @@ public class AccountMapperTest {
     AccountHisMapper accountHisMapper;
     @Test
     public void test() {
-        AccountDO accountDO = accountMapper.getByAccountId(1L);
+        AccountDO accountDO = accountMapper.selectByAccountId(1L);
 
         AccountHisInsertDO insertDO = new AccountHisInsertDO();
         insertDO.setAccountId(accountDO.getAccountId());

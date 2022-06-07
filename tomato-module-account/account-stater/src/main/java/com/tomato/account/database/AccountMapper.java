@@ -20,7 +20,7 @@ public interface AccountMapper {
      * @param accountId
      * @return
      */
-    AccountDO getByAccountId(@Param("accountId") Long accountId);
+    AccountDO selectByAccountId(@Param("accountId") Long accountId);
 
     /**
      * 扣钱

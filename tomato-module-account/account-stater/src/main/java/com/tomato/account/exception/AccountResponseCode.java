@@ -1,19 +1,19 @@
-package com.tomato.skill.exception;
+package com.tomato.account.exception;
 
 import com.tomato.data.dto.rep.IResponseCode;
 
 /**
- * 秒杀活动返回码
+ * 返回码
  *
  * @author lizhifu
  * @date 2022/5/30
  */
-public enum SkillResponseCode implements IResponseCode {
+public enum AccountResponseCode implements IResponseCode {
     /**
      * 失败
      */
-    SKILL_ACTIVITY_FAILURE("SKILL100", "活动不存在"),
-    SKILL_ACTIVITY_FAILURE_END("SKILL101", "活动已经结束"),
+    ACCOUNT_NOT_EXIST("ACCOUNT100", "账户不存在"),
+    ACCOUNT_BALANCE_NOT_ENOUGH("ACCOUNT101", "账户余额不足"),
     SKILL_ACTIVITY_FAILURE_START("SKILL102", "活动尚未开始"),
     SKILL_ACTIVITY_FAILURE_LIMIT("SKILL103", "库存不足"),
     SKILL_ACTIVITY_FAILURE_USER_LIMIT("SKILL104", "用户达到最大抢购次数"),
@@ -37,7 +37,7 @@ public enum SkillResponseCode implements IResponseCode {
     public String getMessage() {
         return message;
     }
-    SkillResponseCode(String code, String message) {
+    AccountResponseCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

@@ -1,13 +1,12 @@
 package com.tomato.gateway.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tomato.data.dto.response.IResponseCode;
-import com.tomato.data.dto.response.Response;
+import com.tomato.data.dto.rep.IResponseCode;
+import com.tomato.data.dto.rep.Response;
 import lombok.SneakyThrows;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import reactor.core.publisher.Mono;

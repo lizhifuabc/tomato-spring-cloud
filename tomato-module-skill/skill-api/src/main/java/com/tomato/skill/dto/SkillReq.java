@@ -1,6 +1,6 @@
 package com.tomato.skill.dto;
 
-import com.tomato.data.dto.Command;
+import com.tomato.data.dto.req.Req;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @date 2022/5/28
  */
 @Data
-public class SkillReq extends Command {
+public class SkillReq extends Req {
     @NotNull(message = "活动ID不能为空")
     private Long activityId;
 

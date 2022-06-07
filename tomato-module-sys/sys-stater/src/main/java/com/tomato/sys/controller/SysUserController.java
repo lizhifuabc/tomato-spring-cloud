@@ -1,7 +1,7 @@
 package com.tomato.sys.controller;
 
-import com.tomato.data.dto.response.Response;
-import com.tomato.data.dto.response.SingleResponse;
+import com.tomato.data.dto.rep.Response;
+import com.tomato.data.dto.rep.SingleResponse;
 import com.tomato.sys.dto.SysUserAddReq;
 import com.tomato.sys.dto.clientObject.SysUserAuthRep;
 import com.tomato.sys.service.SysUserService;

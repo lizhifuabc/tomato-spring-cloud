@@ -1,6 +1,6 @@
 package com.tomato.gateway.response;
 
-import com.tomato.data.dto.response.IResponseCode;
+import com.tomato.data.dto.rep.IResponseCode;
 
 /**
  * 网关返回码

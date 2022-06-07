@@ -1,8 +1,8 @@
 package com.tomato.web.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.tomato.data.dto.response.Response;
-import com.tomato.data.dto.response.ResponseCode;
+import com.tomato.data.dto.rep.Response;
+import com.tomato.data.dto.rep.ResponseCode;
 import com.tomato.data.exception.AbstractException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

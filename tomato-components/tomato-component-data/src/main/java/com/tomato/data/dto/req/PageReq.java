@@ -1,4 +1,4 @@
-package com.tomato.data.dto.query;
+package com.tomato.data.dto.req;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @author lizhifu
  * @date 2022/5/26
  */
-public abstract class PageQuery extends Query {
+public abstract class PageReq extends Req {
     private static final long serialVersionUID = 1L;
     /**
      * 升序
@@ -61,7 +61,7 @@ public abstract class PageQuery extends Query {
         return pageIndex;
     }
 
-    public PageQuery setPageIndex(int pageIndex) {
+    public PageReq setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
         return this;
     }
@@ -73,7 +73,7 @@ public abstract class PageQuery extends Query {
         return pageSize;
     }
 
-    public PageQuery setPageSize(int pageSize) {
+    public PageReq setPageSize(int pageSize) {
         if (pageSize < 1) {
             pageSize = DEFAULT_PAGE_SIZE;
         }
@@ -89,7 +89,7 @@ public abstract class PageQuery extends Query {
         return orderBy;
     }
 
-    public PageQuery setOrderBy(String orderBy) {
+    public PageReq setOrderBy(String orderBy) {
         this.orderBy = orderBy;
         return this;
     }
@@ -98,7 +98,7 @@ public abstract class PageQuery extends Query {
         return orderDirection;
     }
 
-    public PageQuery setOrderDirection(String orderDirection) {
+    public PageReq setOrderDirection(String orderDirection) {
         if (ASC.equalsIgnoreCase(orderDirection) || DESC.equalsIgnoreCase(orderDirection)) {
             this.orderDirection = orderDirection;
         }

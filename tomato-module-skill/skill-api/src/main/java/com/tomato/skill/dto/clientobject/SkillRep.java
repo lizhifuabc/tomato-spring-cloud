@@ -1,6 +1,6 @@
 package com.tomato.skill.dto.clientobject;
 
-import com.tomato.data.dto.ClientObject;
+import com.tomato.data.dto.rep.RepObject;
 
 /**
  * 秒杀资格返回
@@ -8,5 +8,5 @@ import com.tomato.data.dto.ClientObject;
  * @author lizhifu
  * @date 2022/5/28
  */
-public class SkillRep extends ClientObject {
+public class SkillRep extends RepObject {
 }

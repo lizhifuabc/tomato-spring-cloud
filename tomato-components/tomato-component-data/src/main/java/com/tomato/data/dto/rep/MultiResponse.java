@@ -1,4 +1,4 @@
-package com.tomato.data.dto.response;
+package com.tomato.data.dto.rep;
 
 import java.util.Collections;
 import java.util.List;

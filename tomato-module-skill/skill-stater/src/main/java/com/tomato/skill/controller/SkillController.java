@@ -1,6 +1,6 @@
 package com.tomato.skill.controller;
 
-import com.tomato.data.dto.response.Response;
+import com.tomato.data.dto.rep.Response;
 import com.tomato.skill.component.SkillComponent;
 import com.tomato.skill.dto.SkillReq;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -2,7 +2,7 @@ package com.tomato.skill.component;
 
 import com.tomato.skill.database.dataobject.SkillActivityRelationDO;
 import com.tomato.skill.dto.SkillReq;
-import com.tomato.skill.pojo.clientObject.RedisDeduct;
+import com.tomato.skill.pojo.clientObject.RedisDeductRep;
 import com.tomato.skill.pojo.clientObject.SkillCO;
 import com.tomato.skill.service.SkillActivityUserService;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class SkillComponent {
         SkillCO skillCO = skillCheckComponent.checkSkill(skillReq);
         SkillActivityRelationDO skillActivityRelationDO = skillCO.getSkillActivityRelationDO();
         // redis 扣减库存
-        RedisDeduct redisDeduct = redisSkillComponent.deduct(skillActivityRelationDO.getActivityRelationId(), skillActivityRelationDO.getSkillCount());
+        RedisDeductRep redisDeductRep = redisSkillComponent.deduct(skillActivityRelationDO.getActivityRelationId(), skillActivityRelationDO.getSkillCount());
         try {
             // 扣减库存后，更新个人抢购次数
             // TODO 个人抢购失败需要恢复库存:本次抢购LOCK，本次增加的库存
@@ -37,9 +37,9 @@ public class SkillComponent {
             skillActivityUserService.skillActivity(skillActivityRelationDO.getActivityRelationId(),skillReq.getUserId(), skillActivityRelationDO.getSkillLimit());
         } catch (Exception e) {
             // 删除一次秒杀，单个库存的锁
-            redisSkillComponent.deleteLock(redisDeduct);
+            redisSkillComponent.deleteLock(redisDeductRep);
         }
         // 删除一次秒杀，单个库存的锁
-        redisSkillComponent.deleteLock(redisDeduct);
+        redisSkillComponent.deleteLock(redisDeductRep);
     }
 }

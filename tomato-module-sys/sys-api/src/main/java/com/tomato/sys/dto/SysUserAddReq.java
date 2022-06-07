@@ -1,6 +1,6 @@
 package com.tomato.sys.dto;
 
-import com.tomato.data.dto.Command;
+import com.tomato.data.dto.req.Req;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2022/6/2
  */
 @Data
-public class SysUserAddReq extends Command {
+public class SysUserAddReq extends Req {
     /**
      * 用户名
      */

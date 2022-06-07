@@ -1,7 +1,7 @@
 package com.tomato.sys.api.fallback;
 
-import com.tomato.data.dto.response.ResponseCode;
-import com.tomato.data.dto.response.SingleResponse;
+import com.tomato.data.dto.rep.ResponseCode;
+import com.tomato.data.dto.rep.SingleResponse;
 import com.tomato.sys.api.SysUserFeignClient;
 import com.tomato.sys.dto.clientObject.SysUserAuthRep;
 import lombok.extern.slf4j.Slf4j;

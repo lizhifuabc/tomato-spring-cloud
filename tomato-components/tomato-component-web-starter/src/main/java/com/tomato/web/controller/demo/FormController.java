@@ -1,7 +1,7 @@
 package com.tomato.web.controller.demo;
 
-import com.tomato.data.dto.response.Response;
-import com.tomato.data.dto.response.SingleResponse;
+import com.tomato.data.dto.rep.Response;
+import com.tomato.data.dto.rep.SingleResponse;
 import com.tomato.web.controller.demo.entity.Demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

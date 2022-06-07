@@ -1,7 +1,6 @@
 package com.tomato.auth.security.userdetails.sys;
 
-import com.tomato.data.dto.response.Response;
-import com.tomato.data.dto.response.SingleResponse;
+import com.tomato.data.dto.rep.SingleResponse;
 import com.tomato.sys.api.SysUserFeignClient;
 import com.tomato.sys.dto.clientObject.SysUserAuthRep;
 import lombok.extern.slf4j.Slf4j;
