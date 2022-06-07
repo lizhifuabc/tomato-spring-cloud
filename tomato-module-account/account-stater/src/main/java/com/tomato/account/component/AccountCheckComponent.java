@@ -26,7 +26,7 @@ public class AccountCheckComponent {
         this.accountHisMapper = accountHisMapper;
     }
 
-    public void check(AccountReceiveReq accountReceiveReq) {
+    public void checkReceive(AccountReceiveReq accountReceiveReq) {
         AccountDO accountDO = accountMapper.selectByAccountId(accountReceiveReq.getAccountId());
         if (accountDO == null) {
             throw new AccountException(AccountResponseCode.ACCOUNT_NOT_EXIST);

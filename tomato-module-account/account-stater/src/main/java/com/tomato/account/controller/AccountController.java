@@ -30,7 +30,7 @@ public class AccountController {
     private final AccountCheckComponent accountCheckComponent;
     @PostMapping("/receive")
     public Response receive(@Valid @RequestBody AccountReceiveReq accountReceiveReq){
-        accountCheckComponent.check(accountReceiveReq);
+        accountCheckComponent.checkReceive(accountReceiveReq);
         accountComponent.receive(accountReceiveReq);
         return Response.buildSuccess();
     }
