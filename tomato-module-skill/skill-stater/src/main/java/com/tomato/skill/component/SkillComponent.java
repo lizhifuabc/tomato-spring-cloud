@@ -2,8 +2,8 @@ package com.tomato.skill.component;
 
 import com.tomato.skill.database.dataobject.SkillActivityRelationDO;
 import com.tomato.skill.dto.SkillReq;
-import com.tomato.skill.pojo.clientObject.RedisDeductRep;
-import com.tomato.skill.pojo.clientObject.SkillCO;
+import com.tomato.skill.pojo.RedisDeductRep;
+import com.tomato.skill.pojo.SkillMultiInfo;
 import com.tomato.skill.service.SkillActivityUserService;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +26,8 @@ public class SkillComponent {
 
     public void skill(SkillReq skillReq) {
         // 基本数据校验
-        SkillCO skillCO = skillCheckComponent.checkSkill(skillReq);
-        SkillActivityRelationDO skillActivityRelationDO = skillCO.getSkillActivityRelationDO();
+        SkillMultiInfo skillMultiInfo = skillCheckComponent.checkSkill(skillReq);
+        SkillActivityRelationDO skillActivityRelationDO = skillMultiInfo.getSkillActivityRelationDO();
         // redis 扣减库存
         RedisDeductRep redisDeductRep = redisSkillComponent.deduct(skillActivityRelationDO.getActivityRelationId(), skillActivityRelationDO.getSkillCount());
         try {

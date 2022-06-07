@@ -1,4 +1,4 @@
-package com.tomato.skill.pojo.clientObject;
+package com.tomato.skill.pojo;
 
 import com.tomato.data.dto.rep.RepObject;
 import lombok.Data;

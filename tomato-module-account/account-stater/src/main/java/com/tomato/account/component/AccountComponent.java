@@ -28,4 +28,7 @@ public class AccountComponent {
         accountHisInsertDO.setAccountHisType(accountReceiveReq.getAccountHisType());
         accountService.receive(accountHisInsertDO);
     }
+    public void exe(Long accountId,Long accountHisId){
+        accountService.exe(accountHisId);
+    }
 }

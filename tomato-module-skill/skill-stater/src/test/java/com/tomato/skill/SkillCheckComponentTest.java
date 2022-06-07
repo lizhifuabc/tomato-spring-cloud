@@ -2,7 +2,7 @@ package com.tomato.skill;
 
 import com.tomato.skill.component.SkillCheckComponent;
 import com.tomato.skill.dto.SkillReq;
-import com.tomato.skill.pojo.clientObject.SkillCO;
+import com.tomato.skill.pojo.SkillMultiInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,7 +24,7 @@ public class SkillCheckComponentTest {
         SkillReq skillReq = new SkillReq();
         skillReq.setActivityId(11L);
         skillReq.setActivityRelationId(11L);
-        SkillCO skillCO = skillCheckComponent.checkSkill(skillReq);
-        System.out.println("skillCO:"+skillCO);
+        SkillMultiInfo skillMultiInfo = skillCheckComponent.checkSkill(skillReq);
+        System.out.println("skillCO:"+ skillMultiInfo);
     }
 }

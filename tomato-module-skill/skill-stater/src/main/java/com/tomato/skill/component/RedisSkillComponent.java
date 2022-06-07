@@ -4,7 +4,7 @@ import com.tomato.redis.util.RedisUtils;
 import com.tomato.skill.constants.RedisKeyConstants;
 import com.tomato.skill.exception.SkillException;
 import com.tomato.skill.exception.SkillResponseCode;
-import com.tomato.skill.pojo.clientObject.RedisDeductRep;
+import com.tomato.skill.pojo.RedisDeductRep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -59,5 +59,16 @@ public class RedisSkillComponent {
     public void deleteLock(RedisDeductRep redisDeductRep) {
         // 删除分布式锁 Key
         redisUtils.del(redisDeductRep.getLockKey());
+    }
+
+    /**
+     * 查询已经售出的库存数量
+     * @param activityRelationId
+     * @return
+     */
+    public Integer usedSkillCount(Long activityRelationId) {
+        // 库存 Key
+        String skillKey = RedisKeyConstants.SKILL_KEY_PREFIX + activityRelationId;
+        return (Integer) redisUtils.get(skillKey);
     }
 }

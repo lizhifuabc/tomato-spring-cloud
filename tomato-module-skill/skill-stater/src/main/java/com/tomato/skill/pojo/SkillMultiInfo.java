@@ -1,4 +1,4 @@
-package com.tomato.skill.pojo.clientObject;
+package com.tomato.skill.pojo;
 
 import com.tomato.skill.database.dataobject.SkillActivityDO;
 import com.tomato.skill.database.dataobject.SkillActivityRelationDO;
@@ -12,7 +12,7 @@ import lombok.Data;
  * @date 2022/5/30
  */
 @Data
-public class SkillCO {
+public class SkillMultiInfo {
     private SkillActivityDO skillActivityDO;
     private SkillActivityRelationDO skillActivityRelationDO;
     private SkillActivityUserDO skillActivityUserDO;
