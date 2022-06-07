@@ -16,4 +16,8 @@
         UPDATE account_his set state = #{state},version = version + 1,before_balance = #{beforeBalance},after_balance = #{afterBalance}
                            WHERE account_his_id = #{accountHisId} and version = #{version} and state = 10
     </update>
+
+    <select id="selectByThirdNo" parameterType="map" resultType="accountHisDO">
+        select * from account_his where third_no = #{thirdNo} and account_id = #{accountId}
+    </select>
 </mapper>

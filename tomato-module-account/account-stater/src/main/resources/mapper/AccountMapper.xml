@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tomato.account.database.AccountMapper">
-    <select id="getByAccountId" resultType="accountDO" parameterType="map">
+    <select id="selectByAccountId" resultType="accountDO" parameterType="map">
         SELECT * FROM account WHERE account_id = #{accountId} LIMIT 1
     </select>
     <update id="deduct" parameterType="map">

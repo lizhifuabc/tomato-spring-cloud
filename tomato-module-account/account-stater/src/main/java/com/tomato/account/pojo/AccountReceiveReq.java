@@ -22,10 +22,9 @@ public class AccountReceiveReq extends Req {
     @NotNull(message = "账户ID不能为空")
     private Long accountId;
     /**
-     * 发生金额
+     * 发生金额 TODO 0 判断
      */
     @NotNull(message = "发生金额不能为空")
-    @DecimalMin(value = "0", message = "发生金额不能小于0")
     private BigDecimal amount;
     /**
      * 第三方流水号

@@ -22,6 +22,14 @@ public interface AccountHisMapper {
     AccountHisDO selectByAccountHisId(@Param("accountHisId") Long accountHisId);
 
     /**
+     * 查询账户历史表
+     * @param accountId
+     * @param thirdNo
+     * @return
+     */
+    AccountHisDO selectByThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
+
+    /**
      * 新增账户历史表
      *
      * @param accountHisInsertDO 账户历史表
