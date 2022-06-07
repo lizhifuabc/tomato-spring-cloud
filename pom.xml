@@ -19,6 +19,7 @@
         <module>tomato-module-skill</module>
         <module>tomato-auth</module>
         <module>tomato-module-sys</module>
+        <module>tomato-module-account</module>
     </modules>
 
 
