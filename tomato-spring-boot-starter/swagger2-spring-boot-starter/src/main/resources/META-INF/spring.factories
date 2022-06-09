@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.tomato.swagger2.spring.boot.autoconfigure.Swagger2AutoConfiguration
