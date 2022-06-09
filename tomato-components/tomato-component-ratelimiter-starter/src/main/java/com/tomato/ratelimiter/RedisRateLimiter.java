@@ -51,6 +51,7 @@ public class RedisRateLimiter {
         response.setPass(rateLimitResponse.get(0) == 1);
         response.setLeftTokenCount(rateLimitResponse.get(1));
         log.info("限流执行，key：{}，执行算法：{}，执行结果：{}",key,rateLimiterReq.getAlgorithmName(),response);
+        // TODO 增加执行失败监控或者日志
         rateLimiterAlgorithm.callback(script,keys,scriptArgs,redisTemplate);
         return SingleResponse.of(response);
     }
