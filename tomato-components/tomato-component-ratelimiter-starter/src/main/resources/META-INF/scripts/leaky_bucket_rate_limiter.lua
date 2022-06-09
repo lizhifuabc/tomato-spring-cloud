@@ -1,11 +1,9 @@
-redis.log(redis.LOG_WARNING,"leaky_bucket_rate_limiter start")
--- leaky_bucket_rate_limiter.{test}.tokens
+-- 例如传入参数，限流key
+-- 拼接之后传入redis key 为：leaky_bucket_rate_limiter.{127.0.0.1}.tokens
 local leaky_bucket_key = KEYS[1]
--- leaky_bucket_rate_limiter.{test}.timestamp
+-- 拼接之后传入redis key2 为 leaky_bucket_rate_limiter.{127.0.0.1}.timestamp
 local last_bucket_key = KEYS[2]
-
-redis.log(redis.LOG_WARNING, "leaky_bucket_key " .. leaky_bucket_key)
-redis.log(redis.LOG_WARNING, "last_bucket_key " .. last_bucket_key)
+-- redis.log(redis.LOG_WARNING, "last_bucket_key " .. last_bucket_key)
 
 -- 容量
 local capacity = tonumber(ARGV[2])
@@ -15,12 +13,9 @@ local rate = tonumber(ARGV[1])
 local requested = tonumber(ARGV[4])
 -- 当前时间
 local now = tonumber(ARGV[3])
-redis.log(redis.LOG_WARNING, "capacity " .. ARGV[2])
-redis.log(redis.LOG_WARNING, "rate " .. ARGV[1])
-redis.log(redis.LOG_WARNING, "now " .. ARGV[3])
-redis.log(redis.LOG_WARNING, "requested " .. ARGV[4])
+-- redis.log(redis.LOG_WARNING, "capacity " .. ARGV[2])
 
--- 返回大于等于参数x的最小整数
+-- math.ceil(x)返回大于等于参数x的最小整数,即对浮点数向上取整
 -- key存活时间 = 容量 / 速率
 local key_lifetime = math.ceil((capacity / rate) + 1)
 redis.log(redis.LOG_WARNING, "key_lifetime " .. key_lifetime)

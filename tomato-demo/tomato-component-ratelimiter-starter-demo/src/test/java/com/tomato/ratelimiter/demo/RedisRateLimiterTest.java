@@ -17,9 +17,13 @@ import javax.annotation.Resource;
 public class RedisRateLimiterTest {
     public static final RateLimiterReq rateLimiterBuilder = new RateLimiterReq()
             .build()
-            .replenishRate(100)
-            .algorithmName("ConcurrentRateLimiterAlgorithm")
-            .burstCapacity(3);
+            // 桶允许流出的数量 =（当前时间 - 上次更新时间即key2存储的值）* 速率
+            .replenishRate(2)
+            // 桶的容量
+            .burstCapacity(2)
+            // .algorithmName("ConcurrentRateLimiterAlgorithm")
+            .algorithmName("LeakyBucketRateLimiterAlgorithm");
+
     @Resource
     RedisRateLimiter redisRateLimiter;
     @Test

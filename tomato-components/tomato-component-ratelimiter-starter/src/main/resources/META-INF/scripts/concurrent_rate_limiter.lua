@@ -1,7 +1,7 @@
 -- 例如传入参数，限流key 127.0.0.1
--- 拼接之后传入redis key 为：concurrent_rate_limiter.{127.0.0.1}.tokens
+-- 拼接之后传入redis key1 为：concurrent_rate_limiter.{127.0.0.1}.tokens
 local tokens = KEYS[1]
--- 随机数
+-- 拼接之后传入redis key2 为随机数
 -- cc18c0499aaa4108bfb779544cdfcfe7
 local tokens_timestamp= KEYS[2]
 -- 这里的打印日志级别，需要和redis.conf配置文件中的日志设置级别一致才行

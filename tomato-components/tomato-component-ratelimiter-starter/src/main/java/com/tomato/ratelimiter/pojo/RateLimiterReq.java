@@ -15,7 +15,7 @@ public class RateLimiterReq extends Req {
     private String algorithmName;
 
     /**
-     * 补充速率
+     * 补充速率,每秒允许的请求数量
      */
     private double replenishRate;
 
