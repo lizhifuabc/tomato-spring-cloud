@@ -45,6 +45,7 @@ public class RedisSkillComponent {
             throw new SkillException(SkillResponseCode.SKILL_COUNT_NOT_ENOUGH);
         }
         // 锁 Key，一个秒杀库存一个锁
+        // 存在一种补库存时，可能会出现多个秒杀请求同时进入，这里使用 setnx 原子性操作
         String lockKey = RedisKeyConstants.SKILL_LOCK_KEY_PREFIX + activityRelationId +":" + usedSkillCount;
         redisDeductRep.setLockKey(lockKey);
 
