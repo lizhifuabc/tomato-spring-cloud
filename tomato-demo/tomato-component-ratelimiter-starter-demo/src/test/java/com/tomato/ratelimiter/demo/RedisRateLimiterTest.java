@@ -20,8 +20,10 @@ public class RedisRateLimiterTest {
             // 桶允许流出的数量 =（当前时间 - 上次更新时间即key2存储的值）* 速率
             .replenishRate(2)
             // 桶的容量
-            .burstCapacity(2)
+            .burstCapacity(20)
             // .algorithmName("ConcurrentRateLimiterAlgorithm")
+            // .algorithmName("LeakyBucketRateLimiterAlgorithm")
+            // TokenBucketRateLimiterAlgorithm
             .algorithmName("LeakyBucketRateLimiterAlgorithm");
 
     @Resource

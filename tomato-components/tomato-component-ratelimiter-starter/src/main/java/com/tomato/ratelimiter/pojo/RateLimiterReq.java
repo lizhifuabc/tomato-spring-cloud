@@ -5,7 +5,7 @@ import com.tomato.data.dto.req.Req;
 /**
  * RateLimiterReq
  *
- * @author lizhifu
+ *  @author lizhifu
  * @date 2022/6/9
  */
 public class RateLimiterReq extends Req {
@@ -15,12 +15,12 @@ public class RateLimiterReq extends Req {
     private String algorithmName;
 
     /**
-     * 补充速率,每秒允许的请求数量
+     * 每秒填充平均速率,即行等价于允许用户每秒处理多少个请求平均数
      */
     private double replenishRate;
 
     /**
-     * 总容量
+     * 容量，允许在一秒钟内完成的最大请求数
      */
     private double burstCapacity;
 

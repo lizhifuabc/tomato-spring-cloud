@@ -7,6 +7,9 @@ import com.tomato.ratelimiter.pojo.RateLimiterRep;
 import com.tomato.ratelimiter.pojo.RateLimiterReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 
@@ -16,13 +19,14 @@ import java.util.List;
 
 /**
  * 算法执行
- *
+ * https://gist.github.com/ptarjan/e38f45f2dfe601419ca3af937fff574d#file-1-check_request_rate_limiter-rb-L11-L34
  * @author lizhifu
  * @date 2022/6/9
  */
-public class RedisRateLimiter {
+public class RedisRateLimiter implements ApplicationContextAware {
     private static final Logger log = LoggerFactory.getLogger(RedisRateLimiter.class);
     private final RedisTemplate<String,String> redisTemplate;
+    private ApplicationContext applicationContext;
 
     public RedisRateLimiter(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -58,4 +62,10 @@ public class RedisRateLimiter {
     private String doubleToString(final double param) {
         return String.valueOf(param);
     }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
 }

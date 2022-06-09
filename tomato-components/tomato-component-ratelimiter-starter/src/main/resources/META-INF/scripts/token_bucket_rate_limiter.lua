@@ -1,11 +1,9 @@
-redis.log(redis.LOG_WARNING,"token_bucket_limiter start")
 -- token_bucket_limiter.{test}.tokens
 local tokens_key = KEYS[1]
 -- token_bucket_limiter.{test}.timestamp
 local timestamp_key = KEYS[2]
 
-redis.log(redis.LOG_WARNING, "tokens_key " .. tokens_key)
-redis.log(redis.LOG_WARNING, "timestamp_key " .. timestamp_key)
+-- redis.log(redis.LOG_WARNING, "timestamp_key " .. timestamp_key)
 
 local rate = tonumber(ARGV[1])
 local capacity = tonumber(ARGV[2])
@@ -16,6 +14,7 @@ local requested = tonumber(ARGV[4])
 -- 填充速度
 local fill_time = capacity/rate
 -- 返回小于或等于一个给定数字的最大整数
+-- 令牌过期时间（重置桶内令牌的时间间隔） 填充时间*2
 local ttl = math.floor(fill_time*2)
 
 -- 剩余数量
@@ -29,7 +28,6 @@ local last_refreshed = tonumber(redis.call("get", timestamp_key))
 if last_refreshed == nil then
   last_refreshed = 0
 end
-redis.log(redis.LOG_WARNING, "last_refreshed " .. last_refreshed)
 
 -- 返回最大的那个数字
 -- 当前时间 - 上次更新时间（默认0）
@@ -45,6 +43,7 @@ if allowed then
   allowed_num = 1
 end
 
+redis.log(redis.LOG_WARNING, "ttl " .. ttl)
 -- 设置新的桶的数量
 redis.call("setex", tokens_key, ttl, new_tokens)
 -- setex token_bucket_limiter.{test}.timestamp 过期时间 当前时间
