@@ -35,11 +35,11 @@ public class GlobalGatewayLogFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange).then(Mono.fromRunnable(()->{
             Long beginVisitTime = exchange.getAttribute(BEGIN_VISIT_TIME);
             if (beginVisitTime != null){
-                log.info("访问接口主机: " + exchange.getRequest().getURI().getHost());
-                log.info("访问接口端口: " + exchange.getRequest().getURI().getPort());
-                log.info("访问接口URL: " + exchange.getRequest().getURI().getPath());
-                log.info("访问接口URL参数: " + exchange.getRequest().getURI().getRawQuery());
-                log.info("访问接口时长: " + (System.currentTimeMillis() - beginVisitTime) + "ms");
+//                log.info("访问接口主机: " + exchange.getRequest().getURI().getHost());
+//                log.info("访问接口端口: " + exchange.getRequest().getURI().getPort());
+//                log.info("访问接口URL: " + exchange.getRequest().getURI().getPath());
+//                log.info("访问接口URL参数: " + exchange.getRequest().getURI().getRawQuery());
+//                log.info("访问接口时长: " + (System.currentTimeMillis() - beginVisitTime) + "ms");
             }
         }));
     }

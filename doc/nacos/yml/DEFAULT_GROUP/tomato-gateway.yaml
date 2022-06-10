@@ -35,7 +35,7 @@ spring:
         - id: tomato-module-skill  # 唯一的serviceId
           uri: lb://tomato-module-skill # lb://为固定写法，表示开启负载均衡；tomato-module-skill 即服务在注册的名字
           predicates:
-            - Path=/tomato-module-skill/** # 匹配转发路由
+            - Path=/skill/** # 匹配转发路由
           filters: # 跳过指定路径
             - StripPrefix=1
             - name: RequestRateLimiter
@@ -43,9 +43,9 @@ spring:
                 # 令牌桶每秒填充平均速率,即行等价于允许用户每秒处理多少个请求平均数
                 redis-rate-limiter.replenishRate: 1
                 # 令牌桶的容量，允许在一秒钟内完成的最大请求数
-                redis-rate-limiter.burstCapacity: 2
+                redis-rate-limiter.burstCapacity: 0
                 # 用于限流的键的解析器的 Bean 对象的名字。它使用 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
-                key-resolver: "#{@userKeyResolver}"
+                key-resolver: "#{@pathKeyResolver}" # 使用 SpEL 表达式按名称引用 bean
 logging:
   level:
     root: INFO
