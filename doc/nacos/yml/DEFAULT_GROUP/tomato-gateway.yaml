@@ -8,6 +8,7 @@ spring:
 #          jwk-set-uri: ${auth.server-url}/oauth2/jwks
   redis:
     timeout: PT30S
+    client-type: lettuce
     database: 0
     host: ${redis.host}
     port: ${redis.port}
@@ -29,14 +30,22 @@ spring:
           enabled: true
           lower-case-service-id: true
       # 路由数组：指当请求满足什么样的断言时，转发到哪个服务上
-      routes:
+      routes: # 负载均衡 路由代理
         # 路由标识，要求唯一，名称任意
-        - id: tomato-module-skill
-          uri: lb://tomato-module-skill
+        - id: tomato-module-skill  # 唯一的serviceId
+          uri: lb://tomato-module-skill # lb://为固定写法，表示开启负载均衡；tomato-module-skill 即服务在注册的名字
           predicates:
-            - Path=/tomato-module-skill/**
-          filters:
+            - Path=/tomato-module-skill/** # 匹配转发路由
+          filters: # 跳过指定路径
             - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                # 令牌桶每秒填充平均速率,即行等价于允许用户每秒处理多少个请求平均数
+                redis-rate-limiter.replenishRate: 1
+                # 令牌桶的容量，允许在一秒钟内完成的最大请求数
+                redis-rate-limiter.burstCapacity: 2
+                # 用于限流的键的解析器的 Bean 对象的名字。它使用 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
+                key-resolver: "#{@apiKeyResolver}"
 logging:
   level:
     root: INFO

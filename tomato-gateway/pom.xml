@@ -44,6 +44,7 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
+        <!--客户端负载均衡loadbalancer-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
@@ -63,6 +64,12 @@
         <dependency>
             <groupId>com.tomato.cloud</groupId>
             <artifactId>tomato-component-data</artifactId>
+        </dependency>
+
+        <!-- redis 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <dependency>
