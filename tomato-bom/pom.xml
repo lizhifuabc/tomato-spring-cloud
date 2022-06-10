@@ -21,7 +21,8 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <spring-boot.mybatis>2.2.2</spring-boot.mybatis>
         <spring-boot.auth.version>0.2.3</spring-boot.auth.version>
-
+        <!-- spring 代码格式插件-->
+        <spring.javaformat>0.0.33</spring.javaformat>
         <!-- 第三方 jar 依赖 -->
         <druid.version>1.2.9</druid.version>
         <!--  knife4j swagger 版本控制  -->
@@ -168,4 +169,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!--spring 代码格式插件 -->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring.javaformat}</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

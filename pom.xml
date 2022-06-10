@@ -28,6 +28,8 @@
         <revision>1.0-SNAPSHOT</revision>
         <!-- Maven 相关 -->
         <java.version>17</java.version>
+        <!-- spring 代码格式插件-->
+        <spring.javaformat>0.0.33</spring.javaformat>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
@@ -58,6 +60,12 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <!--spring 代码格式插件 -->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring.javaformat}</version>
             </plugin>
         </plugins>
     </build>
