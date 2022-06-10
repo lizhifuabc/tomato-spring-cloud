@@ -45,7 +45,7 @@ spring:
                 # 令牌桶的容量，允许在一秒钟内完成的最大请求数
                 redis-rate-limiter.burstCapacity: 2
                 # 用于限流的键的解析器的 Bean 对象的名字。它使用 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
-                key-resolver: "#{@apiKeyResolver}"
+                key-resolver: "#{@userKeyResolver}"
 logging:
   level:
     root: INFO

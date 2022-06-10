@@ -33,6 +33,7 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
+        <!--gateway 网关依赖,内置webflux 依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -66,7 +67,7 @@
             <artifactId>tomato-component-data</artifactId>
         </dependency>
 
-        <!-- redis 依赖 -->
+        <!-- redis 依赖 令牌桶限流 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>

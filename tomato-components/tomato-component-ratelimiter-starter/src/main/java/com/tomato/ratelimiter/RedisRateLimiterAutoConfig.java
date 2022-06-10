@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * 自定义自动配置类
+ * org.springframework.cloud.gateway.config.GatewayRedisAutoConfiguration
  *
  * @author lizhifu
  * @date 2022/6/9
