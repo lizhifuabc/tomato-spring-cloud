@@ -24,7 +24,7 @@ public class RedisRateLimiterTest {
             // .algorithmName("ConcurrentRateLimiterAlgorithm")
             // .algorithmName("LeakyBucketRateLimiterAlgorithm")
             // TokenBucketRateLimiterAlgorithm
-            .algorithmName("LeakyBucketRateLimiterAlgorithm");
+            .algorithmName("TokenBucketRateLimiterAlgorithm");
 
     @Resource
     RedisRateLimiter redisRateLimiter;
@@ -37,9 +37,9 @@ public class RedisRateLimiterTest {
         Thread thread4 = new Thread(task);
 
         thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
+//        thread2.start();
+//        thread3.start();
+//        thread4.start();
 
         Thread.sleep(10000);
     }

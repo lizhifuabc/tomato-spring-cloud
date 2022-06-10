@@ -15,12 +15,12 @@ public class RateLimiterReq extends Req {
     private String algorithmName;
 
     /**
-     * 每秒填充平均速率,即行等价于允许用户每秒处理多少个请求平均数
+     * 每秒填充平均速率,每秒有多少令牌。
      */
     private double replenishRate;
 
     /**
-     * 容量，允许在一秒钟内完成的最大请求数
+     * 总容量，桶中可以容纳多少令牌
      */
     private double burstCapacity;
 

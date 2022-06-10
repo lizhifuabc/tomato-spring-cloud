@@ -20,20 +20,19 @@ import java.util.List;
  * @date 2022/6/9
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnBean(RedisTemplate.class)
 public class RedisRateLimiterAutoConfig{
     private static final Logger log = LoggerFactory.getLogger(RedisRateLimiter.class);
     @Bean
     RedisRateLimiter redisRateLimiter(RedisTemplate<String,String> redisTemplate){
         return new RedisRateLimiter(redisTemplate);
     }
-    @Bean
-    @SuppressWarnings("unchecked")
-    public RedisScript slidingWindowRateLimiterAlgorithm() {
-        DefaultRedisScript redisScript = new DefaultRedisScript<>();
-        redisScript.setScriptSource(
-                new ResourceScriptSource(new ClassPathResource("META-INF/scripts/sliding_window_rate_limiter.lua")));
-        redisScript.setResultType(List.class);
-        return redisScript;
-    }
+//    @Bean
+//    @SuppressWarnings("unchecked")
+//    public RedisScript slidingWindowRateLimiterAlgorithm() {
+//        DefaultRedisScript redisScript = new DefaultRedisScript<>();
+//        redisScript.setScriptSource(
+//                new ResourceScriptSource(new ClassPathResource("META-INF/scripts/sliding_window_rate_limiter.lua")));
+//        redisScript.setResultType(List.class);
+//        return redisScript;
+//    }
 }
