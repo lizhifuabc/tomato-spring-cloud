@@ -1,13 +1,17 @@
+# redis 配置
 redis:
   host: 127.0.0.1
   port: 6379
-
+# mysql 配置
 mysql:
   host: 127.0.0.1
   port: 3306
   username: tomato
   password: tomato
-
+# nacos 配置
+nacos:
+    host: http://localhost
+    port: 8848
 auth:
   # 127.0.0.1 auth-server
   server-url: http://auth-server:8801

@@ -1,0 +1,19 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: tomato-gateway
+  cloud:
+    nacos:
+      discovery:
+        # 配置为本机的nacos 127.0.0.1 tomato-nacos
+        server-addr: ${NACOS_HOST:tomato-nacos-add}:${NACOS_PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        shared-configs:
+          - data-id: tomato-common-@profiles.active@.yml
+            refresh: true
+  config:
+    import:
+      - optional:nacos:application-@profiles.active@.yml
+      - optional:nacos:${spring.application.name}-@profiles.active@.yml

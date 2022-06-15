@@ -62,8 +62,6 @@ ribbon:
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
 
-
-
 # Feign 配置
 feign:
   httpclient:
