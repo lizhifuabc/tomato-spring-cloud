@@ -1,6 +1,6 @@
 package com.tomato.sys.dto.clientObject;
 
-import com.tomato.data.dto.rep.RepObject;
+import com.tomato.data.dto.Rep;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2022/6/2
  */
 @Data
-public class SysUserAuthRep extends RepObject {
+public class SysUserAuthRep extends Rep {
     /**
      * 系统用户ID
      */

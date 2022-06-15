@@ -1,6 +1,6 @@
 package com.tomato.sys.api;
 
-import com.tomato.data.dto.rep.SingleResponse;
+import com.tomato.data.response.SingleResponse;
 import com.tomato.sys.api.fallback.SysUserFeignFallbackClient;
 import com.tomato.sys.dto.clientObject.SysUserAuthRep;
 import org.springframework.cloud.openfeign.FeignClient;

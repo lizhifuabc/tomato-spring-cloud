@@ -1,10 +1,9 @@
 package com.tomato.skill.controller;
 
-import com.tomato.data.dto.rep.Response;
-import com.tomato.data.dto.rep.SingleResponse;
+import com.tomato.data.response.Response;
+import com.tomato.data.response.SingleResponse;
 import com.tomato.skill.component.RedisSkillComponent;
 import com.tomato.skill.component.SkillComponent;
-import com.tomato.skill.constants.RedisKeyConstants;
 import com.tomato.skill.dto.SkillReq;
 import org.springframework.web.bind.annotation.*;
 

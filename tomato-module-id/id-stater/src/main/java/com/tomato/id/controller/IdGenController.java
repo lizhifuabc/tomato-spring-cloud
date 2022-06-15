@@ -1,7 +1,7 @@
 package com.tomato.id.controller;
 
-import com.tomato.data.dto.rep.Response;
-import com.tomato.data.dto.rep.SingleResponse;
+import com.tomato.data.response.Response;
+import com.tomato.data.response.SingleResponse;
 import com.tomato.id.strategy.IdGeneratorStrategy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

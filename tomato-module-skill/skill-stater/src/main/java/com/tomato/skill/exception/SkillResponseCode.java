@@ -1,6 +1,6 @@
 package com.tomato.skill.exception;
 
-import com.tomato.data.dto.rep.IResponseCode;
+import com.tomato.data.response.IResponseCode;
 
 /**
  * 秒杀活动返回码

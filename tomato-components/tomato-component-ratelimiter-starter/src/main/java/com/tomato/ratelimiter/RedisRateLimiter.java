@@ -1,6 +1,6 @@
 package com.tomato.ratelimiter;
 
-import com.tomato.data.dto.rep.SingleResponse;
+import com.tomato.data.response.SingleResponse;
 import com.tomato.ratelimiter.algorithm.RateLimiterAlgorithm;
 import com.tomato.ratelimiter.algorithm.handler.RateLimiterAlgorithmHandler;
 import com.tomato.ratelimiter.pojo.RateLimiterRep;

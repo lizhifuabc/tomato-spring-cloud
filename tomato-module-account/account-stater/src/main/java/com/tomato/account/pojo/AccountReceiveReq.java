@@ -1,9 +1,8 @@
 package com.tomato.account.pojo;
 
-import com.tomato.data.dto.req.Req;
+import com.tomato.data.dto.Req;
 import lombok.Data;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;

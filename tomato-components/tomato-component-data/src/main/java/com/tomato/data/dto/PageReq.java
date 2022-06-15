@@ -1,4 +1,4 @@
-package com.tomato.data.dto.req;
+package com.tomato.data.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 

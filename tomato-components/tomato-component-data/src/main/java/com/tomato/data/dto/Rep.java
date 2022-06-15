@@ -1,4 +1,4 @@
-package com.tomato.data.dto.rep;
+package com.tomato.data.dto;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.Map;
  * @author lizhifu
  * @date 2022/5/28
  */
-public abstract class RepObject implements Serializable {
+public abstract class Rep implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * 扩展数据

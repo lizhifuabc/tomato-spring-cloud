@@ -1,6 +1,6 @@
 package com.tomato.id.api;
 
-import com.tomato.data.dto.rep.Response;
+import com.tomato.data.response.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

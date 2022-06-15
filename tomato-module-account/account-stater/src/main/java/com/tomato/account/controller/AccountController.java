@@ -3,7 +3,7 @@ package com.tomato.account.controller;
 import com.tomato.account.component.AccountCheckComponent;
 import com.tomato.account.component.AccountComponent;
 import com.tomato.account.pojo.AccountReceiveReq;
-import com.tomato.data.dto.rep.Response;
+import com.tomato.data.response.Response;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
 package com.tomato.skill.dto;
 
-import com.tomato.data.dto.req.Req;
+import com.tomato.data.dto.Req;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

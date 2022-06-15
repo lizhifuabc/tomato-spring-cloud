@@ -1,6 +1,6 @@
 package com.tomato.account.exception;
 
-import com.tomato.data.dto.rep.IResponseCode;
+import com.tomato.data.response.IResponseCode;
 
 /**
  * 返回码

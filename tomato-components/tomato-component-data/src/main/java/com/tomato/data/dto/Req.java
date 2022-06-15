@@ -1,9 +1,7 @@
-package com.tomato.data.dto.req;
-
-import com.tomato.data.dto.Command;
+package com.tomato.data.dto;
 
 /**
- * 请求命令
+ * 请求
  *
  * @author lizhifu
  * @date 2022/5/26

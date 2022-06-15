@@ -1,6 +1,6 @@
 package com.tomato.skill.pojo;
 
-import com.tomato.data.dto.rep.RepObject;
+import com.tomato.data.dto.Rep;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2022/5/30
  */
 @Data
-public class RedisDeductRep extends RepObject {
+public class RedisDeductRep extends Rep {
     /**
      * 库存 Key
      */

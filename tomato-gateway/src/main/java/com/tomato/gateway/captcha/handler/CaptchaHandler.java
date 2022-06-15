@@ -2,7 +2,7 @@ package com.tomato.gateway.captcha.handler;
 
 import com.tomato.captcha.spring.boot.autoconfigure.component.CaptchaComponent;
 import com.tomato.captcha.spring.boot.autoconfigure.enums.CaptchaTypeEnum;
-import com.tomato.data.dto.rep.SingleResponse;
+import com.tomato.data.response.SingleResponse;
 import com.wf.captcha.base.Captcha;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;

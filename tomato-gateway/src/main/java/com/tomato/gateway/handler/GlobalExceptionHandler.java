@@ -2,8 +2,8 @@ package com.tomato.gateway.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tomato.data.dto.rep.Response;
-import com.tomato.data.dto.rep.ResponseCode;
+import com.tomato.data.response.Response;
+import com.tomato.data.response.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
 package com.tomato.ratelimiter.pojo;
 
-import com.tomato.data.dto.req.Req;
+import com.tomato.data.dto.Req;
 
 /**
  * RateLimiterReq
