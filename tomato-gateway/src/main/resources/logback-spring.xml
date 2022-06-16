@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <configuration scan="true" scanPeriod="10 seconds"> -->
+<!-- <configuration scan="true" scanPeriod="10 seconds"> 可以设置scan-->
 <configuration debug="false" scan="false">
+	<!-- 获取 spring application name 作为日志的目录	-->
 	<springProperty scop="context" name="spring.application.name" source="spring.application.name" defaultValue=""/>
 	<!-- 日志目录	-->
 	<property name="log.path" value="logs/${spring.application.name}"/>
@@ -13,7 +14,7 @@
 					converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
 	<conversionRule conversionWord="wEx"
 					converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
-	<!-- Console log output -->
+	<!-- 控制台日志输出 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
