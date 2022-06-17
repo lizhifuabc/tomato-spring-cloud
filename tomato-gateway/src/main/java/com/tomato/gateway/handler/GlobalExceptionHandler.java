@@ -17,11 +17,12 @@ import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 import reactor.core.publisher.Mono;
 
 /**
- * 网关统一异常处理, 优先级低于 {@link ResponseStatusExceptionHandler} 执行
+ * 网关统一异常处理,
+ * 优先级一定要低于 {@link ResponseStatusExceptionHandler} 执行
  * @author lizhifu
  */
 @Slf4j
-@Order(-1)
+@Order(-1) // 优先级一定要比ResponseStatusExceptionHandler低
 @Configuration
 public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 
@@ -39,7 +40,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 			return Mono.error(ex);
 		}
 
-		// header set
+		// JOSN 格式返回
 		response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 		if (ex instanceof ResponseStatusException) {
 			response.setStatusCode(((ResponseStatusException) ex).getStatus());
@@ -57,5 +58,4 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 			}
 		}));
 	}
-
 }
