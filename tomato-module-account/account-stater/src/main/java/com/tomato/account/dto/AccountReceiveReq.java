@@ -1,4 +1,4 @@
-package com.tomato.account.pojo;
+package com.tomato.account.dto;
 
 import com.tomato.data.dto.Req;
 import lombok.Data;

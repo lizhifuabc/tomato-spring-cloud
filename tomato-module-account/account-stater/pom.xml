@@ -37,6 +37,11 @@
             <groupId>com.tomato.cloud</groupId>
             <artifactId>tomato-component-web-starter</artifactId>
         </dependency>
+        <!-- rabbitmq 依赖 -->
+        <dependency>
+            <groupId>com.tomato.cloud</groupId>
+            <artifactId>tomato-component-rabbitmq-starter</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

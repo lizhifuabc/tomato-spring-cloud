@@ -16,7 +16,7 @@ public class RabbitMQInfo {
     /**
      * 路由Key
      */
-    private String routingKey;
+    private String routingKey = "";
 
     /**
      * 队列信息

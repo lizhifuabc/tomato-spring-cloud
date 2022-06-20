@@ -6,7 +6,7 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisDO;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
-import com.tomato.account.pojo.AccountReceiveReq;
+import com.tomato.account.dto.AccountReceiveReq;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

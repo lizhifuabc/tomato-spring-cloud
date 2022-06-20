@@ -42,7 +42,7 @@ public class RabbitMQInitializer implements SmartInitializingSingleton {
             Exchange exchange = convertExchange(rabbitMQInfo.getExchange());
 
             // 绑定关系
-            String routingKey = rabbitMQInfo.getRoutingKey();
+            String routingKey = rabbitMQInfo.getRoutingKey() == null ? "" : rabbitMQInfo.getRoutingKey();
             String queueName = rabbitMQInfo.getQueue().getName();
             String exchangeName = rabbitMQInfo.getExchange().getName();
             Binding binding = new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, routingKey, null);

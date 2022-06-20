@@ -11,9 +11,37 @@
 
     <artifactId>order-stater</artifactId>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
+    <dependencies>
+        <!--   数据库连接池 druid 依赖     -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <!--   mybatis 依赖     -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <!--   mysql 依赖     -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- web 依赖 -->
+        <dependency>
+            <groupId>com.tomato.cloud</groupId>
+            <artifactId>tomato-component-web-starter</artifactId>
+        </dependency>
+        <!-- rabbitmq 依赖 -->
+        <dependency>
+            <groupId>com.tomato.cloud</groupId>
+            <artifactId>tomato-component-rabbitmq-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tomato.cloud</groupId>
+            <artifactId>order-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

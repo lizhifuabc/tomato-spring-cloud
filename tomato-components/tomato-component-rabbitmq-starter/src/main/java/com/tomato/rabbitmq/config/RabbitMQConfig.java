@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFacto
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,17 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(RabbitMQProperties.class)
 @Slf4j
 public class RabbitMQConfig {
+    /**
+     * 消息转换器修改
+     * 有了这项配置后, 消息在rabbitMq的管理页面就可以显示看到消息的json数据，否则是序列化的数据
+     *
+     * @return
+     */
+    @Bean
+    public MessageConverter jackJsonMessageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
+
     /**
      * 消息序列化配置
      */

@@ -1,7 +1,7 @@
 package com.tomato.account.component;
 
 import com.tomato.account.database.dataobject.AccountHisInsertDO;
-import com.tomato.account.pojo.AccountReceiveReq;
+import com.tomato.account.dto.AccountReceiveReq;
 import com.tomato.account.service.AccountService;
 import org.springframework.stereotype.Component;
 
