@@ -1,0 +1,37 @@
+server:
+  port: 9991
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tomato_merchant?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    username: tomato
+    password: tomato
+  rabbitmq:
+    host: 127.0.0.1  # 设置RabbitMQ所在主机
+    port: 5672       # 设置RabbitMQ服务端口
+    username: guest  # 设置RabbitMQ用户名
+    password: guest  # 设置RabbitMQ密码
+    # 动态创建和绑定队列、交换机的配置
+    rabbitMQInfoList:
+      - routing-key: merchant.routing.key
+        queue:
+          name: merchant.queue
+        exchange:
+          name: merchant.exchange
+          type: direct
+mybatis:
+  type-aliases-package: com.tomato.merchant.database.dataobject
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+
+#    org.springframework.boot.autoconfigure: DEBUG

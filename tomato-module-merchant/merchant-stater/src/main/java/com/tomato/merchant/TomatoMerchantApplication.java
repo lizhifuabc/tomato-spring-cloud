@@ -1,4 +1,4 @@
-package com.tomato.id;
+package com.tomato.merchant;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -14,11 +14,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @Slf4j
-public class TomatoIdApplication {
+public class TomatoMerchantApplication {
     public static void main(String[] args) {
         log.info("Begin to start Spring Boot Application");
         long startTime = System.currentTimeMillis();
-        SpringApplication.run(TomatoIdApplication.class, args);
+        SpringApplication.run(TomatoMerchantApplication.class, args);
         long endTime = System.currentTimeMillis();
         log.info("End starting Spring Boot Application, Time used: "+ (endTime - startTime) );
     }

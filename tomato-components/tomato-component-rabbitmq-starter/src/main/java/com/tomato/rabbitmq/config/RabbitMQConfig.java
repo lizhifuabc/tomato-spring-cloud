@@ -1,0 +1,42 @@
+package com.tomato.rabbitmq.config;
+
+import com.tomato.rabbitmq.init.RabbitMQInitializer;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
+/**
+ * rabbitmq配置
+ *
+ * @author lizhifu
+ * @date 2022/6/19
+ */
+@Configuration
+@EnableConfigurationProperties(RabbitMQProperties.class)
+@Slf4j
+public class RabbitMQConfig {
+    /**
+     * 消息序列化配置
+     */
+    @Bean
+    public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        return factory;
+    }
+    /**
+     * 动态创建队列、交换机初始化器
+     */
+    @Bean
+    public RabbitMQInitializer rabbitMQInitializer(AmqpAdmin amqpAdmin, RabbitMQProperties rabbitMQProperties) {
+        return new RabbitMQInitializer(amqpAdmin, rabbitMQProperties);
+    }
+}

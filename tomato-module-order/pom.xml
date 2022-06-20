@@ -9,17 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tomato-components</artifactId>
+    <artifactId>tomato-module-order</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>tomato-component-data</module>
-        <module>tomato-component-web-starter</module>
-        <module>tomato-component-utils</module>
-        <module>tomato-component-captcha-starter</module>
-        <module>tomato-component-validator-starter</module>
-        <module>tomato-component-redis-starter</module>
-        <module>tomato-component-ratelimiter-starter</module>
-        <module>tomato-component-rabbitmq-starter</module>
+        <module>order-stater</module>
+        <module>order-api</module>
     </modules>
 
     <properties>

@@ -138,6 +138,12 @@
                 <artifactId>tomato-component-redis-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <!-- rabbitmq 依赖 -->
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-rabbitmq-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <dependency>
                 <groupId>com.tomato.cloud</groupId>
                 <artifactId>tomato-component-data</artifactId>

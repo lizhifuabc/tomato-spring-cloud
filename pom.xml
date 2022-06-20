@@ -20,6 +20,8 @@
         <module>tomato-module-sys</module>
         <module>tomato-module-account</module>
         <module>tomato-demo</module>
+        <module>tomato-module-order</module>
+        <module>tomato-module-merchant</module>
     </modules>
 
 

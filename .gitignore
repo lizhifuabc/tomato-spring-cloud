@@ -37,3 +37,4 @@ target/
 *.tar
 *.tar.gz
 *.versionsBackup
+/logs/

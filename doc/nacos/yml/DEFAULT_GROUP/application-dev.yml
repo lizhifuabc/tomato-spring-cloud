@@ -21,9 +21,10 @@ feign:
     enabled: false
   client:
     config:
+      ## default设置的是全局超时时间，对所有的openFeign接口服务都生效
       default:
-        connectTimeout: 10000
-        readTimeout: 10000
+        connectTimeout: 5000
+        readTimeout: 5000
   compression:
     request:
       enabled: true
