@@ -94,6 +94,7 @@ public class RabbitMQInfo {
 
         /**
          * 绑定死信队列的交换机名称
+         * 生产者 --> 发送消息 --> 业务交换机 --> 队列 --> 成为死信消息 --> 死信交换机 --> 死信队列 --> 监听死信队列的消费者
          * x-message-ttl时间到期后把消息放到
          * x-dead-letter-routing-key和x-dead-letter-exchange指定的队列中达到延迟队列的目的。
          */
