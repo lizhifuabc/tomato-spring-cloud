@@ -12,6 +12,11 @@ spring:
     port: 5672       # 设置RabbitMQ服务端口
     username: guest  # 设置RabbitMQ用户名
     password: guest  # 设置RabbitMQ密码
+    # 如果没有抵达队列,以异步发送优先回调returns确认
+    template:
+      mandatory: true
+    publisher-confirm-type: simple
+
     # 动态创建和绑定队列、交换机的配置
     rabbitMQInfoList:
       - queue:

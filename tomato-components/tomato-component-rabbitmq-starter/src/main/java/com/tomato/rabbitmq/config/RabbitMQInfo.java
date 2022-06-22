@@ -97,6 +97,11 @@ public class RabbitMQInfo {
          * 生产者 --> 发送消息 --> 业务交换机 --> 队列 --> 成为死信消息 --> 死信交换机 --> 死信队列 --> 监听死信队列的消费者
          * x-message-ttl时间到期后把消息放到
          * x-dead-letter-routing-key和x-dead-letter-exchange指定的队列中达到延迟队列的目的。
+         *
+         * 消息成为死信消息的场景
+         * 1.消息被(reject 或 nack ) 并且 requeue = false，即消息被消费者拒绝签收，并且重新入队为false；
+         * 2.消息过期，过了ttl存活时间；
+         * 3.队列设置了x-max-length最大消息数量且当前队列中的消息已经达到了这个数量，再次投递，消息将被挤掉，被挤掉的是最靠近被消费那一端的消息。
          */
         private String deadLetterExchange;
 
