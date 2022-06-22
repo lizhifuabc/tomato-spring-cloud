@@ -13,7 +13,8 @@ public enum MerchantResponseCode implements IResponseCode {
      * 失败
      */
     MERCHANT_FAILURE("MERCHANT100", "邮箱已经存在"),
-    ;
+    MERCHANT_RATE_NOT_EXIST("MERCHANT102", "商户费率不存在"),
+    MERCHANT_NOT_EXIST("MERCHANT101", "商户不存在");
     /**
      * 返回码
      */

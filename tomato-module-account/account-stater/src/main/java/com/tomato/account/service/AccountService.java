@@ -6,6 +6,8 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisDO;
 import com.tomato.account.database.dataobject.AccountHisInsertDO;
 import com.tomato.account.database.dataobject.AccountHisUpdateDO;
+import com.tomato.account.exception.AccountException;
+import com.tomato.account.exception.AccountResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,10 @@ public class AccountService {
         this.accountHisMapper = accountHisMapper;
     }
     public void receive (AccountHisInsertDO accountHisInsertDO) {
+        if (accountHisMapper.checkThirdNo(accountHisInsertDO.getAccountId(),accountHisInsertDO.getThirdNo())){
+            log.error("账户历史表已存在，不能重复插入:{}",accountHisInsertDO);
+            throw new AccountException(AccountResponseCode.ACCOUNT_HIS_EXIST);
+        }
         accountHisMapper.insert(accountHisInsertDO);
     }
     /**

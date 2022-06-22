@@ -1,10 +1,8 @@
-server:
-  port: 9991
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/tomato_merchant?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    url: jdbc:mysql://127.0.0.1:3306/tomato_order?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
     username: tomato
     password: tomato
   rabbitmq:
@@ -12,16 +10,27 @@ spring:
     port: 5672       # 设置RabbitMQ服务端口
     username: guest  # 设置RabbitMQ用户名
     password: guest  # 设置RabbitMQ密码
+    # 如果没有抵达队列,以异步发送优先回调returns确认
+    template:
+      mandatory: true
+    publisher-confirm-type: simple
+
     # 动态创建和绑定队列、交换机的配置
     rabbitInfoList:
-      - routing-key: merchant.routing.key
-        queue:
-          name: merchant.queue
+      - queue:
+          name: order.callback.account.queue
+          dead-letter-exchange: order.dead.exchange
+          dead-letter-routing-key: order.dead.account.routing.key
         exchange:
-          name: merchant.exchange
-          type: direct
+          name: order.callback.exchange
+          type: FANOUT
+      - queue:
+          name: order.callback.notice.queue
+        exchange:
+          name: order.callback.exchange
+          type: FANOUT
 mybatis:
-  type-aliases-package: com.tomato.merchant.database.dataobject
+  type-aliases-package: com.tomato.order.database.dataobject
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true

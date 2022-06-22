@@ -1,0 +1,21 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: tomato-module-merchant
+  profiles:
+    active: @profiles.active@
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        # 配置为本机的nacos 127.0.0.1 tomato-nacos-add
+        server-addr: ${NACOS_HOST:tomato-nacos-add}:${NACOS_PORT:8848}
+      # 配置中心
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yaml
+        shared-configs:
+          - data-id: tomato-common-@profiles.active@.yaml
+            refresh: true
+          - data-id: application-@profiles.active@.yaml

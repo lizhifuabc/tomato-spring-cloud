@@ -5,6 +5,7 @@ import com.tomato.account.database.dataobject.AccountHisInsertDO;
 import com.tomato.account.database.dataobject.AccountHisUpdateDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 账户历史表
@@ -28,7 +29,8 @@ public interface AccountHisMapper {
      * @return
      */
     AccountHisDO selectByThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
-
+    @Select("select exists (select 1 from account_his where account_id = #{accountId} and third_no = #{thirdNo} limit 1)")
+    boolean checkThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
     /**
      * 新增账户历史表
      *

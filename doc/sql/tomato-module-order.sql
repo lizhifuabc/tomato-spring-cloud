@@ -2,37 +2,35 @@ use tomato_order;
 -- ----------------------------
 -- 订单详情表
 -- ----------------------------
-DROP TABLE IF EXISTS `order_info`;
-CREATE TABLE `order_info`  (
-      `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
-      `version` int NOT NULL DEFAULT '0' COMMENT '版本号',
-      `order_status` int NOT NULL DEFAULT 101 COMMENT '订单状态',
-      `pay_type` tinyint NULL  COMMENT '支付方式',
-      `order_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '订单号',
-      `order_source` tinyint NOT NULL DEFAULT 1 COMMENT '订单来源',
-      `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '订单备注',
-      `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除【0->正常；1->已删除】',
-      `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-      `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+drop table if exists `order_info`;
+create table `order_info`  (
+    `id` bigint not null auto_increment comment 'id',
+    `version` int not null default '0' comment '版本号',
+    `machine_ip` varchar(40) not null  comment '收单服务器ip',
+    `order_no` varchar(50) not null  comment '订单号',
+    `request_amount` decimal(14,4)  not null  comment '订单金额',
+    `order_status` int not null  comment '订单状态',
+    `account_status` varchar(36)  comment '入账状态',
+    `refund_status` varchar(36)  comment '退款状态',
+    `notice_status` varchar(36)  comment '通知状态',
+    `create_time` datetime not null default current_timestamp comment '创建时间',
+    `update_time` datetime not null default current_timestamp comment '修改时间',
+    `complete_date` datetime comment '完成时间',
+    `timeout_date` datetime  comment '超时时间',
+    `pay_type` int not null comment '支付方式',
+    `merchant_order_no` varchar(36) not null  comment '商户订单号',
+    `merchant_fee` decimal(14,4)  not null comment '手续费',
+    `merchant_rate` decimal(14,4)  not null comment '费率',
+    `merchant_no` varchar(16)  not null comment '商户编号',
+    `merchant_name` varchar(256)  comment '商户名称',
+    `remark` varchar(256)  comment '备注',
+    `notice_web` varchar(128)  comment '页面通知地址',
+    `notice_sys` varchar(128)  comment '系统通知地址',
+    `order_type` tinyint(1) not null comment '订单类型：标准版或专业版',
+    `pay_no` varchar(50)  comment '支付号',
 
-      `total_amount` bigint NOT NULL DEFAULT 0 COMMENT '订单总额（分）',
-      `total_quantity` int NOT NULL DEFAULT 0 COMMENT '商品总数',
-      `member_id` bigint NOT NULL DEFAULT 0 COMMENT '会员id',
-      `freight_amount` bigint NOT NULL DEFAULT 0 COMMENT '运费金额（分）',
-      `pay_amount` bigint NOT NULL DEFAULT 0 COMMENT '应付总额（分）',
-      `pay_time` datetime NULL DEFAULT NULL COMMENT '支付时间',
-      `out_trade_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信支付等第三方支付平台的商户订单号',
-      `transaction_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信支付订单号',
-      `out_refund_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商户退款单号',
-      `refund_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信退款单号',
-      `delivery_time` datetime NULL DEFAULT NULL COMMENT '发货时间',
-      `receive_time` datetime NULL DEFAULT NULL COMMENT '确认收货时间',
-      `comment_time` datetime NULL DEFAULT NULL COMMENT '评价时间',
-
-      PRIMARY KEY (`id`),
-      UNIQUE INDEX `index_order_id`(`order_id`) USING BTREE COMMENT '订单号唯一索引',
-      UNIQUE INDEX `index_otn`(`out_trade_no`) USING BTREE COMMENT '商户订单号唯一索引',
-      UNIQUE INDEX `index_ti`(`transaction_id`) USING BTREE COMMENT '商户支付单号唯一索引',
-      UNIQUE INDEX `index_orn`(`out_refund_no`) USING BTREE COMMENT '商户退款单号唯一索引',
-      UNIQUE INDEX `index_ri`(`refund_id`) USING BTREE COMMENT '退款单号唯一索引'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='订单详情表';
+    primary key (id),
+    key ti_txp_order_or (order_no),
+    unique key ti_txp_order_mno (merchant_no,merchant_order_no),
+    key ti_txp_order_payno (pay_no)
+) engine=innodb auto_increment=4 default charset=utf8mb4 collate=utf8mb4_bin comment='订单表';

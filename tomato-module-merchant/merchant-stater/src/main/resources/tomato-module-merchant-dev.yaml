@@ -1,5 +1,3 @@
-server:
-  port: 9992
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -12,25 +10,14 @@ spring:
     port: 5672       # 设置RabbitMQ服务端口
     username: guest  # 设置RabbitMQ用户名
     password: guest  # 设置RabbitMQ密码
-    # 如果没有抵达队列,以异步发送优先回调returns确认
-    template:
-      mandatory: true
-    publisher-confirm-type: simple
-
     # 动态创建和绑定队列、交换机的配置
     rabbitInfoList:
-      - queue:
-          name: order.callback.account.queue
-          dead-letter-exchange: order.dead.exchange
-          dead-letter-routing-key: order.dead.account.routing.key
+      - routing-key: merchant.routing.key
+        queue:
+          name: merchant.queue
         exchange:
-          name: order.callback.exchange
-          type: FANOUT
-      - queue:
-          name: order.callback.notice.queue
-        exchange:
-          name: order.callback.exchange
-          type: FANOUT
+          name: merchant.exchange
+          type: direct
 mybatis:
   type-aliases-package: com.tomato.merchant.database.dataobject
   mapper-locations: classpath:mapper/*Mapper.xml

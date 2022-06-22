@@ -7,6 +7,7 @@ create table merchant_info (
    `id` bigint(20) not null auto_increment comment 'id',
    `version` int not null default '0' comment '版本号',
    `merchant_no`  varchar(50) not null comment '商户编号',
+   `merchant_name`  varchar(256) not null comment '商户名称',
    `mail`   varchar(50) not null comment '注册邮箱',
    `create_time` datetime default current_timestamp comment '创建时间',
    `update_time` datetime default current_timestamp comment '修改时间',

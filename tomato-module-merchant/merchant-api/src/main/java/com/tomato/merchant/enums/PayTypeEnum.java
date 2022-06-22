@@ -1,17 +1,13 @@
-package com.tomato.order.enums;
+package com.tomato.merchant.enums;
 
 /**
- * 订单支付类型枚举
+ * 支付类型枚举
  *
  * @author lizhifu
  * @date 2022/6/18
  */
 public enum PayTypeEnum {
-    WX_JSAPI(1, "微信JSAPI支付"),
-    ALIPAY(2, "支付宝支付"),
-    BALANCE(3, "会员余额支付"),
-    WX_APP(4, "微信APP支付");
-
+    WX_SCAN(100, "微信扫码支付");
     PayTypeEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
