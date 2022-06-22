@@ -18,7 +18,7 @@ spring:
     publisher-confirm-type: simple
 
     # 动态创建和绑定队列、交换机的配置
-    rabbitMQInfoList:
+    rabbitInfoList:
       - queue:
           name: order.callback.account.queue
           dead-letter-exchange: order.dead.exchange

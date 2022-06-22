@@ -1,6 +1,6 @@
 package com.tomato.rabbitmq.config;
 
-import com.tomato.rabbitmq.enums.RabbitMQExchangeTypeEnum;
+import com.tomato.rabbitmq.enums.RabbitExchangeTypeEnum;
 import lombok.Data;
 
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * @date 2022/6/19
  */
 @Data
-public class RabbitMQInfo {
+public class RabbitInfo {
     /**
      * 路由Key
      */
@@ -35,7 +35,7 @@ public class RabbitMQInfo {
          * 交换机类型
          * 默认直连交换机
          */
-        private RabbitMQExchangeTypeEnum type = RabbitMQExchangeTypeEnum.DIRECT;
+        private RabbitExchangeTypeEnum type = RabbitExchangeTypeEnum.DIRECT;
 
         /**
          * 交换机名称

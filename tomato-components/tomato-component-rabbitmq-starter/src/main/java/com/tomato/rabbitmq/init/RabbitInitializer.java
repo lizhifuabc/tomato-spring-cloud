@@ -1,8 +1,8 @@
 package com.tomato.rabbitmq.init;
 
-import com.tomato.rabbitmq.config.RabbitMQInfo;
-import com.tomato.rabbitmq.config.RabbitMQProperties;
-import com.tomato.rabbitmq.enums.RabbitMQExchangeTypeEnum;
+import com.tomato.rabbitmq.config.RabbitInfo;
+import com.tomato.rabbitmq.config.RabbitProperties;
+import com.tomato.rabbitmq.enums.RabbitExchangeTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.SmartInitializingSingleton;
@@ -19,32 +19,32 @@ import java.util.Map;
  * @date 2022/6/19
  */
 @Slf4j
-public class RabbitMQInitializer implements SmartInitializingSingleton {
+public class RabbitInitializer implements SmartInitializingSingleton {
     private final AmqpAdmin amqpAdmin;
-    private final RabbitMQProperties rabbitMQProperties;
-    public RabbitMQInitializer(AmqpAdmin amqpAdmin, RabbitMQProperties rabbitMQProperties) {
+    private final RabbitProperties rabbitProperties;
+    public RabbitInitializer(AmqpAdmin amqpAdmin, RabbitProperties rabbitProperties) {
         this.amqpAdmin = amqpAdmin;
-        this.rabbitMQProperties = rabbitMQProperties;
+        this.rabbitProperties = rabbitProperties;
     }
 
     @Override
     public void afterSingletonsInstantiated() {
         log.info("RabbitMQ 根据配置动态创建和绑定队列、交换机");
-        List<RabbitMQInfo> rabbitMQInfoList = rabbitMQProperties.getRabbitMQInfoList();
-        if (ObjectUtils.isEmpty(rabbitMQInfoList)) {
+        List<RabbitInfo> rabbitInfoList = rabbitProperties.getRabbitInfoList();
+        if (ObjectUtils.isEmpty(rabbitInfoList)) {
             return;
         }
-        rabbitMQInfoList.forEach(rabbitMQInfo -> {
-            check(rabbitMQInfo);
+        rabbitInfoList.forEach(rabbitInfo -> {
+            check(rabbitInfo);
             // 队列
-            Queue queue = convertQueue(rabbitMQInfo.getQueue());
+            Queue queue = convertQueue(rabbitInfo.getQueue());
             // 交换机
-            Exchange exchange = convertExchange(rabbitMQInfo.getExchange());
+            Exchange exchange = convertExchange(rabbitInfo.getExchange());
 
             // 绑定关系
-            String routingKey = rabbitMQInfo.getRoutingKey() == null ? "" : rabbitMQInfo.getRoutingKey();
-            String queueName = rabbitMQInfo.getQueue().getName();
-            String exchangeName = rabbitMQInfo.getExchange().getName();
+            String routingKey = rabbitInfo.getRoutingKey() == null ? "" : rabbitInfo.getRoutingKey();
+            String queueName = rabbitInfo.getQueue().getName();
+            String exchangeName = rabbitInfo.getExchange().getName();
             Binding binding = new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, routingKey, null);
 
             // 创建队列
@@ -56,9 +56,9 @@ public class RabbitMQInitializer implements SmartInitializingSingleton {
     /**
      * RabbitMQ动态配置参数校验
      *
-     * @param rabbitMQInfo
+     * @param rabbitInfo
      */
-    public void check(RabbitMQInfo rabbitMQInfo) {
+    public void check(RabbitInfo rabbitInfo) {
 
     }
     /**
@@ -67,7 +67,7 @@ public class RabbitMQInitializer implements SmartInitializingSingleton {
      * @param queue
      * @return
      */
-    public Queue convertQueue(RabbitMQInfo.Queue queue) {
+    public Queue convertQueue(RabbitInfo.Queue queue) {
         Map<String, Object> arguments = queue.getArguments();
         if (ObjectUtils.isEmpty(arguments)) {
             arguments = new HashMap<>(4);
@@ -91,11 +91,11 @@ public class RabbitMQInitializer implements SmartInitializingSingleton {
      * @param exchangeInfo
      * @return
      */
-    public Exchange convertExchange(RabbitMQInfo.Exchange exchangeInfo) {
+    public Exchange convertExchange(RabbitInfo.Exchange exchangeInfo) {
 
         AbstractExchange exchange = null;
 
-        RabbitMQExchangeTypeEnum exchangeType = exchangeInfo.getType();
+        RabbitExchangeTypeEnum exchangeType = exchangeInfo.getType();
 
         String exchangeName = exchangeInfo.getName();
         boolean isDurable = exchangeInfo.isDurable();

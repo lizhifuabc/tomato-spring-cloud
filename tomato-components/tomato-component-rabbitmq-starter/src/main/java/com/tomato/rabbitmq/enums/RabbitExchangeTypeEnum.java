@@ -6,7 +6,7 @@ package com.tomato.rabbitmq.enums;
  * @author lizhifu
  * @date 2022/6/19
  */
-public enum RabbitMQExchangeTypeEnum {
+public enum RabbitExchangeTypeEnum {
     /**
      * 直连交换机
      * <p>

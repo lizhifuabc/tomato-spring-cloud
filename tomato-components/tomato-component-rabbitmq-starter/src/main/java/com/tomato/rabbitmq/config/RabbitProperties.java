@@ -13,9 +13,9 @@ import java.util.List;
  */
 @ConfigurationProperties(prefix = "spring.rabbitmq")
 @Data
-public class RabbitMQProperties {
+public class RabbitProperties {
     /**
      * rabbitmq配置信息
      */
-    private List<RabbitMQInfo> rabbitMQInfoList;
+    private List<RabbitInfo> rabbitInfoList;
 }

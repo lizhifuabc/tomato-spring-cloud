@@ -13,7 +13,7 @@ spring:
     username: guest  # 设置RabbitMQ用户名
     password: guest  # 设置RabbitMQ密码
     # 动态创建和绑定队列、交换机的配置
-    rabbitMQInfoList:
+    rabbitInfoList:
       - routing-key: merchant.routing.key
         queue:
           name: merchant.queue
