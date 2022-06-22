@@ -3,5 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tomato.order.database.OrderInfoMapper">
-
+    <insert id="insert" parameterType="orderInfoDO">
+        insert into order_info
+        (machine_ip, order_no, request_amount, timeout_date, pay_type, merchant_order_no,
+         merchant_fee, merchant_rate, merchant_no, merchant_name, remark, notice_web, notice_sys, order_type)
+        values(#{machineIp}, #{orderNo}, #{requestAmount}, #{timeoutDate}, #{payType}, #{merchantOrderNo},
+               #{merchantFee}, #{merchantRate}, #{merchantNo}, #{merchantName}, #{remark}, #{noticeWeb}, #{noticeSys}, #{orderType})
+    </insert>
 </mapper>
