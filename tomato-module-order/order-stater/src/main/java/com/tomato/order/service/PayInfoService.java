@@ -24,7 +24,7 @@ public class PayInfoService {
         this.channelService = channelService;
     }
 
-    public void createPay(OrderInfoDO orderInfoDO) {
+    public PayInfoDO createPay(OrderInfoDO orderInfoDO) {
         PayInfoDO payInfoDO = new PayInfoDO();
         payInfoDO.setOrderNo(orderInfoDO.getOrderNo());
         payInfoDO.setPayType(orderInfoDO.getPayType());
@@ -35,9 +35,10 @@ public class PayInfoService {
         payInfoDO.setSendUrl(channelSendRep.getSendUrl());
         payInfoDO.setChannelRate(channelSendRep.getChannelRate());
         payInfoDO.setChannelFlag(channelSendRep.getChannelFlag());
-        payInfoDO.setRemarksInfo(channelSendRep.getRemarksInfo());
+        payInfoDO.setChannelInfo(channelSendRep.getRemarksInfo());
         // 发送通道异常，不创建支付信息
         payInfoMapper.insert(payInfoDO);
+        return payInfoDO;
     }
     public PayInfoSelectDO completePay(String payNo, PayStatusEnum payStatusEnum) {
         PayInfoSelectDO payInfoDO = payInfoMapper.selectByPayNo(payNo);

@@ -5,8 +5,8 @@
 <mapper namespace="com.tomato.order.database.PayInfoMapper">
     <insert id="insert" parameterType="payInfoDO">
         insert into pay_info
-        (order_no, pay_no, pay_type,channel_rate,channel_flag,remarks_info,send_url)
-        values(#{orderNo}, #{payNo}, #{payType}, #{channelRate}, #{channelFlag}, #{remarksInfo}, #{sendUrl})
+        (order_no, pay_no, pay_type,channel_rate,channel_flag,channel_info,send_url)
+        values(#{orderNo}, #{payNo}, #{payType}, #{channelRate}, #{channelFlag}, #{channelInfo}, #{sendUrl})
     </insert>
 
     <update id="complete" parameterType="map">

@@ -35,7 +35,6 @@ public class OrderController {
 
     @PostMapping("/create")
     public SingleResponse<OrderCreateRep> createOrder(@Valid @RequestBody OrderCreateReq orderCreateReq) {
-        OrderCreateRep orderCreateRep = new OrderCreateRep();
         // 获取商户费率 && 校验商户
         MerchantRateReq merchantRateReq = new MerchantRateReq();
         merchantRateReq.setMerchantNo(orderCreateReq.getMerchantNo());
@@ -45,7 +44,7 @@ public class OrderController {
         if (!merchantRateRepResponse.isSuccess()) {
             return SingleResponse.buildFailure(merchantRateRepResponse.getCode(), merchantRateRepResponse.getMessage());
         }
-        orderComponent.createOrder(orderCreateReq,merchantRateRepResponse.getData());
+        OrderCreateRep orderCreateRep = orderComponent.createOrder(orderCreateReq, merchantRateRepResponse.getData());
         return SingleResponse.of(orderCreateRep);
     }
 }

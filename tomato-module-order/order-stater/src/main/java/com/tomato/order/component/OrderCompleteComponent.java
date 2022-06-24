@@ -1,5 +1,6 @@
 package com.tomato.order.component;
 
+import com.tomato.order.database.dataobject.OrderInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.order.enums.PayStatusEnum;
@@ -29,6 +30,6 @@ public class OrderCompleteComponent {
     public void complete(String payNo, OrderStatusEnum orderStatusEnum, PayStatusEnum payStatusEnum) {
         log.info("订单完成：{}", payNo);
         PayInfoSelectDO payInfoSelectDO = payInfoService.completePay(payNo, payStatusEnum);
-        orderInfoService.completeOrder(payInfoSelectDO, orderStatusEnum);
+        OrderInfoDO orderInfoDO = orderInfoService.completeOrder(payInfoSelectDO, orderStatusEnum);
     }
 }

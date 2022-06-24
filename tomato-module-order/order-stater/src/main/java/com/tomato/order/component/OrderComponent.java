@@ -2,6 +2,7 @@ package com.tomato.order.component;
 
 import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.order.database.dataobject.OrderInfoDO;
+import com.tomato.order.database.dataobject.PayInfoDO;
 import com.tomato.order.dto.OrderCreateRep;
 import com.tomato.order.dto.OrderCreateReq;
 import com.tomato.order.service.OrderCheckService;
@@ -35,11 +36,11 @@ public class OrderComponent {
         // 订单入库
         OrderInfoDO orderInfoDO = orderInfoService.createOrder(orderCreateReq, merchantRateRep);
         // 发送下游支付请求 TODO
-        payInfoService.createPay(orderInfoDO);
+        PayInfoDO payInfoDO = payInfoService.createPay(orderInfoDO);
 
         OrderCreateRep orderCreateRep = new OrderCreateRep();
         orderCreateRep.setOrderNo(orderInfoDO.getOrderNo());
-        orderCreateRep.setCode("qrCode");
+        orderCreateRep.setCode(payInfoDO.getSendUrl());
         return orderCreateRep;
         // TODO 超时消息队列处理
     }

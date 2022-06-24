@@ -54,9 +54,13 @@ public class PayInfoDO extends BaseDO {
     private String channelFlag;
 
     /**
-     * 支付信息
+     * 回调信息
      */
-    private String remarksInfo;
+    private String channelInfo;
+    /**
+     * 通道信息
+     */
+    private String backInfo;
 
     /**
      * 通道成本费率

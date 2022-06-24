@@ -2,6 +2,7 @@ package com.tomato.order.service;
 
 import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.order.database.OrderInfoMapper;
+import com.tomato.order.database.dataobject.OrderCompleteDO;
 import com.tomato.order.database.dataobject.OrderInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.dto.OrderCreateReq;
@@ -45,7 +46,34 @@ public class OrderInfoService {
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
             throw new RuntimeException("订单是终态");
         }
-        int res = orderInfoMapper.complete(payInfoSelectDO.getOrderNo(),orderInfoDO.getVersion(),orderStatusEnum.getCode());
+        OrderCompleteDO orderCompleteDO = new OrderCompleteDO();
+        orderCompleteDO.setOrderNo(payInfoSelectDO.getOrderNo());
+        orderCompleteDO.setOrderStatus(orderStatusEnum.getCode());
+        orderCompleteDO.setPayNo(payInfoSelectDO.getPayNo());
+        orderCompleteDO.setVersion(orderInfoDO.getVersion());
+        int res = orderInfoMapper.complete(orderCompleteDO);
+        if (res == 0) {
+            throw new RuntimeException("订单是终态");
+        }
+        return orderInfoDO;
+    }
+
+    /**
+     * 快速完成订单
+     * @param orderNo
+     * @param orderStatusEnum
+     * @return
+     */
+    public OrderInfoDO completeOrderFast(String orderNo, OrderStatusEnum orderStatusEnum) {
+        OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(orderNo);
+        if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
+            throw new RuntimeException("订单是终态");
+        }
+        OrderCompleteDO orderCompleteDO = new OrderCompleteDO();
+        orderCompleteDO.setOrderNo(orderNo);
+        orderCompleteDO.setOrderStatus(orderStatusEnum.getCode());
+        orderCompleteDO.setVersion(orderInfoDO.getVersion());
+        int res = orderInfoMapper.complete(orderCompleteDO);
         if (res == 0) {
             throw new RuntimeException("订单是终态");
         }
