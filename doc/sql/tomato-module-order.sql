@@ -9,7 +9,7 @@ create table `order_info`  (
     `machine_ip` varchar(40) not null  comment '收单服务器ip',
     `order_no` varchar(50) not null  comment '订单号',
     `request_amount` decimal(14,4)  not null  comment '订单金额',
-    `order_status` int not null  comment '订单状态',
+    `order_status` int default 100 comment '订单状态',
     `account_status` varchar(36)  comment '入账状态',
     `refund_status` varchar(36)  comment '退款状态',
     `notice_status` varchar(36)  comment '通知状态',

@@ -8,20 +8,10 @@ package com.tomato.order.enums;
  */
 public enum OrderStatusEnum {
 
-    PENDING_PAYMENT(101, "待支付"),
-    USER_CANCEL(102, "用户取消"),
-    AUTO_CANCEL(103, "系统自动取消"),
-
-    PAYED(201, "已支付"),
-    APPLY_REFUND(202, "申请退款"),
-    REFUNDED(203, "已退款"),
-
-    DELIVERED(301, "已发货"),
-
-    USER_RECEIVE(401, "用户收货"),
-    AUTO_RECEIVE(402, "系统自动收货"),
-
-    FINISHED(901, "已完成");
+    DEAL(100, "处理中"),
+    FAIL_CANCEL(200, "系统自动关闭"),
+    FAIL_CHANNEL(201, "通道获取失败"),
+    SUCCESS(300, "成功");
     /**
      * 状态码
      */

@@ -7,6 +7,7 @@ import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.merchant.dto.MerchantRateReq;
 import com.tomato.order.dto.OrderCreateRep;
 import com.tomato.order.dto.OrderCreateReq;
+import com.tomato.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,9 +27,11 @@ import javax.validation.Valid;
 @Slf4j
 public class OrderController {
     private final MerchantFeignClient merchantFeignClient;
+    private final OrderService orderService;
 
-    public OrderController(MerchantFeignClient merchantFeignClient) {
+    public OrderController(MerchantFeignClient merchantFeignClient, OrderService orderService) {
         this.merchantFeignClient = merchantFeignClient;
+        this.orderService = orderService;
     }
 
     @PostMapping("/create")
@@ -40,9 +43,10 @@ public class OrderController {
         merchantRateReq.setPayType(orderCreateReq.getPayType());
         SingleResponse<MerchantRateRep> merchantRateRepResponse = merchantFeignClient.getMerchantRate(merchantRateReq);
         log.info("获取商户费率：{}", merchantRateRepResponse);
-        if (!merchantRateRepResponse.getCode().equals(ResponseCode.SUCCESS.getCode())) {
+        if (!merchantRateRepResponse.isSuccess()) {
             return SingleResponse.buildFailure(merchantRateRepResponse.getCode(), merchantRateRepResponse.getMessage());
         }
+        orderService.createOrder(orderCreateReq,merchantRateRepResponse.getData());
         return SingleResponse.of(orderCreateRep);
     }
 }

@@ -3,19 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>tomato-module-merchant</artifactId>
+        <artifactId>tomato-module-channel</artifactId>
         <groupId>com.tomato.cloud</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>merchant-api</artifactId>
+    <artifactId>channel-api</artifactId>
 
     <dependencies>
         <!-- 远程调用HTTP客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- 项目基础依赖 -->
+        <dependency>
+            <groupId>com.tomato.cloud</groupId>
+            <artifactId>tomato-component-data</artifactId>
         </dependency>
         <!-- validator 参数校验 -->
         <dependency>
@@ -27,10 +32,5 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.tomato.cloud</groupId>
-            <artifactId>tomato-component-data</artifactId>
-        </dependency>
     </dependencies>
-
 </project>
