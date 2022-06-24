@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tomato.order.database.PayInfoMapper">
+    <insert id="insert" parameterType="payInfoDO">
+        insert into pay_info
+        (order_no, pay_no, pay_type,channel_rate,channel_flag,remarks_info)
+        values(#{orderNo}, #{payNo}, #{payType}, #{channelRate}, #{channelFlag}, #{remarksInfo})
+    </insert>
+</mapper>

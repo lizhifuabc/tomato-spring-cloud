@@ -9,8 +9,9 @@ create table merchant_info (
    `merchant_no`  varchar(50) not null comment '商户编号',
    `merchant_name`  varchar(256) not null comment '商户名称',
    `mail`   varchar(50) not null comment '注册邮箱',
+   `status` tinyint(1) null default 0 comment '状态【0->正常；1->关闭】',
    `create_time` datetime default current_timestamp comment '创建时间',
-   `update_time` datetime default current_timestamp comment '修改时间',
+   `update_time` datetime default current_timestamp on update current_timestamp comment '修改时间',
    primary key (`id`),
    unique key `merchant_no` (`merchant_no`),
    unique key `mail` (`mail`)

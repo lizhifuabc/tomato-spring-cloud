@@ -5,6 +5,7 @@ import com.tomato.data.response.SingleResponse;
 import com.tomato.merchant.api.MerchantFeignClient;
 import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.merchant.dto.MerchantRateReq;
+import com.tomato.order.component.OrderComponent;
 import com.tomato.order.dto.OrderCreateRep;
 import com.tomato.order.dto.OrderCreateReq;
 import com.tomato.order.service.OrderService;
@@ -27,17 +28,17 @@ import javax.validation.Valid;
 @Slf4j
 public class OrderController {
     private final MerchantFeignClient merchantFeignClient;
-    private final OrderService orderService;
+    private final OrderComponent orderComponent;
 
-    public OrderController(MerchantFeignClient merchantFeignClient, OrderService orderService) {
+    public OrderController(MerchantFeignClient merchantFeignClient, OrderComponent orderComponent) {
         this.merchantFeignClient = merchantFeignClient;
-        this.orderService = orderService;
+        this.orderComponent = orderComponent;
     }
 
     @PostMapping("/create")
     public SingleResponse<OrderCreateRep> createOrder(@Valid @RequestBody OrderCreateReq orderCreateReq) {
         OrderCreateRep orderCreateRep = new OrderCreateRep();
-
+        // 获取商户费率 && 校验商户
         MerchantRateReq merchantRateReq = new MerchantRateReq();
         merchantRateReq.setMerchantNo(orderCreateReq.getMerchantNo());
         merchantRateReq.setPayType(orderCreateReq.getPayType());
@@ -46,7 +47,7 @@ public class OrderController {
         if (!merchantRateRepResponse.isSuccess()) {
             return SingleResponse.buildFailure(merchantRateRepResponse.getCode(), merchantRateRepResponse.getMessage());
         }
-        orderService.createOrder(orderCreateReq,merchantRateRepResponse.getData());
+        orderComponent.createOrder(orderCreateReq,merchantRateRepResponse.getData());
         return SingleResponse.of(orderCreateRep);
     }
 }

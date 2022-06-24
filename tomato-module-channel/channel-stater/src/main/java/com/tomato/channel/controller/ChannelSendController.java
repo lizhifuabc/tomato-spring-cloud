@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 /**
  * 通道发送请求
@@ -32,6 +33,9 @@ public class ChannelSendController {
         Long sign = System.currentTimeMillis();
         if(sign%2==0){
             channelSendRep.setSendUrl("http://www.baidu.com");
+            channelSendRep.setChannelFlag("test");
+            channelSendRep.setChannelRate(new BigDecimal("0.1"));
+            channelSendRep.setRemarksInfo("测试");
         }else {
             throw new RuntimeException("发送失败");
         }
