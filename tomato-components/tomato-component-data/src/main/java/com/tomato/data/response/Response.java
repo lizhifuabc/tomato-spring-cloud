@@ -38,11 +38,10 @@ public class Response extends DTO {
 
     /**
      * 是否成功
-     * @param response
      * @return
      */
-    public static boolean isSuccess(Response response) {
-        return response != null && ResponseCode.SUCCESS.getCode().equals(response.getCode());
+    public boolean isSuccess() {
+        return ResponseCode.SUCCESS.getCode().equals(this.getCode());
     }
     public static Response buildSuccess() {
         Response response = new Response();
