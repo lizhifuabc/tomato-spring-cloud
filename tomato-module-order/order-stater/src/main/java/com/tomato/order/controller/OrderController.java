@@ -1,6 +1,5 @@
 package com.tomato.order.controller;
 
-import com.tomato.data.response.ResponseCode;
 import com.tomato.data.response.SingleResponse;
 import com.tomato.merchant.api.MerchantFeignClient;
 import com.tomato.merchant.dto.MerchantRateRep;
@@ -8,7 +7,6 @@ import com.tomato.merchant.dto.MerchantRateReq;
 import com.tomato.order.component.OrderComponent;
 import com.tomato.order.dto.OrderCreateRep;
 import com.tomato.order.dto.OrderCreateReq;
-import com.tomato.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -5,7 +5,12 @@
 <mapper namespace="com.tomato.order.database.PayInfoMapper">
     <insert id="insert" parameterType="payInfoDO">
         insert into pay_info
-        (order_no, pay_no, pay_type,channel_rate,channel_flag,remarks_info)
-        values(#{orderNo}, #{payNo}, #{payType}, #{channelRate}, #{channelFlag}, #{remarksInfo})
+        (order_no, pay_no, pay_type,channel_rate,channel_flag,remarks_info,send_url)
+        values(#{orderNo}, #{payNo}, #{payType}, #{channelRate}, #{channelFlag}, #{remarksInfo}, #{sendUrl})
     </insert>
+
+    <update id="complete" parameterType="map">
+        update pay_info set pay_status = #{payStatus},version = version +1 , complete_date = now()
+                        where pay_no = #{payNo} and pay_status <![CDATA[<]]> 200 and version = #{version}
+    </update>
 </mapper>

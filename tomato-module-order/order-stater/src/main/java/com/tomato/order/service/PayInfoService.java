@@ -4,6 +4,8 @@ import com.tomato.channel.dto.ChannelSendRep;
 import com.tomato.order.database.PayInfoMapper;
 import com.tomato.order.database.dataobject.OrderInfoDO;
 import com.tomato.order.database.dataobject.PayInfoDO;
+import com.tomato.order.database.dataobject.PayInfoSelectDO;
+import com.tomato.order.enums.PayStatusEnum;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,5 +38,16 @@ public class PayInfoService {
         payInfoDO.setRemarksInfo(channelSendRep.getRemarksInfo());
         // 发送通道异常，不创建支付信息
         payInfoMapper.insert(payInfoDO);
+    }
+    public PayInfoSelectDO completePay(String payNo, PayStatusEnum payStatusEnum) {
+        PayInfoSelectDO payInfoDO = payInfoMapper.selectByPayNo(payNo);
+        if (payInfoDO.getPayStatus() >= PayStatusEnum.SUCCESS.getCode()){
+            throw new RuntimeException("订单是终态");
+        }
+        int res = payInfoMapper.complete(payNo,payInfoDO.getVersion(),payStatusEnum.getCode());
+        if (res == 0) {
+            throw new RuntimeException("订单是终态");
+        }
+        return payInfoDO;
     }
 }

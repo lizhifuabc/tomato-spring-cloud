@@ -14,7 +14,7 @@ create table `order_info`  (
     `refund_status` varchar(36)  comment '退款状态',
     `notice_status` varchar(36)  comment '通知状态',
     `create_time` datetime not null default current_timestamp comment '创建时间',
-    `update_time` datetime not null default current_timestamp comment '修改时间',
+    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
     `complete_date` datetime comment '完成时间',
     `timeout_date` datetime  comment '超时时间',
     `pay_type` int not null comment '支付方式',
@@ -30,7 +30,7 @@ create table `order_info`  (
     `pay_no` varchar(50)  comment '支付号',
 
     primary key (id),
-    key ti_txp_order_or (order_no),
+    unique key ti_txp_order_or (order_no),
     unique key ti_txp_order_mno (merchant_no,merchant_order_no),
     key ti_txp_order_payno (pay_no)
 ) engine=innodb auto_increment=4 default charset=utf8mb4 collate=utf8mb4_bin comment='订单表';
@@ -56,5 +56,5 @@ create table `pay_info` (
     `channel_rate` decimal(14,4) default '0.0000' comment '通道成本费率',
     primary key (id),
     key ti_txp_pay_or (order_no),
-    key ti_txp_pay_pno (pay_no)
+    unique key ti_txp_pay_pno (pay_no)
 ) engine=innodb auto_increment=4 default charset=utf8mb4 collate=utf8mb4_bin comment='支付信息表';

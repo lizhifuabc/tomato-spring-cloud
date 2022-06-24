@@ -9,9 +9,15 @@ package com.tomato.order.enums;
 public enum OrderStatusEnum {
 
     DEAL(100, "处理中"),
-    FAIL_CANCEL(200, "系统自动关闭"),
-    FAIL_CHANNEL(201, "通道获取失败"),
-    SUCCESS(300, "成功");
+
+    SUCCESS(200, "成功"),
+
+    FAIL_CANCEL(300, "系统自动关闭"),
+    FAIL_CHANNEL(301, "通道获取失败"),
+    /**
+     * 转入退款
+     */
+    REFUND(400, "转入退款");
     /**
      * 状态码
      */

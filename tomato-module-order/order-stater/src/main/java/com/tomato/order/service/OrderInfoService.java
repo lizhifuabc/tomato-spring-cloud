@@ -3,7 +3,9 @@ package com.tomato.order.service;
 import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.order.database.OrderInfoMapper;
 import com.tomato.order.database.dataobject.OrderInfoDO;
+import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.dto.OrderCreateReq;
+import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.utils.BigDecimalUtils;
 import com.tomato.utils.net.IpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +20,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class OrderService {
+public class OrderInfoService {
     private final OrderInfoMapper orderInfoMapper;
-    public OrderService(OrderInfoMapper orderInfoMapper) {
+    public OrderInfoService(OrderInfoMapper orderInfoMapper) {
         this.orderInfoMapper = orderInfoMapper;
     }
 
@@ -36,6 +38,17 @@ public class OrderService {
         orderInfoDO.setMerchantFee(BigDecimalUtils.multiply(merchantRateRep.getRate(),orderCreateReq.getRequestAmount()));
 
         orderInfoMapper.insert(orderInfoDO);
+        return orderInfoDO;
+    }
+    public OrderInfoDO completeOrder(PayInfoSelectDO payInfoSelectDO, OrderStatusEnum orderStatusEnum) {
+        OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(payInfoSelectDO.getOrderNo());
+        if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
+            throw new RuntimeException("订单是终态");
+        }
+        int res = orderInfoMapper.complete(payInfoSelectDO.getOrderNo(),orderInfoDO.getVersion(),orderStatusEnum.getCode());
+        if (res == 0) {
+            throw new RuntimeException("订单是终态");
+        }
         return orderInfoDO;
     }
 }
