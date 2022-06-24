@@ -1,5 +1,6 @@
 package com.tomato.order;
 
+import com.tomato.channel.api.ChannelSendFeignClient;
 import com.tomato.merchant.api.MerchantFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackageClasses = {MerchantFeignClient.class})
+@EnableFeignClients(basePackageClasses = {MerchantFeignClient.class, ChannelSendFeignClient.class})
 @Slf4j
 public class TomatoOrderApplication {
     public static void main(String[] args) {
