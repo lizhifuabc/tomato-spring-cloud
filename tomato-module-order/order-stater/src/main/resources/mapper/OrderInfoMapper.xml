@@ -10,7 +10,7 @@
         values(#{machineIp}, #{orderNo}, #{requestAmount}, #{timeoutDate}, #{payType}, #{merchantOrderNo},
                #{merchantFee}, #{merchantRate}, #{merchantNo}, #{merchantName}, #{remark}, #{noticeWeb}, #{noticeSys}, #{orderType})
     </insert>
-    <update id="complete" parameterType="orderCompleteDO">
+    <update id="complete" parameterType="orderInfoCompleteDO">
         update order_info set order_status = #{orderStatus},version = version +1,complete_date = now(),pay_no = #{payNo}
                           where order_no = #{orderNo} and order_status <![CDATA[<]]> 200 and version = #{version}
     </update>

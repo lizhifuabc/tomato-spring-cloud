@@ -1,6 +1,6 @@
 package com.tomato.order.database;
 
-import com.tomato.order.database.dataobject.OrderCompleteDO;
+import com.tomato.order.database.dataobject.OrderInfoCompleteDO;
 import com.tomato.order.database.dataobject.OrderInfoDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -34,10 +34,10 @@ public interface OrderInfoMapper {
 
     /**
      * 完成订单
-     * @param orderCompleteDO
+     * @param orderInfoCompleteDO
      * @return
      */
-    int complete(OrderCompleteDO orderCompleteDO);
+    int complete(OrderInfoCompleteDO orderInfoCompleteDO);
 
     @Update("update order_info set order_status = 400,version = version +1 where order_no = #{orderNo} and order_status = 200 and version = #{version}")
     int refund(@Param("orderNo") String orderNo,@Param("version") Integer version);

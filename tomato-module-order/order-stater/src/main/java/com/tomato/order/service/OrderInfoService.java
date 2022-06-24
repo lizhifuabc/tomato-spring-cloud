@@ -2,7 +2,7 @@ package com.tomato.order.service;
 
 import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.order.database.OrderInfoMapper;
-import com.tomato.order.database.dataobject.OrderCompleteDO;
+import com.tomato.order.database.dataobject.OrderInfoCompleteDO;
 import com.tomato.order.database.dataobject.OrderInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.dto.OrderCreateReq;
@@ -46,12 +46,12 @@ public class OrderInfoService {
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
             throw new RuntimeException("订单是终态");
         }
-        OrderCompleteDO orderCompleteDO = new OrderCompleteDO();
-        orderCompleteDO.setOrderNo(payInfoSelectDO.getOrderNo());
-        orderCompleteDO.setOrderStatus(orderStatusEnum.getCode());
-        orderCompleteDO.setPayNo(payInfoSelectDO.getPayNo());
-        orderCompleteDO.setVersion(orderInfoDO.getVersion());
-        int res = orderInfoMapper.complete(orderCompleteDO);
+        OrderInfoCompleteDO orderInfoCompleteDO = new OrderInfoCompleteDO();
+        orderInfoCompleteDO.setOrderNo(payInfoSelectDO.getOrderNo());
+        orderInfoCompleteDO.setOrderStatus(orderStatusEnum.getCode());
+        orderInfoCompleteDO.setPayNo(payInfoSelectDO.getPayNo());
+        orderInfoCompleteDO.setVersion(orderInfoDO.getVersion());
+        int res = orderInfoMapper.complete(orderInfoCompleteDO);
         if (res == 0) {
             throw new RuntimeException("订单是终态");
         }
@@ -69,11 +69,11 @@ public class OrderInfoService {
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
             throw new RuntimeException("订单是终态");
         }
-        OrderCompleteDO orderCompleteDO = new OrderCompleteDO();
-        orderCompleteDO.setOrderNo(orderNo);
-        orderCompleteDO.setOrderStatus(orderStatusEnum.getCode());
-        orderCompleteDO.setVersion(orderInfoDO.getVersion());
-        int res = orderInfoMapper.complete(orderCompleteDO);
+        OrderInfoCompleteDO orderInfoCompleteDO = new OrderInfoCompleteDO();
+        orderInfoCompleteDO.setOrderNo(orderNo);
+        orderInfoCompleteDO.setOrderStatus(orderStatusEnum.getCode());
+        orderInfoCompleteDO.setVersion(orderInfoDO.getVersion());
+        int res = orderInfoMapper.complete(orderInfoCompleteDO);
         if (res == 0) {
             throw new RuntimeException("订单是终态");
         }

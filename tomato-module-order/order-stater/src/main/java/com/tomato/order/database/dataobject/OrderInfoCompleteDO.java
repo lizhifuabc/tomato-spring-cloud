@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022/6/24
  */
 @Data
-public class OrderCompleteDO {
+public class OrderInfoCompleteDO {
     private String orderNo;
     private String payNo;
     private Integer version;
