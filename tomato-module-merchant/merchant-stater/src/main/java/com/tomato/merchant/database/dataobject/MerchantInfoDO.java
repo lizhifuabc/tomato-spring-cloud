@@ -27,4 +27,8 @@ public class MerchantInfoDO extends BaseDO {
      * 版本号
      */
     private Integer version;
+    /**
+     * 状态【0->正常；1->关闭】
+     */
+    private String status;
 }

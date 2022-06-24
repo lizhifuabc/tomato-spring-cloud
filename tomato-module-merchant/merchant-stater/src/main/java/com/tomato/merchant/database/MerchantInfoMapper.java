@@ -25,7 +25,7 @@ public interface MerchantInfoMapper {
      * @param merchantNo
      * @return
      */
-    @Select("select * from merchant_info where merchant_no = #{merchantNo}")
+    @Select("select * from merchant_info where merchant_no = #{merchantNo} and status = 0")
     MerchantInfoDO selectByMerchantNo(@Param("merchantNo") String merchantNo);
 
     /**
