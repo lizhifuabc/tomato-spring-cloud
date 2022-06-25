@@ -6,6 +6,7 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisDO;
 import com.tomato.account.database.dataobject.AccountHisInsertDO;
 import com.tomato.account.database.dataobject.AccountHisUpdateDO;
+import com.tomato.account.enums.AccountStatusEnum;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class AccountService {
 
         AccountHisUpdateDO accountHisUpdateDO = new AccountHisUpdateDO();
         accountHisUpdateDO.setAccountHisId(accountHisDO.getAccountHisId());
-        accountHisUpdateDO.setState(11);
+        accountHisUpdateDO.setAccountStatus(AccountStatusEnum.SUCCESS.getCode());
         accountHisUpdateDO.setBeforeBalance(accountDO.getBalance());
         accountHisUpdateDO.setAfterBalance(accountDO.getBalance().add(accountHisDO.getAmount()));
         accountHisUpdateDO.setVersion(accountHisDO.getVersion());

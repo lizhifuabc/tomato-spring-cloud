@@ -19,6 +19,14 @@ public enum AccountStatusEnum {
 
     private final String msg;
 
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
     AccountStatusEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;

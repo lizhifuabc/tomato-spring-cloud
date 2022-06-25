@@ -17,9 +17,9 @@ public class AccountHisUpdateDO {
      */
     private Long accountHisId;
     /**
-     * 状态,10:创建,11:成功,12:失败
+     * 入账状态
      */
-    private Integer state;
+    private Integer accountStatus;
     /**
      * 版本号
      */
