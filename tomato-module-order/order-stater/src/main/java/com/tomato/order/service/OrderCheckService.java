@@ -27,6 +27,7 @@ public class OrderCheckService {
      * @param merchantOrderNo
      */
     public void checkMerchantOrderNo(String merchantNo, String merchantOrderNo) {
+        // TODO 唯一性流水号校验 redis
         boolean checkMerchantOrderNo = orderInfoMapper.checkMerchantOrderNo(merchantNo, merchantOrderNo);
         if (checkMerchantOrderNo) {
             log.warn("商户:{},订单号已存在：{}",merchantNo,merchantOrderNo);

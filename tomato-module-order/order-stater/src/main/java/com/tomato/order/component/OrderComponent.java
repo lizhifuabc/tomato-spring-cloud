@@ -34,11 +34,11 @@ public class OrderComponent {
 
     public OrderCreateRep createOrder(OrderCreateReq orderCreateReq, MerchantRateRep merchantRateRep) {
         log.info("创建订单：{},{}", orderCreateReq,merchantRateRep);
-        // 订单校验 TODO 唯一性流水号校验 redis
+        // 订单校验
         orderCheckService.checkMerchantOrderNo(orderCreateReq.getMerchantNo(), orderCreateReq.getMerchantOrderNo());
         // 订单入库
         OrderInfoDO orderInfoDO = orderInfoService.createOrder(orderCreateReq, merchantRateRep);
-        // 发送下游支付请求 TODO
+        // 发送下游支付请求
         PayInfoDO payInfoDO = payInfoService.createPay(orderInfoDO);
 
         OrderCreateRep orderCreateRep = new OrderCreateRep();

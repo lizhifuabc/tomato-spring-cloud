@@ -31,8 +31,9 @@ public class PayInfoService {
         payInfoDO.setPayType(orderInfoDO.getPayType());
         // TODO 订单号生成-分布式id生成策略
         payInfoDO.setPayNo(System.currentTimeMillis() + "");
-
+        // 发送通道请求
         ChannelSendRep channelSendRep = channelService.send(orderInfoDO, payInfoDO);
+
         payInfoDO.setSendUrl(channelSendRep.getSendUrl());
         payInfoDO.setChannelRate(channelSendRep.getChannelRate());
         payInfoDO.setChannelFlag(channelSendRep.getChannelFlag());
