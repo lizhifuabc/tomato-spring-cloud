@@ -1,6 +1,7 @@
 package com.tomato.order.service;
 
 import com.tomato.merchant.dto.MerchantRateRep;
+import com.tomato.order.constant.OrderConstant;
 import com.tomato.order.database.OrderInfoMapper;
 import com.tomato.order.database.dataobject.OrderInfoCompleteDO;
 import com.tomato.order.database.dataobject.OrderInfoDO;
@@ -13,6 +14,8 @@ import com.tomato.utils.net.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * 订单服务
@@ -38,6 +41,7 @@ public class OrderInfoService {
         orderInfoDO.setMerchantRate(merchantRateRep.getRate());
         orderInfoDO.setMachineIp(IpUtils.getHostIp());
         orderInfoDO.setMerchantFee(BigDecimalUtils.multiply(merchantRateRep.getRate(),orderCreateReq.getRequestAmount()));
+        orderInfoDO.setCompleteDate(LocalDateTime.now().plusMinutes(OrderConstant.ORDER_TIME_OUT));
 
         orderInfoMapper.insert(orderInfoDO);
         return orderInfoDO;

@@ -51,5 +51,4 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
-
 #    org.springframework.boot.autoconfigure: DEBUG
