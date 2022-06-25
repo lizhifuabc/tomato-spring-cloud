@@ -2,6 +2,7 @@ package com.tomato.order.component;
 
 import com.tomato.order.database.dataobject.OrderInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
+import com.tomato.order.dto.CompleteOrderReq;
 import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.order.enums.PayStatusEnum;
 import com.tomato.order.service.OrderInfoService;
@@ -30,6 +31,17 @@ public class OrderCompleteComponent {
     public void complete(String payNo, OrderStatusEnum orderStatusEnum, PayStatusEnum payStatusEnum,String backInfo) {
         log.info("订单完成：{}", payNo);
         PayInfoSelectDO payInfoSelectDO = payInfoService.completePay(payNo, payStatusEnum,backInfo);
-        OrderInfoDO orderInfoDO = orderInfoService.completeOrder(payInfoSelectDO, orderStatusEnum);
+
+        CompleteOrderReq completeOrderReq = new CompleteOrderReq();
+        completeOrderReq.setOrderNo(payInfoSelectDO.getOrderNo());
+        completeOrderReq.setPayNo(payNo);
+        completeOrderReq.setBackInfo(backInfo);
+        completeOrderReq.setOrderStatusEnum(orderStatusEnum);
+        OrderInfoDO orderInfoDO = orderInfoService.completeOrder(completeOrderReq);
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public void completeTimeOut(String orderNo) {
+        log.info("订单超时关闭 orderNo：{}", orderNo);
+        OrderInfoDO orderInfoDO = orderInfoService.completeOrderFast(orderNo, OrderStatusEnum.FAIL_CANCEL);
     }
 }

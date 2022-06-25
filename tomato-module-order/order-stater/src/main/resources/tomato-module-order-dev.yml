@@ -29,6 +29,15 @@ spring:
         exchange:
           name: order.callback.exchange
           type: FANOUT
+      ## 延迟队列配置
+      - routing-key: order.delay.routing.key
+        queue:
+          name: order.delay.queue
+        exchange:
+          name: order.delay.exchange
+          type: DELAYED
+          arguments:
+            x-delayed-type: topic
 mybatis:
   type-aliases-package: com.tomato.order.database.dataobject
   mapper-locations: classpath:mapper/*Mapper.xml

@@ -8,6 +8,10 @@ package com.tomato.rabbitmq.enums;
  */
 public enum RabbitExchangeTypeEnum {
     /**
+     * 延迟插件，本质不是一种交换机，只是一种插件
+     */
+    DELAYED,
+    /**
      * 直连交换机
      * <p>
      * 根据routing-key精准匹配队列(最常使用)

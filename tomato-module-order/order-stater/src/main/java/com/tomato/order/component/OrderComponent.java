@@ -9,6 +9,7 @@ import com.tomato.order.service.OrderCheckService;
 import com.tomato.order.service.OrderInfoService;
 import com.tomato.order.service.PayInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,10 +24,12 @@ public class OrderComponent {
     private final OrderCheckService orderCheckService;
     private final OrderInfoService orderInfoService;
     private final PayInfoService payInfoService;
-    public OrderComponent(OrderCheckService orderCheckService, OrderInfoService orderInfoService, PayInfoService payInfoService) {
+    private final RabbitTemplate rabbitTemplate;
+    public OrderComponent(OrderCheckService orderCheckService, OrderInfoService orderInfoService, PayInfoService payInfoService, RabbitTemplate rabbitTemplate) {
         this.orderCheckService = orderCheckService;
         this.orderInfoService = orderInfoService;
         this.payInfoService = payInfoService;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     public OrderCreateRep createOrder(OrderCreateReq orderCreateReq, MerchantRateRep merchantRateRep) {
@@ -41,11 +44,14 @@ public class OrderComponent {
         OrderCreateRep orderCreateRep = new OrderCreateRep();
         orderCreateRep.setOrderNo(orderInfoDO.getOrderNo());
         orderCreateRep.setCode(payInfoDO.getSendUrl());
+
+        // 消息发送到延迟交换机上 3分钟
+        rabbitTemplate.convertAndSend("order.delay.exchange", "order.delay.routing.key", orderInfoDO.getOrderNo(), a -> {
+            a.getMessageProperties().setDelay(3*60*1000);
+            return a;
+        });
+
         return orderCreateRep;
         // TODO 超时消息队列处理
-    }
-    public void completeOrder(String payNo) {
-        log.info("订单完成：{}", payNo);
-        // TODO 订单完成更新数据库
     }
 }

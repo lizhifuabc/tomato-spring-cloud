@@ -5,6 +5,7 @@ import com.tomato.order.database.OrderInfoMapper;
 import com.tomato.order.database.dataobject.OrderInfoCompleteDO;
 import com.tomato.order.database.dataobject.OrderInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
+import com.tomato.order.dto.CompleteOrderReq;
 import com.tomato.order.dto.OrderCreateReq;
 import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.utils.BigDecimalUtils;
@@ -41,15 +42,15 @@ public class OrderInfoService {
         orderInfoMapper.insert(orderInfoDO);
         return orderInfoDO;
     }
-    public OrderInfoDO completeOrder(PayInfoSelectDO payInfoSelectDO, OrderStatusEnum orderStatusEnum) {
-        OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(payInfoSelectDO.getOrderNo());
+    public OrderInfoDO completeOrder(CompleteOrderReq completeOrderReq) {
+        OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(completeOrderReq.getOrderNo());
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
             throw new RuntimeException("订单是终态");
         }
         OrderInfoCompleteDO orderInfoCompleteDO = new OrderInfoCompleteDO();
-        orderInfoCompleteDO.setOrderNo(payInfoSelectDO.getOrderNo());
-        orderInfoCompleteDO.setOrderStatus(orderStatusEnum.getCode());
-        orderInfoCompleteDO.setPayNo(payInfoSelectDO.getPayNo());
+        orderInfoCompleteDO.setOrderNo(completeOrderReq.getOrderNo());
+        orderInfoCompleteDO.setOrderStatus(completeOrderReq.getOrderStatusEnum().getCode());
+        orderInfoCompleteDO.setPayNo(completeOrderReq.getPayNo());
         orderInfoCompleteDO.setVersion(orderInfoDO.getVersion());
         int res = orderInfoMapper.complete(orderInfoCompleteDO);
         if (res == 0) {

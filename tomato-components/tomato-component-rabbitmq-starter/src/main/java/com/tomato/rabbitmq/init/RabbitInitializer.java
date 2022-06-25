@@ -102,7 +102,6 @@ public class RabbitInitializer implements SmartInitializingSingleton {
         boolean isAutoDelete = exchangeInfo.isAutoDelete();
 
         Map<String, Object> arguments = exchangeInfo.getArguments();
-
         switch (exchangeType) {
             // 直连交换机
             case DIRECT:
@@ -119,6 +118,9 @@ public class RabbitInitializer implements SmartInitializingSingleton {
             // 头交换机
             case HEADERS:
                 exchange = new HeadersExchange(exchangeName, isDurable, isAutoDelete, arguments);
+                break;
+            case DELAYED:
+                exchange = new CustomExchange(exchangeName, "x-delayed-message", isDurable, isAutoDelete, arguments);
                 break;
         }
         return exchange;
