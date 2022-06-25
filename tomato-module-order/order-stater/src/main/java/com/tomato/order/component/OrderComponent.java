@@ -46,7 +46,7 @@ public class OrderComponent {
         orderCreateRep.setOrderNo(orderInfoDO.getOrderNo());
         orderCreateRep.setCode(payInfoDO.getSendUrl());
 
-        // 消息发送到延迟交换机上 3分钟
+        // 消息发送到延迟交换机上 10分钟
         rabbitTemplate.convertAndSend("order.delay.exchange", "order.delay.routing.key", orderInfoDO.getOrderNo(), a -> {
             a.getMessageProperties().setDelay(OrderConstant.ORDER_TIME_OUT * 60 * 1000);
             return a;
