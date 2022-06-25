@@ -16,10 +16,10 @@ import java.math.BigDecimal;
 @Data
 public class AccountReceiveReq extends Req {
     /**
-     * 账户ID
+     * 商户编号
      */
-    @NotNull(message = "账户ID不能为空")
-    private Long accountId;
+    @NotBlank(message = "商户编号不能为空")
+    private String merchantNo;
     /**
      * 发生金额 TODO 0 判断
      */

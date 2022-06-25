@@ -26,8 +26,8 @@ public class AccountCheckComponent {
         this.accountHisMapper = accountHisMapper;
     }
 
-    public void checkReceive(AccountReceiveReq accountReceiveReq) {
-        AccountDO accountDO = accountMapper.selectByAccountId(accountReceiveReq.getAccountId());
+    public AccountDO checkReceive(AccountReceiveReq accountReceiveReq) {
+        AccountDO accountDO = accountMapper.selectByMerchantNo(accountReceiveReq.getMerchantNo());
         if (accountDO == null) {
             throw new AccountException(AccountResponseCode.ACCOUNT_NOT_EXIST);
         }
@@ -36,9 +36,10 @@ public class AccountCheckComponent {
             throw new AccountException(AccountResponseCode.ACCOUNT_BALANCE_NOT_ENOUGH);
         }
 
-        AccountHisDO accountHisDO = accountHisMapper.selectByThirdNo(accountReceiveReq.getAccountId(), accountReceiveReq.getThirdNo());
+        AccountHisDO accountHisDO = accountHisMapper.selectByThirdNo(accountDO.getAccountId(), accountReceiveReq.getThirdNo());
         if (accountHisDO != null) {
             throw new AccountException(AccountResponseCode.ACCOUNT_HIS_EXIST);
         }
+        return accountDO;
     }
 }

@@ -3,6 +3,7 @@ package com.tomato.account.database;
 import com.tomato.account.database.dataobject.AccountDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.math.BigDecimal;
 
@@ -21,6 +22,15 @@ public interface AccountMapper {
      * @return
      */
     AccountDO selectByAccountId(@Param("accountId") Long accountId);
+
+    /**
+     * 查询账户
+     *
+     * @param merchantNo
+     * @return
+     */
+    @Select("select * from account where merchant_no = #{merchantNo} and status = 0")
+    AccountDO selectByMerchantNo(@Param("merchantNo") String merchantNo);
 
     /**
      * 扣钱

@@ -30,6 +30,9 @@ public class AccountService {
         this.accountMapper = accountMapper;
         this.accountHisMapper = accountHisMapper;
     }
+    public AccountDO selectByMerchantNo(String merchantNo) {
+        return accountMapper.selectByMerchantNo(merchantNo);
+    }
     public void receive (AccountHisInsertDO accountHisInsertDO) {
         if (accountHisMapper.checkThirdNo(accountHisInsertDO.getAccountId(),accountHisInsertDO.getThirdNo())){
             log.error("账户历史表已存在，不能重复插入:{}",accountHisInsertDO);

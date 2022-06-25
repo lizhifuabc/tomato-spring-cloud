@@ -16,9 +16,9 @@ import java.math.BigDecimal;
 @Builder
 public class AccountReq extends Rep {
     /**
-     * 账户ID
+     * 商户编号
      */
-    private Long accountId;
+    private String merchantNo;
     /**
      * 发生金额
      */

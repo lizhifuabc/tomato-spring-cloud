@@ -2,6 +2,7 @@ package com.tomato.account.controller;
 
 import com.tomato.account.component.AccountCheckComponent;
 import com.tomato.account.component.AccountComponent;
+import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.dto.AccountReceiveReq;
 import com.tomato.data.response.Response;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +31,8 @@ public class AccountController {
     private final AccountCheckComponent accountCheckComponent;
     @PostMapping("/receive")
     public Response receive(@Valid @RequestBody AccountReceiveReq accountReceiveReq){
-        accountCheckComponent.checkReceive(accountReceiveReq);
-        accountComponent.receive(accountReceiveReq);
+        AccountDO accountDO = accountCheckComponent.checkReceive(accountReceiveReq);
+        accountComponent.receive(accountReceiveReq,accountDO);
         return Response.buildSuccess();
     }
 }

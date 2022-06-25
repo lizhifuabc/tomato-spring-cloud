@@ -25,4 +25,8 @@ public class AccountDO extends BaseDO {
      * 版本号
      */
     private Integer version;
+    /**
+     * 商户编号
+     */
+    private String merchantNo;
 }

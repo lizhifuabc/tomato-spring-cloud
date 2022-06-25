@@ -7,6 +7,8 @@ import com.tomato.order.database.dataobject.PayInfoCompleteDO;
 import com.tomato.order.database.dataobject.PayInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.enums.PayStatusEnum;
+import com.tomato.order.exception.OrderException;
+import com.tomato.order.exception.OrderResponseCode;
 import org.springframework.stereotype.Service;
 
 /**
@@ -45,15 +47,16 @@ public class PayInfoService {
     public PayInfoSelectDO completePay(String payNo, PayStatusEnum payStatusEnum,String backInfo) {
         PayInfoSelectDO payInfoDO = payInfoMapper.selectByPayNo(payNo);
         if (payInfoDO.getPayStatus() >= PayStatusEnum.SUCCESS.getCode()){
-            throw new RuntimeException("订单是终态");
+            throw new OrderException(OrderResponseCode.PAY_ALREADY_COMPLETE);
         }
         PayInfoCompleteDO payInfoCompleteDO = new PayInfoCompleteDO();
         payInfoCompleteDO.setPayNo(payNo);
         payInfoCompleteDO.setPayStatus(payStatusEnum.getCode());
         payInfoCompleteDO.setBackInfo(backInfo);
+        payInfoCompleteDO.setVersion(payInfoDO.getVersion());
         int res = payInfoMapper.complete(payInfoCompleteDO);
         if (res == 0) {
-            throw new RuntimeException("订单是终态");
+            throw new OrderException(OrderResponseCode.PAY_COMPLETE_FAILURE);
         }
         return payInfoDO;
     }

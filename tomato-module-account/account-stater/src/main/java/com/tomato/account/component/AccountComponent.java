@@ -1,5 +1,6 @@
 package com.tomato.account.component;
 
+import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisInsertDO;
 import com.tomato.account.dto.AccountReceiveReq;
 import com.tomato.account.service.AccountService;
@@ -18,11 +19,11 @@ public class AccountComponent {
         this.accountService = accountService;
     }
 
-    public void receive(AccountReceiveReq accountReceiveReq) {
+    public void receive(AccountReceiveReq accountReceiveReq, AccountDO accountDO) {
         AccountHisInsertDO accountHisInsertDO = new AccountHisInsertDO();
         // TODO ID 生成策略
         accountHisInsertDO.setAccountHisId(System.currentTimeMillis());
-        accountHisInsertDO.setAccountId(accountReceiveReq.getAccountId());
+        accountHisInsertDO.setAccountId(accountDO.getAccountId());
         accountHisInsertDO.setAmount(accountReceiveReq.getAmount());
         accountHisInsertDO.setThirdNo(accountReceiveReq.getThirdNo());
         accountHisInsertDO.setAccountHisType(accountReceiveReq.getAccountHisType());
