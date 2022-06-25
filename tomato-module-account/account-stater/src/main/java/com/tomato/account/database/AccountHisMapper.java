@@ -44,5 +44,5 @@ public interface AccountHisMapper {
      * @param accountHisUpdateDO
      * @return
      */
-    int updateState(AccountHisUpdateDO accountHisUpdateDO);
+    int updateAccountStatus(AccountHisUpdateDO accountHisUpdateDO);
 }

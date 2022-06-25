@@ -45,7 +45,7 @@ public class AccountMapperTest {
         accountHisUpdateDO.setBeforeBalance(accountDO.getBalance());
         accountHisUpdateDO.setAfterBalance(accountDO.getBalance().add(accountHisDO.getAmount()));
         accountHisUpdateDO.setVersion(accountHisDO.getVersion());
-        accountHisMapper.updateState(accountHisUpdateDO);
+        accountHisMapper.updateAccountStatus(accountHisUpdateDO);
 
         System.out.println(accountMapper.add(accountDO.getAccountId(), BigDecimal.TEN,accountDO.getVersion()));
         System.out.println(accountMapper.deduct(1L, new BigDecimal(10),accountDO.getVersion()));

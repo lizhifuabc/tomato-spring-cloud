@@ -58,7 +58,7 @@ public class AccountService {
         accountHisUpdateDO.setBeforeBalance(accountDO.getBalance());
         accountHisUpdateDO.setAfterBalance(accountDO.getBalance().add(accountHisDO.getAmount()));
         accountHisUpdateDO.setVersion(accountHisDO.getVersion());
-        int updateState = accountHisMapper.updateState(accountHisUpdateDO);
+        int updateState = accountHisMapper.updateAccountStatus(accountHisUpdateDO);
         log.info("更新账户历史状态 account:{},accountHisId:{},updateState:{}",accountDO.getAccountId(),accountHisId,updateState);
         if (updateState == 0) {
             throw new RuntimeException("更新账户历史状态失败");
