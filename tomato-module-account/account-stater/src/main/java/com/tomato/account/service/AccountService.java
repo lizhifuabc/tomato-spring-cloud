@@ -42,6 +42,7 @@ public class AccountService {
         accountHisMapper.insert(accountHisInsertDO);
     }
     /**
+     * TODO 批量入账
      * 账户余额操作，将数据库操作放在服务中，便于后面重试；
      * 如果没有重试，为了减少事务，可以将查询操作提前
      * @param accountHisId
