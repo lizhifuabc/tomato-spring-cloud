@@ -1,5 +1,7 @@
 package com.tomato.channel.controller;
 
+import com.tomato.channel.dto.ChannelQueryRep;
+import com.tomato.channel.dto.ChannelQueryReq;
 import com.tomato.channel.dto.ChannelSendRep;
 import com.tomato.channel.dto.ChannelSendReq;
 import com.tomato.data.response.SingleResponse;
@@ -40,5 +42,10 @@ public class ChannelSendController {
             throw new RuntimeException("发送失败");
         }
         return SingleResponse.of(channelSendRep);
+    }
+    @PostMapping("/query")
+    public SingleResponse<ChannelQueryRep> query(@Valid @RequestBody ChannelQueryReq channelQueryReq){
+        ChannelQueryRep channelQueryRep = new ChannelQueryRep();
+        return SingleResponse.of(channelQueryRep);
     }
 }

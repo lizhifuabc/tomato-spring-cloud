@@ -43,6 +43,8 @@ public class OrderCompleteComponent {
     @Transactional(rollbackFor = Exception.class)
     public void completeTimeOut(String orderNo) {
         log.info("订单超时关闭 orderNo：{}", orderNo);
+        // TODO 调用关单或撤销接口API之前，需确认支付状态。
+        // TODO 是否需要请求通道进行订单的关闭
         OrderInfoDO orderInfoDO = orderInfoService.completeOrderFast(orderNo, OrderStatusEnum.FAIL_CANCEL);
     }
 }
