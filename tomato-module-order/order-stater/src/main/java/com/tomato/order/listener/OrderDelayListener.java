@@ -36,7 +36,7 @@ public class OrderDelayListener {
             // basicAck(tag,multiple)，multiple为true开启批量确认，小于tag值队列中未被消费的消息一次性确认
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (OrderException e) {
-            log.info("延迟队列：订单 {} 失败",orderNo,e);
+            log.info("延迟队列：订单 {} 失败 {}",orderNo,e.getMessage());
             channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
         }
     }
