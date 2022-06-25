@@ -9,6 +9,8 @@ import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.dto.CompleteOrderReq;
 import com.tomato.order.dto.OrderCreateReq;
 import com.tomato.order.enums.OrderStatusEnum;
+import com.tomato.order.exception.OrderException;
+import com.tomato.order.exception.OrderResponseCode;
 import com.tomato.utils.BigDecimalUtils;
 import com.tomato.utils.net.IpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +74,7 @@ public class OrderInfoService {
     public OrderInfoDO completeOrderFast(String orderNo, OrderStatusEnum orderStatusEnum) {
         OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(orderNo);
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
-            throw new RuntimeException("订单是终态");
+            throw new OrderException(OrderResponseCode.ORDER_ALREADY_COMPLETE);
         }
         OrderInfoCompleteDO orderInfoCompleteDO = new OrderInfoCompleteDO();
         orderInfoCompleteDO.setOrderNo(orderNo);
@@ -80,7 +82,7 @@ public class OrderInfoService {
         orderInfoCompleteDO.setVersion(orderInfoDO.getVersion());
         int res = orderInfoMapper.complete(orderInfoCompleteDO);
         if (res == 0) {
-            throw new RuntimeException("订单是终态");
+            throw new OrderException(OrderResponseCode.ORDER_COMPLETE_FAILURE);
         }
         return orderInfoDO;
     }

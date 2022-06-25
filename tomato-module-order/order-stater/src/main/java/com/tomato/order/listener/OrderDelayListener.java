@@ -2,6 +2,7 @@ package com.tomato.order.listener;
 
 import com.rabbitmq.client.Channel;
 import com.tomato.order.component.OrderCompleteComponent;
+import com.tomato.order.exception.OrderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -30,9 +31,13 @@ public class OrderDelayListener {
     public void delay(String orderNo, Message message, Channel channel, @Headers Map<String, Object> headers) throws IOException {
         log.info("延迟队列：订单 {}",orderNo);
         // TODO 订单关闭 支付记录关闭 支付成功，订单关闭了
-        orderCompleteComponent.completeTimeOut(orderNo);
-        // deliveryTag（唯一标识 ID）
-        // multiple：为了减少网络流量，手动确认可以被批处理，当该参数为 true 时，则可以一次性确认 delivery_tag 小于等于传入值的所有消息
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        try {
+            orderCompleteComponent.completeTimeOut(orderNo);
+            // basicAck(tag,multiple)，multiple为true开启批量确认，小于tag值队列中未被消费的消息一次性确认
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (OrderException e) {
+            log.info("延迟队列：订单 {} 失败",orderNo,e);
+            channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
+        }
     }
 }

@@ -10,6 +10,14 @@ import com.tomato.data.response.IResponseCode;
  */
 public enum OrderResponseCode implements IResponseCode {
     /**
+     * 订单已经完成
+     */
+    ORDER_ALREADY_COMPLETE("ORDER201", "订单已经完成"),
+    /**
+     * 订单更新失败
+     */
+    ORDER_COMPLETE_FAILURE("ORDER200", "订单更新失败"),
+    /**
      * 失败
      */
     MERCHANT_ORDER_EXIST("ORDER100", "订单已存在");
