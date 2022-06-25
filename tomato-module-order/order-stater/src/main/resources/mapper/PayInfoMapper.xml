@@ -9,8 +9,8 @@
         values(#{orderNo}, #{payNo}, #{payType}, #{channelRate}, #{channelFlag}, #{channelInfo}, #{sendUrl})
     </insert>
 
-    <update id="complete" parameterType="map">
-        update pay_info set pay_status = #{payStatus},version = version +1 , complete_date = now()
+    <update id="complete" parameterType="payInfoCompleteDO">
+        update pay_info set pay_status = #{payStatus},version = version + 1 , complete_date = now(),back_info = #{backInfo}
                         where pay_no = #{payNo} and pay_status <![CDATA[<]]> 200 and version = #{version}
     </update>
 </mapper>

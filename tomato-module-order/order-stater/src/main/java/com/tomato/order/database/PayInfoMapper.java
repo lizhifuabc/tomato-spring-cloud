@@ -1,5 +1,6 @@
 package com.tomato.order.database;
 
+import com.tomato.order.database.dataobject.PayInfoCompleteDO;
 import com.tomato.order.database.dataobject.PayInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.enums.PayStatusEnum;
@@ -24,12 +25,10 @@ public interface PayInfoMapper {
 
     /**
      * 完成支付 {@link PayStatusEnum}
-     * @param payNo
-     * @param version
-     * @param payStatus
+     * @param payInfoCompleteDO
      * @return
      */
-    int complete(@Param("payNo") String payNo,@Param("version") Integer version,@Param("payStatus") Integer payStatus);
+    int complete(PayInfoCompleteDO payInfoCompleteDO);
 
     /**
      * 退款  {@link PayStatusEnum}

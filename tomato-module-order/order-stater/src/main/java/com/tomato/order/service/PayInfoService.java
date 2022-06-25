@@ -3,6 +3,7 @@ package com.tomato.order.service;
 import com.tomato.channel.dto.ChannelSendRep;
 import com.tomato.order.database.PayInfoMapper;
 import com.tomato.order.database.dataobject.OrderInfoDO;
+import com.tomato.order.database.dataobject.PayInfoCompleteDO;
 import com.tomato.order.database.dataobject.PayInfoDO;
 import com.tomato.order.database.dataobject.PayInfoSelectDO;
 import com.tomato.order.enums.PayStatusEnum;
@@ -40,12 +41,16 @@ public class PayInfoService {
         payInfoMapper.insert(payInfoDO);
         return payInfoDO;
     }
-    public PayInfoSelectDO completePay(String payNo, PayStatusEnum payStatusEnum) {
+    public PayInfoSelectDO completePay(String payNo, PayStatusEnum payStatusEnum,String backInfo) {
         PayInfoSelectDO payInfoDO = payInfoMapper.selectByPayNo(payNo);
         if (payInfoDO.getPayStatus() >= PayStatusEnum.SUCCESS.getCode()){
             throw new RuntimeException("订单是终态");
         }
-        int res = payInfoMapper.complete(payNo,payInfoDO.getVersion(),payStatusEnum.getCode());
+        PayInfoCompleteDO payInfoCompleteDO = new PayInfoCompleteDO();
+        payInfoCompleteDO.setPayNo(payNo);
+        payInfoCompleteDO.setPayStatus(payStatusEnum.getCode());
+        payInfoCompleteDO.setBackInfo(backInfo);
+        int res = payInfoMapper.complete(payInfoCompleteDO);
         if (res == 0) {
             throw new RuntimeException("订单是终态");
         }

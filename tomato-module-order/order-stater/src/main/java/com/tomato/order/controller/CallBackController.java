@@ -28,7 +28,7 @@ public class CallBackController {
     @RequestMapping("/wx")
     public void wx(String payNo) {
         log.info("支付回调：微信支付 {}",payNo);
-        orderCompleteComponent.complete(payNo, OrderStatusEnum.SUCCESS, PayStatusEnum.SUCCESS);
+        orderCompleteComponent.complete(payNo, OrderStatusEnum.SUCCESS, PayStatusEnum.SUCCESS,"支付成功");
 //        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
 //        AccountReq accountReq = AccountReq.builder()
 //                .accountId(System.currentTimeMillis())

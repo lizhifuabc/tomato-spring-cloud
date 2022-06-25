@@ -27,9 +27,9 @@ public class OrderCompleteComponent {
         this.payInfoService = payInfoService;
     }
     @Transactional(rollbackFor = Exception.class)
-    public void complete(String payNo, OrderStatusEnum orderStatusEnum, PayStatusEnum payStatusEnum) {
+    public void complete(String payNo, OrderStatusEnum orderStatusEnum, PayStatusEnum payStatusEnum,String backInfo) {
         log.info("订单完成：{}", payNo);
-        PayInfoSelectDO payInfoSelectDO = payInfoService.completePay(payNo, payStatusEnum);
+        PayInfoSelectDO payInfoSelectDO = payInfoService.completePay(payNo, payStatusEnum,backInfo);
         OrderInfoDO orderInfoDO = orderInfoService.completeOrder(payInfoSelectDO, orderStatusEnum);
     }
 }
