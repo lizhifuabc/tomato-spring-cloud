@@ -52,6 +52,5 @@ public class OrderComponent {
         });
 
         return orderCreateRep;
-        // TODO 超时消息队列处理
     }
 }
