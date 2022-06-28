@@ -1,11 +1,11 @@
 package com.tomato.account.database;
 
-import com.tomato.account.database.dataobject.AccountHisDO;
-import com.tomato.account.database.dataobject.AccountHisInsertDO;
-import com.tomato.account.database.dataobject.AccountHisUpdateDO;
+import com.tomato.account.database.dataobject.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 账户历史表
@@ -29,6 +29,13 @@ public interface AccountHisMapper {
      * @return
      */
     AccountHisDO selectByThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
+
+    /**
+     * 查询账户历史
+     * @param accountId
+     * @param thirdNo
+     * @return
+     */
     @Select("select exists (select 1 from account_his where account_id = #{accountId} and third_no = #{thirdNo} limit 1)")
     boolean checkThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
     /**
@@ -45,4 +52,19 @@ public interface AccountHisMapper {
      * @return
      */
     int updateAccountStatus(AccountHisUpdateDO accountHisUpdateDO);
+
+    /**
+     * 批量更新账户历史状态
+     * @param accountHisUpdateBatchDO
+     * @return
+     */
+    int updateAccountStatusBatch(AccountHisUpdateBatchDO accountHisUpdateBatchDO);
+
+    /**
+     * 查询未入账的账户历史
+     * account_status = 100 and version = 0 and amount >0
+     * @param accountId
+     * @return
+     */
+    AccountHisDealDO selectDeal(@Param("accountId") Long accountId);
 }

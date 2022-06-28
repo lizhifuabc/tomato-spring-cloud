@@ -25,7 +25,7 @@ CREATE TABLE `account_his` (
    `amount` decimal(16,2) NOT NULL  COMMENT '发生金额',
    `third_no` varchar(36) NOT NULL  COMMENT '第三方流水号',
    `account_his_type` varchar(36) NOT NULL  COMMENT '类型',
-   `account_status` tinyint NOT NULL default 100 COMMENT '入账状态',
+   `account_status` tinyint unsigned NOT NULL default 100 COMMENT '入账状态',
    `create_time` datetime not null default current_timestamp comment '创建时间',
    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
    PRIMARY KEY (`id`),

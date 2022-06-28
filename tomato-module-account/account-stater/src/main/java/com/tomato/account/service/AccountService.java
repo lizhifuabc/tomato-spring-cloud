@@ -2,10 +2,7 @@ package com.tomato.account.service;
 
 import com.tomato.account.database.AccountHisMapper;
 import com.tomato.account.database.AccountMapper;
-import com.tomato.account.database.dataobject.AccountDO;
-import com.tomato.account.database.dataobject.AccountHisDO;
-import com.tomato.account.database.dataobject.AccountHisInsertDO;
-import com.tomato.account.database.dataobject.AccountHisUpdateDO;
+import com.tomato.account.database.dataobject.*;
 import com.tomato.account.enums.AccountStatusEnum;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
@@ -14,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * 账户操作服务
@@ -77,4 +76,34 @@ public class AccountService {
         }
     }
 
+    /**
+     * 批量入账:针对add
+     * @param accountId
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void exeBatch(Long accountId) {
+        AccountDO accountDO = accountMapper.selectByAccountId(accountId);
+        // 查询未入账金额和记录
+        AccountHisDealDO accountHisDealDO = accountHisMapper.selectDeal(accountId);
+        if(Objects.isNull(accountHisDealDO) || accountHisDealDO.getAccountHisIds().isBlank()
+                || accountHisDealDO.getSum().compareTo(BigDecimal.ZERO) < 0){
+            return;
+        }
+        AccountHisUpdateBatchDO accountHisUpdateBatchDO = new AccountHisUpdateBatchDO();
+        accountHisUpdateBatchDO.setAccountHisId(Arrays.asList(accountHisDealDO.getAccountHisIds().split(",")));
+        accountHisUpdateBatchDO.setAccountStatus(AccountStatusEnum.SUCCESS.getCode());
+        accountHisUpdateBatchDO.setVersion(0);
+        accountHisUpdateBatchDO.setBeforeBalance(accountDO.getBalance());
+        accountHisUpdateBatchDO.setAfterBalance(accountDO.getBalance().add(accountHisDealDO.getSum()));
+        // 更新账户历史记录
+        int res = accountHisMapper.updateAccountStatusBatch(accountHisUpdateBatchDO);
+        if(res != accountHisUpdateBatchDO.getAccountHisId().size()){
+            throw new AccountException(AccountResponseCode.ACCOUNT_HIS_UPDATE_FAIL);
+        }
+        // 更新账户余额
+        int addRes = accountMapper.add(accountDO.getAccountId(), accountHisDealDO.getSum(),accountDO.getVersion());
+        if(addRes != 1){
+            throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
+        }
+    }
 }
