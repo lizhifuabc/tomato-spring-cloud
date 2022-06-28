@@ -97,6 +97,7 @@ public class AccountService {
         accountHisUpdateBatchDO.setAfterBalance(accountDO.getBalance().add(accountHisDealDO.getSum()));
         // 更新账户历史记录
         int res = accountHisMapper.updateAccountStatusBatch(accountHisUpdateBatchDO);
+        // 更新数量判断
         if(res != accountHisUpdateBatchDO.getAccountHisId().size()){
             throw new AccountException(AccountResponseCode.ACCOUNT_HIS_UPDATE_FAIL);
         }
