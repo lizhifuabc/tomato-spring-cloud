@@ -16,6 +16,10 @@ public enum AccountResponseCode implements IResponseCode {
     ACCOUNT_BALANCE_NOT_ENOUGH("ACCOUNT101", "账户余额不足"),
     ACCOUNT_HIS_EXIST("ACCOUNT102", "第三方流水号重复"),
 
+    ACCOUNT_UPDATE_FAIL("ACCOUNT103", "账户余额更新失败"),
+
+    ACCOUNT_HIS_UPDATE_FAIL("ACCOUNT104", "账户余额更新失败"),
+
     SKILL_ACTIVITY_FAILURE_LIMIT("SKILL103", "库存不足"),
     SKILL_ACTIVITY_FAILURE_USER_LIMIT("SKILL104", "用户达到最大抢购次数"),
     SKILL_COUNT_NOT_ENOUGH("SKILL200", "秒杀数量不足"),

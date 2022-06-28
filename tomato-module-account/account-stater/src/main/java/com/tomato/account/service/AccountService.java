@@ -62,7 +62,7 @@ public class AccountService {
         int updateState = accountHisMapper.updateAccountStatus(accountHisUpdateDO);
         log.info("更新账户历史状态 account:{},accountHisId:{},updateState:{}",accountDO.getAccountId(),accountHisId,updateState);
         if (updateState == 0) {
-            throw new RuntimeException("更新账户历史状态失败");
+            throw new AccountException(AccountResponseCode.ACCOUNT_HIS_UPDATE_FAIL);
         }
 
         int accountResult;
@@ -73,7 +73,7 @@ public class AccountService {
         }
         log.info("更新账户余额 account:{},accountHisId:{},accountResult:{}",accountDO.getAccountId(),accountHisId,accountResult);
         if (accountResult == 0) {
-            throw new RuntimeException("更新账户余额失败");
+            throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
         }
     }
 
