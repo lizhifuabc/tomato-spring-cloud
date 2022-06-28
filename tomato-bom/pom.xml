@@ -19,7 +19,9 @@
         <spring-boot.version>2.7.0</spring-boot.version>
         <spring-cloud.version>2021.0.2</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
-        <spring-boot.mybatis>2.2.2</spring-boot.mybatis>
+        <spring-boot.mybatis.version>2.2.2</spring-boot.mybatis.version>
+        <!-- shardingsphere 分库分表依赖 -->
+        <spring-boot.shardingsphere.version>5.1.1</spring-boot.shardingsphere.version>
         <!-- spring boot 授权服务器依赖配置 -->
         <spring-boot.auth.version>0.3.1</spring-boot.auth.version>
         <!-- spring 代码格式插件-->
@@ -77,7 +79,13 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${spring-boot.mybatis}</version>
+                <version>${spring-boot.mybatis.version}</version>
+            </dependency>
+            <!-- shardingsphere 分库分表依赖 -->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+                <version>${spring-boot.shardingsphere.version}</version>
             </dependency>
             <!-- spring boot 授权服务器依赖配置 -->
             <dependency>
