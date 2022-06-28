@@ -21,13 +21,13 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <spring-boot.mybatis.version>2.2.2</spring-boot.mybatis.version>
         <!-- shardingsphere 分库分表依赖 -->
-        <spring-boot.shardingsphere.version>5.1.1</spring-boot.shardingsphere.version>
+        <spring-boot.shardingsphere.version>5.1.2</spring-boot.shardingsphere.version>
         <!-- spring boot 授权服务器依赖配置 -->
         <spring-boot.auth.version>0.3.1</spring-boot.auth.version>
         <!-- spring 代码格式插件-->
         <spring.javaformat>0.0.33</spring.javaformat>
         <!-- 第三方 jar 依赖 -->
-        <druid.version>1.2.9</druid.version>
+        <druid.version>1.2.11</druid.version>
         <!--  knife4j swagger 版本控制  -->
         <knife4j.version>3.0.2</knife4j.version>
         <swagger-annotations.version>1.5.22</swagger-annotations.version>
@@ -115,6 +115,11 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
             </dependency>
             <!-- 项目版本控制 -->
