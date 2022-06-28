@@ -33,6 +33,18 @@ public class OrderController {
         this.orderComponent = orderComponent;
     }
 
+    /**
+     * 收单接口
+     * TODO 分库分表，二(三)个字段，商编+商户订单号，业务流水号
+     * 1 商户编号+商户订单号存在一张表中，业务流水号存在另一张表中，此时需要保障在同一个库中，存在事务问题
+     * 2 商编+商户订单号，业务流水号,通过算法保障能够落到同一张表中，即单表设计
+     * 3 单独维护一张表，保存，商编+商户订单号，业务流水号，表名称，通过这张表来确定分表位置
+     * 4 基因法：比如根据商编+商户订单号分表，在生成订单号的时候，把分表解决编码到订单号中去
+     * 4 冷数据 + 热数据
+     * 5 hash是可以解决数据均匀的问题，range可以解决数据迁移问题
+     * @param orderCreateReq
+     * @return
+     */
     @PostMapping("/create")
     public SingleResponse<OrderCreateRep> createOrder(@Valid @RequestBody OrderCreateReq orderCreateReq) {
         // 获取商户费率 && 校验商户
