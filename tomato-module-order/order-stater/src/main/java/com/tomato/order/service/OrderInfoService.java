@@ -72,7 +72,7 @@ public class OrderInfoService {
      * @param orderStatusEnum
      * @return
      */
-    public OrderInfoDO completeOrderFast(Long orderNo, OrderStatusEnum orderStatusEnum) {
+    public OrderInfoDO completeOrderFast(String orderNo, OrderStatusEnum orderStatusEnum) {
         OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(orderNo);
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
             throw new OrderException(OrderResponseCode.ORDER_ALREADY_COMPLETE);

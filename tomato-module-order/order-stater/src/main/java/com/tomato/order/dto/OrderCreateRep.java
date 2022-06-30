@@ -14,7 +14,7 @@ public class OrderCreateRep extends Rep {
     /**
      * 订单号
      */
-    private Long orderNo;
+    private String orderNo;
     /**
      * 支付二维码
      */

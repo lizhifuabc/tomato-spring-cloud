@@ -28,7 +28,7 @@ public class OrderDelayListener {
     }
 
     @RabbitListener(queues = "order.delay.queue",ackMode = "MANUAL")
-    public void delay(Long orderNo, Message message, Channel channel, @Headers Map<String, Object> headers) throws IOException {
+    public void delay(String orderNo, Message message, Channel channel, @Headers Map<String, Object> headers) throws IOException {
         log.info("延迟队列：订单 {}",orderNo);
         // TODO 订单关闭 支付记录关闭 支付成功，订单关闭了
         try {

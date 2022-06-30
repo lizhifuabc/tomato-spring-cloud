@@ -3,16 +3,13 @@ package com.tomato.order.algorithm;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shardingsphere.sharding.api.sharding.ShardingAutoTableAlgorithm;
 import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingAlgorithm;
 import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingValue;
-import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
-import org.apache.shardingsphere.sharding.api.sharding.standard.RangeShardingValue;
-import org.apache.shardingsphere.sharding.api.sharding.standard.StandardShardingAlgorithm;
 
 import java.math.BigInteger;
 import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -52,6 +49,19 @@ public class CustomShardingAlgorithm implements ComplexKeysShardingAlgorithm<Com
      */
     @Override
     public Collection<String> doSharding(Collection<String> availableTargetNames, ComplexKeysShardingValue<Comparable<?>> shardingValue) {
-        return null;
+        Map<String, Collection<Comparable<?>>> shardingValuesMap = shardingValue.getColumnNameAndShardingValuesMap();
+        Collection<Comparable<?>> merchantNos = shardingValuesMap.get(KEY_MERCHANT_NO);
+        String sign = "";
+        if (merchantNos != null && !merchantNos.isEmpty()) {
+            String merchantNo = (String) merchantNos.toArray()[0];
+            sign = merchantNo.substring(merchantNo.length() - 4);
+        }
+        Collection<Comparable<?>> orderNos = shardingValuesMap.get(KEY_ORDER_NO);
+        if (orderNos != null && !orderNos.isEmpty()) {
+            String orderNo = (String) orderNos.toArray()[0];
+            sign = orderNo.substring(orderNo.length() - 4);
+        }
+        String shardingResultSuffix = new BigInteger(sign).mod(new BigInteger(String.valueOf(shardingCount))).toString();
+        return Collections.singletonList(shardingResultSuffix);
     }
 }

@@ -19,7 +19,7 @@ public class OrderInfoMapperTest {
     private OrderInfoMapper orderInfoMapper;
     @Test
     public void test() {
-        System.out.println(orderInfoMapper.checkMerchantOrderNo("1", "1"));
+        System.out.println(orderInfoMapper.checkMerchantOrderNo("1000000000", "1"));
 //        orderInfoMapper.selectByOrderNo(1656134921123123L);
     }
     @Test

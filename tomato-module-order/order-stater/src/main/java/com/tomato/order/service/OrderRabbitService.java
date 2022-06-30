@@ -38,7 +38,7 @@ public class OrderRabbitService {
         CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
         AccountReq accountReq = AccountReq.builder()
                 .merchantNo(orderInfoDO.getMerchantNo())
-                .thirdNo(orderInfoDO.getOrderNo()+"")
+                .thirdNo(orderInfoDO.getOrderNo())
                 .amount(orderInfoDO.getRequestAmount())
                 .accountHisType("支付")
                 .build();

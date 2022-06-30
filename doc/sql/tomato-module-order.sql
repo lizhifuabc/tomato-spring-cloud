@@ -6,7 +6,7 @@ create table `order_info`  (
     `id` bigint not null auto_increment comment 'id',
     `version` int not null default '0' comment '版本号',
     `machine_ip` varchar(40) not null  comment '收单服务器ip',
-    `order_no` bigint not null  comment '订单号',
+    `order_no` varchar(36) not null  comment '订单号',
     `request_amount` decimal(14,4)  not null  comment '订单金额',
     `order_status` int default 100 comment '订单状态',
     `account_status` varchar(36)  comment '入账状态',
@@ -42,7 +42,7 @@ drop table if exists `pay_info`;
 create table `pay_info` (
     `id` bigint not null auto_increment comment 'id',
     `version` int not null default '0' comment '版本号',
-    `order_no` bigint not null  comment '订单号',
+    `order_no` varchar(36) not null  comment '订单号',
     `pay_no` varchar(50) not null  comment '支付号',
     `pay_status` int default 100 comment '支付状态',
     `pay_type` int not null comment '支付方式',

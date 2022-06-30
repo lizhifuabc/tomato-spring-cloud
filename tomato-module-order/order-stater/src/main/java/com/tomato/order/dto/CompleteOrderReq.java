@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class CompleteOrderReq {
-    private Long orderNo;
+    private String orderNo;
     private String payNo;
     private String backInfo;
     private OrderStatusEnum orderStatusEnum;

@@ -18,7 +18,7 @@ public class PayInfoSelectDO {
     /**
      * 订单号
      */
-    private Long orderNo;
+    private String orderNo;
 
     /**
      * 支付号
