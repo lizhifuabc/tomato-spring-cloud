@@ -22,12 +22,12 @@ public interface OrderInfoMapper {
     void insert(OrderInfoDO orderInfoDO);
 
     /**
-     * 校验商户订单号 TODO BUG
+     * 校验商户订单号
      * @param merchantNo
      * @param merchantOrderNo
      * @return
      */
-    @Select("select 1 from order_info where merchant_no = #{merchantNo} and merchant_order_no = #{merchantOrderNo} limit 1")
+    @Select("select exists (select 1 from order_info where merchant_no = #{merchantNo} and merchant_order_no = #{merchantOrderNo} limit 1)")
     boolean checkMerchantOrderNo(@Param("merchantNo") String merchantNo,@Param("merchantOrderNo") String merchantOrderNo);
     @Select("select * from order_info where order_no = #{orderNo}")
     OrderInfoDO selectByOrderNo(@Param("orderNo") Long orderNo);
