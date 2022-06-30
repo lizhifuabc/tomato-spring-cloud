@@ -27,7 +27,7 @@ public class OrderInfoDO extends BaseDO {
     /**
      * 订单号
      */
-    private String orderNo;
+    private Long orderNo;
 
     /**
      * 订单金额

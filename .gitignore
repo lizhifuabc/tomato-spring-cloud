@@ -38,3 +38,4 @@ target/
 *.tar.gz
 *.versionsBackup
 /logs/
+/tomato-module-order/order-stater/logs/

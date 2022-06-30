@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class OrderInfoCompleteDO {
-    private String orderNo;
+    private Long orderNo;
     private String payNo;
     private Integer version;
     private Integer orderStatus;

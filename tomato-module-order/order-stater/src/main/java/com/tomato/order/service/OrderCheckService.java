@@ -34,8 +34,4 @@ public class OrderCheckService {
             throw new OrderException(OrderResponseCode.MERCHANT_ORDER_EXIST);
         }
     }
-
-    public void checkStatus(){
-
-    }
 }

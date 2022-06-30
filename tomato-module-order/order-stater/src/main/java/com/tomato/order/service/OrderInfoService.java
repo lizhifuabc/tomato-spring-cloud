@@ -39,7 +39,8 @@ public class OrderInfoService {
         BeanUtils.copyProperties(orderCreateReq, orderInfoDO);
         BeanUtils.copyProperties(merchantRateRep, orderInfoDO);
         // TODO 订单号生成-分布式id生成策略
-        orderInfoDO.setOrderNo(System.currentTimeMillis() + "");
+        // 订单号：  全局唯一ID + 分库下标 + 分表下标 + 时间戳
+//        orderInfoDO.setOrderNo(System.currentTimeMillis());
         orderInfoDO.setMerchantRate(merchantRateRep.getRate());
         orderInfoDO.setMachineIp(IpUtils.getHostIp());
         orderInfoDO.setMerchantFee(BigDecimalUtils.multiply(merchantRateRep.getRate(),orderCreateReq.getRequestAmount()));
@@ -71,7 +72,7 @@ public class OrderInfoService {
      * @param orderStatusEnum
      * @return
      */
-    public OrderInfoDO completeOrderFast(String orderNo, OrderStatusEnum orderStatusEnum) {
+    public OrderInfoDO completeOrderFast(Long orderNo, OrderStatusEnum orderStatusEnum) {
         OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(orderNo);
         if (orderInfoDO.getOrderStatus() >= OrderStatusEnum.SUCCESS.getCode()){
             throw new OrderException(OrderResponseCode.ORDER_ALREADY_COMPLETE);
