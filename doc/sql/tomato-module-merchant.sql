@@ -7,6 +7,7 @@ create table merchant_info (
    `id` bigint(20) not null auto_increment comment 'id',
    `version` int not null default '0' comment '版本号',
    `merchant_no`  varchar(50) not null comment '商户编号',
+   `merchant_type`  tinyint(1) not null comment '商户类型',
    `merchant_name`  varchar(256) not null comment '商户名称',
    `mail`   varchar(50) not null comment '注册邮箱',
    `status` tinyint(1) null default 0 comment '状态【0->正常；1->关闭】',

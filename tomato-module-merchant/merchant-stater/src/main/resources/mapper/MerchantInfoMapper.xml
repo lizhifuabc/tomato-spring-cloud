@@ -4,7 +4,7 @@
 
 <mapper namespace="com.tomato.merchant.database.MerchantInfoMapper">
     <insert id="insert" parameterType="merchantInfoDO">
-        insert into merchant_info(merchant_no,mail, merchant_name)
-        values(#{merchantNo},#{mail},#{merchantName})
+        insert into merchant_info(merchant_no,mail, merchant_name, merchant_type)
+        values(#{merchantNo},#{mail},#{merchantName},#{merchantType})
     </insert>
 </mapper>

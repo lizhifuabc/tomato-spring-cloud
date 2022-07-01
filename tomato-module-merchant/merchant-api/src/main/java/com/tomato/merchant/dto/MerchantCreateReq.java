@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 商户创建
@@ -26,4 +27,10 @@ public class MerchantCreateReq extends Req {
      */
     @NotBlank(message = "商户名称不能为空")
     private String merchantName;
+
+    /**
+     * 商户类型
+     */
+    @NotNull(message = "商户类型不能为空")
+    private Integer merchantType;
 }

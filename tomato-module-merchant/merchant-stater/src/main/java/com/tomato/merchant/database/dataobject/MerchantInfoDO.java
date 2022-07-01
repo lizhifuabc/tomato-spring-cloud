@@ -30,5 +30,9 @@ public class MerchantInfoDO extends BaseDO {
     /**
      * 状态【0->正常；1->关闭】
      */
-    private String status;
+    private Integer status;
+    /**
+     * 商户类型
+     */
+    private Integer merchantType;
 }
