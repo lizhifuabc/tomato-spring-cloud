@@ -15,9 +15,8 @@ CREATE TABLE `account` (
 
 DROP TABLE IF EXISTS `account_his`;
 CREATE TABLE `account_his` (
-   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-   `version` int not null default '0' comment '版本号',
    `account_his_id` bigint(20) NOT NULL COMMENT '账户历史ID',
+   `version` int not null default '0' comment '版本号',
    `account_no` varchar(36) NOT NULL COMMENT '账户编号',
    `before_balance` decimal(16,2)   COMMENT '发生前余额',
    `after_balance` decimal(16,2)    COMMENT '发生后余额',
@@ -27,7 +26,6 @@ CREATE TABLE `account_his` (
    `account_status` tinyint unsigned NOT NULL default 100 COMMENT '入账状态',
    `create_time` datetime not null default current_timestamp comment '创建时间',
    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
-   PRIMARY KEY (`id`),
-   UNIQUE KEY `uniq_account_his_id` (account_his_id),
+   PRIMARY KEY (`account_his_id`),
    UNIQUE KEY `uniq_account_third_no` (account_no,third_no)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '账户历史表';

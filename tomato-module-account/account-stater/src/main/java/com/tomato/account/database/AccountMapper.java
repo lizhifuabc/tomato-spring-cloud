@@ -30,7 +30,7 @@ public interface AccountMapper {
      * @return
      */
     @Select("select * from account where merchant_no = #{merchantNo} and status = #{status}")
-    AccountDO selectByMerchantNo(@Param("merchantNo") String merchantNo, Integer status);
+    AccountDO selectByMerchantNo(@Param("merchantNo") String merchantNo,@Param("status") Integer status);
     /**
      * 查询账户
      *

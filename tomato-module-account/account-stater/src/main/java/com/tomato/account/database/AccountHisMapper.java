@@ -36,7 +36,7 @@ public interface AccountHisMapper {
      * @param thirdNo
      * @return
      */
-    @Select("select exists (select 1 from account_his where account_id = #{accountNo} and third_no = #{thirdNo} limit 1)")
+    @Select("select count(*) from account_his where account_no = #{accountNo} and third_no = #{thirdNo} limit 1")
     boolean checkThirdNo(@Param("accountNo") String accountNo,@Param("thirdNo") String thirdNo);
     /**
      * 新增账户历史表

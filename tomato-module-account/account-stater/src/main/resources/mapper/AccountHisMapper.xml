@@ -8,8 +8,8 @@
     </select>
 
     <insert id="insert" parameterType="accountHisInsertDO">
-        INSERT INTO account_his (account_his_id, account_no, amount, third_no, account_his_type)
-        VALUES (#{accountHisId},#{accountNo},#{amount},#{thirdNo},#{accountHisType})
+        INSERT INTO account_his (account_no, amount, third_no, account_his_type)
+        VALUES (#{accountNo},#{amount},#{thirdNo},#{accountHisType})
     </insert>
 
     <update id="updateAccountStatus" parameterType="accountHisUpdateDO">

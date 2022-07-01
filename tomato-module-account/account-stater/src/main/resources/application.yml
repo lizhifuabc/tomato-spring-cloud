@@ -38,10 +38,17 @@ spring:
                 sharding-columns: merchant_no,account_no # 分片字段
                 sharding-algorithm-name: t-account-algorithm
           account_his: # 逻辑表名称
+            key-generate-strategy:
+                column: account_his_id # 主键生成策略
+                key-generator-name: his-snowflake # 主键生成策略类型
             database-strategy: # 分库策略
               complex:
                 sharding-columns: account_no # 分片字段
                 sharding-algorithm-name: t-account-algorithm
+        # 分布式序列算法配置
+        key-generators:
+          his-snowflake:
+            type: SNOWFLAKE #分布式序列算法类型,雪花算法：SNOWFLAKE； UUID：UUID）
 
 #  datasource:
 #    type: com.alibaba.druid.pool.DruidDataSource

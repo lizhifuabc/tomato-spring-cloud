@@ -36,12 +36,12 @@ public class AccountMapperTest {
         AccountHisInsertDO insertDO = new AccountHisInsertDO();
         insertDO.setAccountNo(accountDO.getAccountNo());
         insertDO.setAmount(new BigDecimal(-100));
-        insertDO.setAccountHisId(System.currentTimeMillis());
+//        insertDO.setAccountHisId(System.currentTimeMillis());
         insertDO.setThirdNo(UUID.randomUUID().toString());
         insertDO.setAccountHisType("test");
         accountHisMapper.insert(insertDO);
 
-        AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(insertDO.getAccountHisId());
+        AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(12L);
 
         AccountHisUpdateDO accountHisUpdateDO = new AccountHisUpdateDO();
         accountHisUpdateDO.setAccountHisId(accountHisDO.getAccountHisId());

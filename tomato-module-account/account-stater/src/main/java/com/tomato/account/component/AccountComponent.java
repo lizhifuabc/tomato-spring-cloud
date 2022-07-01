@@ -22,7 +22,7 @@ public class AccountComponent {
     public void receive(AccountReceiveReq accountReceiveReq, AccountDO accountDO) {
         AccountHisInsertDO accountHisInsertDO = new AccountHisInsertDO();
         // TODO ID 生成策略
-        accountHisInsertDO.setAccountHisId(System.currentTimeMillis());
+//        accountHisInsertDO.setAccountHisId(System.currentTimeMillis());
         accountHisInsertDO.setAccountNo(accountDO.getAccountNo());
         accountHisInsertDO.setAmount(accountReceiveReq.getAmount());
         accountHisInsertDO.setThirdNo(accountReceiveReq.getThirdNo());
