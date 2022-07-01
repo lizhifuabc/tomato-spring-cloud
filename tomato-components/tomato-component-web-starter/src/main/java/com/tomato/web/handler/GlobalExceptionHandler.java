@@ -174,7 +174,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         log.warn("MethodArgumentNotValidException:", ex);
-        return Response.buildFailure(ResponseCode.FAILURE.getCode(), ex.getMessage());
+        return Response.buildFailure(ResponseCode.FAILURE.getCode(), ex.getBindingResult().getFieldError().getDefaultMessage());
     }
 
     /**
