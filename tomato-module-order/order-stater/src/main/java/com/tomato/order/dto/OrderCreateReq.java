@@ -2,6 +2,8 @@ package com.tomato.order.dto;
 
 import com.tomato.data.dto.Req;
 import lombok.Data;
+import org.checkerframework.common.value.qual.MinLen;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +33,7 @@ public class OrderCreateReq extends Req {
      * 商户编号
      */
     @NotBlank(message = "商户编号不能为空")
+    @Length(min = 4, message = "商户编号长度不能小于4")
     private String merchantNo;
     /**
      * 备注
