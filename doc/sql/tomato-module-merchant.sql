@@ -10,6 +10,7 @@ create table merchant_info (
    `merchant_name`  varchar(256) not null comment '商户名称',
    `mail`   varchar(50) not null comment '注册邮箱',
    `status` tinyint(1) null default 0 comment '状态【0->正常；1->关闭】',
+   `audit_status` tinyint(1) null default 1 comment '状态【0->审核通过；1->审核中；2->审核拒绝】',
    `create_time` datetime default current_timestamp comment '创建时间',
    `update_time` datetime default current_timestamp on update current_timestamp comment '修改时间',
    primary key (`id`),

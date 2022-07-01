@@ -21,11 +21,13 @@ public interface MerchantInfoMapper {
     int insert(MerchantInfoDO merchantInfoDO);
 
     /**
-     * 查询商户信息
+     * 查询商户信息:
+     * 审核通过
+     * 状态正常
      * @param merchantNo
      * @return
      */
-    @Select("select * from merchant_info where merchant_no = #{merchantNo} and status = 0")
+    @Select("select * from merchant_info where merchant_no = #{merchantNo} and status = 0 and audit_status = 1")
     MerchantInfoDO selectByMerchantNo(@Param("merchantNo") String merchantNo);
 
     /**
