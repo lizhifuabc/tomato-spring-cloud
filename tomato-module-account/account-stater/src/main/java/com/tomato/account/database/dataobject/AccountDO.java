@@ -16,7 +16,7 @@ public class AccountDO extends BaseDO {
     /**
      * 账户ID
      */
-    private Long accountId;
+    private String accountNo;
     /**
      * 账户余额
      */

@@ -23,22 +23,24 @@ spring:
         password: tomato
     rules:
       sharding:
-#        default-data-source-name: tomato_account_00 # 未配置分片规则的表将通过默认数据源定位
+#        default-data-source-name: tomato_account_00 # 未配置分片规则的表将通过默认数据源定位，5.X 废弃,第一个数据源为默认数据源
         sharding-algorithms:
           t-account-algorithm: # 算法名称
-            type: MOD # 分片算法
+            type: CLASS_BASED # 自定义类分片算法
             props:
+              strategy: complex
+              algorithmClassName: com.tomato.account.algorithm.CustomShardingAlgorithm
               sharding-count: 2 # 分片数量
         tables: # 数据分片规则配置
           account: # 逻辑表名称
             database-strategy: # 分库策略
-              standard:
-                sharding-column: account_id # 分片字段
+              complex: # 多分片策略
+                sharding-columns: merchant_no,account_no # 分片字段
                 sharding-algorithm-name: t-account-algorithm
           account_his: # 逻辑表名称
             database-strategy: # 分库策略
-              standard:
-                sharding-column: account_id # 分片字段
+              complex:
+                sharding-columns: account_no # 分片字段
                 sharding-algorithm-name: t-account-algorithm
 
 #  datasource:

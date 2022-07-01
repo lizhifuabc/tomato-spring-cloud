@@ -24,20 +24,20 @@ public interface AccountHisMapper {
 
     /**
      * 查询账户历史表
-     * @param accountId
+     * @param accountNo
      * @param thirdNo
      * @return
      */
-    AccountHisDO selectByThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
+    AccountHisDO selectByThirdNo(@Param("accountNo") String accountNo,@Param("thirdNo") String thirdNo);
 
     /**
      * 查询账户历史
-     * @param accountId
+     * @param accountNo
      * @param thirdNo
      * @return
      */
-    @Select("select exists (select 1 from account_his where account_id = #{accountId} and third_no = #{thirdNo} limit 1)")
-    boolean checkThirdNo(@Param("accountId") Long accountId,@Param("thirdNo") String thirdNo);
+    @Select("select exists (select 1 from account_his where account_id = #{accountNo} and third_no = #{thirdNo} limit 1)")
+    boolean checkThirdNo(@Param("accountNo") String accountNo,@Param("thirdNo") String thirdNo);
     /**
      * 新增账户历史表
      *
@@ -63,8 +63,8 @@ public interface AccountHisMapper {
     /**
      * 查询未入账的账户历史
      * account_status = 100 and version = 0 and amount >0
-     * @param accountId
+     * @param accountNo
      * @return
      */
-    AccountHisDealDO selectDeal(@Param("accountId") Long accountId);
+    AccountHisDealDO selectDeal(@Param("accountNo") String accountNo);
 }

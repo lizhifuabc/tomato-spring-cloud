@@ -13,6 +13,7 @@ public enum AccountResponseCode implements IResponseCode {
      * 失败
      */
     ACCOUNT_NOT_EXIST("ACCOUNT100", "账户不存在"),
+    ACCOUNT_EXIST("ACCOUNT105", "账户已经存在"),
     ACCOUNT_BALANCE_NOT_ENOUGH("ACCOUNT101", "账户余额不足"),
     ACCOUNT_HIS_EXIST("ACCOUNT102", "第三方流水号重复"),
 

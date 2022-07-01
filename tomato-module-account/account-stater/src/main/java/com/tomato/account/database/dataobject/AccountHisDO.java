@@ -20,7 +20,7 @@ public class AccountHisDO extends BaseDO {
     /**
      * 账户ID
      */
-    private Long accountId;
+    private String accountNo;
     /**
      * 发生前余额
      */

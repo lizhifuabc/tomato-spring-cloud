@@ -18,10 +18,10 @@ public interface AccountMapper {
     /**
      * 查询账户
      *
-     * @param accountId
+     * @param accountNo
      * @return
      */
-    AccountDO selectByAccountId(@Param("accountId") Long accountId);
+    AccountDO selectByAccountNo(@Param("accountNo") String accountNo);
 
     /**
      * 查询账户
@@ -29,25 +29,38 @@ public interface AccountMapper {
      * @param merchantNo
      * @return
      */
-    @Select("select * from account where merchant_no = #{merchantNo} and status = 0")
-    AccountDO selectByMerchantNo(@Param("merchantNo") String merchantNo);
-
+    @Select("select * from account where merchant_no = #{merchantNo} and status = #{status}")
+    AccountDO selectByMerchantNo(@Param("merchantNo") String merchantNo, Integer status);
+    /**
+     * 查询账户
+     *
+     * @param merchantNo
+     * @return
+     */
+    @Select("select * from account where merchant_no = #{merchantNo}")
+    AccountDO selectByMerchantNoWithOutStatus(@Param("merchantNo") String merchantNo);
     /**
      * 扣钱
      *
-     * @param accountId
+     * @param accountNo
      * @param amount
      * @param version
      * @return i
      */
-    int deduct(@Param("accountId") Long accountId, @Param("amount") BigDecimal amount,@Param("version") Integer version);
+    int deduct(@Param("accountNo") String accountNo, @Param("amount") BigDecimal amount,@Param("version") Integer version);
 
     /**
      * 加钱
-     * @param accountId
+     * @param accountNo
      * @param amount
      * @param version
      * @return
      */
-    int add(@Param("accountId") Long accountId, @Param("amount") BigDecimal amount,@Param("version") Integer version);
+    int add(@Param("accountNo") String accountNo, @Param("amount") BigDecimal amount,@Param("version") Integer version);
+
+    /**
+     * 插入
+     * @param accountDO
+     */
+    void insert(AccountDO accountDO);
 }

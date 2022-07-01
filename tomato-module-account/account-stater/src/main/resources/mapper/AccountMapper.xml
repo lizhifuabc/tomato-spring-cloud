@@ -3,15 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tomato.account.database.AccountMapper">
-    <select id="selectByAccountId" resultType="accountDO" parameterType="map">
-        SELECT * FROM account WHERE account_id = #{accountId} and status = 0  LIMIT 1
+    <insert id="insert" parameterType="accountDO">
+        insert into account (account_no, merchant_no)
+            values (#{accountNo},#{merchantNo})
+    </insert>
+    <select id="selectByAccountNo" resultType="accountDO" parameterType="map">
+        SELECT * FROM account WHERE account_no = #{accountNo} and status = 0  LIMIT 1
     </select>
     <update id="deduct" parameterType="map">
         UPDATE account set balance = balance - #{amount},version = version +1
-                       WHERE account_id = #{accountId}  and balance >=  #{amount} and version = #{version}
+                       WHERE account_no = #{accountNo}  and balance >=  #{amount} and version = #{version}
     </update>
     <update id="add" parameterType="map">
         UPDATE account set balance = balance + #{amount},version = version +1
-                       WHERE account_id = #{accountId} and version = #{version}
+                       WHERE account_no = #{accountNo} and version = #{version}
     </update>
 </mapper>

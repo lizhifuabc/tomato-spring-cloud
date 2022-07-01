@@ -30,11 +30,8 @@ public class AccountService {
         this.accountMapper = accountMapper;
         this.accountHisMapper = accountHisMapper;
     }
-    public AccountDO selectByMerchantNo(String merchantNo) {
-        return accountMapper.selectByMerchantNo(merchantNo);
-    }
     public void receive (AccountHisInsertDO accountHisInsertDO) {
-        if (accountHisMapper.checkThirdNo(accountHisInsertDO.getAccountId(),accountHisInsertDO.getThirdNo())){
+        if (accountHisMapper.checkThirdNo(accountHisInsertDO.getAccountNo(),accountHisInsertDO.getThirdNo())){
             log.error("账户历史表已存在，不能重复插入:{}",accountHisInsertDO);
             throw new AccountException(AccountResponseCode.ACCOUNT_HIS_EXIST);
         }
@@ -49,7 +46,7 @@ public class AccountService {
     @Transactional(rollbackFor = Exception.class)
     public void exe(Long accountHisId) {
         AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(accountHisId);
-        AccountDO accountDO = accountMapper.selectByAccountId(accountHisDO.getAccountId());
+        AccountDO accountDO = accountMapper.selectByAccountNo(accountHisDO.getAccountNo());
         log.info("账户余额操作开始 accountDO:{},accountHisDO:{}", accountDO,accountHisDO);
 
         AccountHisUpdateDO accountHisUpdateDO = new AccountHisUpdateDO();
@@ -59,18 +56,18 @@ public class AccountService {
         accountHisUpdateDO.setAfterBalance(accountDO.getBalance().add(accountHisDO.getAmount()));
         accountHisUpdateDO.setVersion(accountHisDO.getVersion());
         int updateState = accountHisMapper.updateAccountStatus(accountHisUpdateDO);
-        log.info("更新账户历史状态 account:{},accountHisId:{},updateState:{}",accountDO.getAccountId(),accountHisId,updateState);
+        log.info("更新账户历史状态 account:{},accountHisId:{},updateState:{}",accountDO.getAccountNo(),accountHisId,updateState);
         if (updateState == 0) {
             throw new AccountException(AccountResponseCode.ACCOUNT_HIS_UPDATE_FAIL);
         }
 
         int accountResult;
         if (accountHisDO.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-            accountResult = accountMapper.add(accountDO.getAccountId(), accountHisDO.getAmount(), accountDO.getVersion());
+            accountResult = accountMapper.add(accountDO.getAccountNo(), accountHisDO.getAmount(), accountDO.getVersion());
         } else {
-            accountResult = accountMapper.deduct(accountDO.getAccountId(), accountHisDO.getAmount(), accountDO.getVersion());
+            accountResult = accountMapper.deduct(accountDO.getAccountNo(), accountHisDO.getAmount(), accountDO.getVersion());
         }
-        log.info("更新账户余额 account:{},accountHisId:{},accountResult:{}",accountDO.getAccountId(),accountHisId,accountResult);
+        log.info("更新账户余额 account:{},accountHisId:{},accountResult:{}",accountDO.getAccountNo(),accountHisId,accountResult);
         if (accountResult == 0) {
             throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
         }
@@ -78,13 +75,13 @@ public class AccountService {
 
     /**
      * 批量入账:针对add
-     * @param accountId
+     * @param accountNo
      */
     @Transactional(rollbackFor = Exception.class)
-    public void exeBatch(Long accountId) {
-        AccountDO accountDO = accountMapper.selectByAccountId(accountId);
+    public void exeBatch(String accountNo) {
+        AccountDO accountDO = accountMapper.selectByAccountNo(accountNo);
         // 查询未入账金额和记录
-        AccountHisDealDO accountHisDealDO = accountHisMapper.selectDeal(accountId);
+        AccountHisDealDO accountHisDealDO = accountHisMapper.selectDeal(accountNo);
         if(Objects.isNull(accountHisDealDO) || accountHisDealDO.getAccountHisIds().isBlank()
                 || accountHisDealDO.getSum().compareTo(BigDecimal.ZERO) < 0){
             return;
@@ -102,7 +99,7 @@ public class AccountService {
             throw new AccountException(AccountResponseCode.ACCOUNT_HIS_UPDATE_FAIL);
         }
         // 更新账户余额
-        int addRes = accountMapper.add(accountDO.getAccountId(), accountHisDealDO.getSum(),accountDO.getVersion());
+        int addRes = accountMapper.add(accountDO.getAccountNo(), accountHisDealDO.getSum(),accountDO.getVersion());
         if(addRes != 1){
             throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
         }

@@ -8,8 +8,8 @@
     </select>
 
     <insert id="insert" parameterType="accountHisInsertDO">
-        INSERT INTO account_his (account_his_id, account_id, amount, third_no, account_his_type)
-        VALUES (#{accountHisId},#{accountId},#{amount},#{thirdNo},#{accountHisType})
+        INSERT INTO account_his (account_his_id, account_no, amount, third_no, account_his_type)
+        VALUES (#{accountHisId},#{accountNo},#{amount},#{thirdNo},#{accountHisType})
     </insert>
 
     <update id="updateAccountStatus" parameterType="accountHisUpdateDO">
@@ -18,7 +18,7 @@
     </update>
 
     <select id="selectByThirdNo" parameterType="map" resultType="accountHisDO">
-        select * from account_his where third_no = #{thirdNo} and account_id = #{accountId}
+        select * from account_his where third_no = #{thirdNo} and account_no = #{accountNo}
     </select>
 
     <update id="updateAccountStatusBatch" parameterType="AccountHisUpdateBatchDO">
@@ -33,6 +33,6 @@
     <select id="selectDeal" parameterType = "map" resultType = "accountHisDealDO">
         select group_concat(account_his_id) as accountHisIds,sum(amount) as sum
         from account_his
-        where account_id = #{accountId} and account_status = 100 and version = 0 and amount >0
+        where account_no = #{accountNo} and account_status = 100 and version = 0 and amount >0
     </select>
 </mapper>

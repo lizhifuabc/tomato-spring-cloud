@@ -8,16 +8,12 @@ import com.tomato.account.database.dataobject.AccountHisUpdateBatchDO;
 import com.tomato.account.enums.AccountStatusEnum;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
-import com.tomato.utils.BigDecimalUtils;
-import com.tomato.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * AccountHisMapper
@@ -33,11 +29,11 @@ public class AccountHisMapperTest {
     private AccountMapper accountMapper;
     @Test
     public void test(){
-        Long accountId = 1L;
+        String accountNo = "1L";
 
-        AccountDO accountDO = accountMapper.selectByAccountId(accountId);
+        AccountDO accountDO = accountMapper.selectByAccountNo(accountNo);
         // 查询未入账金额和记录
-        AccountHisDealDO accountHisDealDO = accountHisMapper.selectDeal(accountId);
+        AccountHisDealDO accountHisDealDO = accountHisMapper.selectDeal(accountNo);
         if(Objects.isNull(accountHisDealDO) || accountHisDealDO.getAccountHisIds().isBlank()
                 || accountHisDealDO.getSum().compareTo(BigDecimal.ZERO) < 0){
             return;
@@ -54,7 +50,7 @@ public class AccountHisMapperTest {
             throw new AccountException(AccountResponseCode.ACCOUNT_HIS_UPDATE_FAIL);
         }
         // 更新账户余额
-        int addRes = accountMapper.add(accountDO.getAccountId(), accountHisDealDO.getSum(),accountDO.getVersion());
+        int addRes = accountMapper.add(accountDO.getAccountNo(), accountHisDealDO.getSum(),accountDO.getVersion());
         if(addRes != 1){
             throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
         }

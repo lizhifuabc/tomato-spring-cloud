@@ -27,14 +27,14 @@ public class AccountMapperTest {
     AccountHisMapper accountHisMapper;
     @Test
     public void test1(){
-        accountMapper.selectByAccountId(100000L);
+        accountMapper.selectByAccountNo("100000L");
     }
     @Test
     public void test() {
-        AccountDO accountDO = accountMapper.selectByAccountId(1L);
+        AccountDO accountDO = accountMapper.selectByAccountNo("1L");
 
         AccountHisInsertDO insertDO = new AccountHisInsertDO();
-        insertDO.setAccountId(accountDO.getAccountId());
+        insertDO.setAccountNo(accountDO.getAccountNo());
         insertDO.setAmount(new BigDecimal(-100));
         insertDO.setAccountHisId(System.currentTimeMillis());
         insertDO.setThirdNo(UUID.randomUUID().toString());
@@ -51,7 +51,7 @@ public class AccountMapperTest {
         accountHisUpdateDO.setVersion(accountHisDO.getVersion());
         accountHisMapper.updateAccountStatus(accountHisUpdateDO);
 
-        System.out.println(accountMapper.add(accountDO.getAccountId(), BigDecimal.TEN,accountDO.getVersion()));
-        System.out.println(accountMapper.deduct(1L, new BigDecimal(10),accountDO.getVersion()));
+        System.out.println(accountMapper.add(accountDO.getAccountNo(), BigDecimal.TEN,accountDO.getVersion()));
+        System.out.println(accountMapper.deduct("1L", new BigDecimal(10),accountDO.getVersion()));
     }
 }

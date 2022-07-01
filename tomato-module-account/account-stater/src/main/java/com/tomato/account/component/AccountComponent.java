@@ -23,13 +23,13 @@ public class AccountComponent {
         AccountHisInsertDO accountHisInsertDO = new AccountHisInsertDO();
         // TODO ID 生成策略
         accountHisInsertDO.setAccountHisId(System.currentTimeMillis());
-        accountHisInsertDO.setAccountId(accountDO.getAccountId());
+        accountHisInsertDO.setAccountNo(accountDO.getAccountNo());
         accountHisInsertDO.setAmount(accountReceiveReq.getAmount());
         accountHisInsertDO.setThirdNo(accountReceiveReq.getThirdNo());
         accountHisInsertDO.setAccountHisType(accountReceiveReq.getAccountHisType());
         accountService.receive(accountHisInsertDO);
     }
-    public void exe(Long accountId,Long accountHisId){
+    public void exe(String accountNo,Long accountHisId){
         accountService.exe(accountHisId);
     }
 }
