@@ -26,6 +26,10 @@ public class AccountMapperTest {
     @Resource
     AccountHisMapper accountHisMapper;
     @Test
+    public void test1(){
+        accountMapper.selectByAccountId(100000L);
+    }
+    @Test
     public void test() {
         AccountDO accountDO = accountMapper.selectByAccountId(1L);
 

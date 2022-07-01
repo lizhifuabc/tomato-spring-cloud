@@ -6,22 +6,22 @@ spring:
     mode:
       type: Memory # 内存模式，无需持久化
     datasource:
-      names: tomato_order_01, tomato_order_02 # 配置库的名字
+      names: tomato_order_00,tomato_order_01 # 配置库的名字
       tomato_order_01:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/tomato_order_01?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
         username: tomato
         password: tomato
-      tomato_order_02:
+      tomato_order_00:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/tomato_order_02?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+        url: jdbc:mysql://127.0.0.1:3306/tomato_order_00?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
         username: tomato
         password: tomato
     rules:
       sharding:
-        default-data-source-name: tomato_order_01 # 未配置分片规则的表将通过默认数据源定位
+#        default-data-source-name: tomato_order_00 # 未配置分片规则的表将通过默认数据源定位，5.X 废弃,第一个数据源为默认数据源
         sharding-algorithms:
           t-order-algorithm: # 算法名称
             type: CLASS_BASED # 自定义类分片算法
@@ -31,9 +31,14 @@ spring:
               sharding-count: 2 # 分片数量
         tables: # 数据分片规则配置
           order_info: # 逻辑表名称
-            database-strategy: # 分库策略，基于分片边界的范围分片算法，BOUNDARY_RANGE
+            database-strategy: # 分库策略
               complex:
                 sharding-columns: merchant_no,order_no # 分片字段
+                sharding-algorithm-name: t-order-algorithm
+          pay_info: # 逻辑表名称
+            database-strategy: # 分库策略
+              complex:
+                sharding-columns: pay_no,order_no # 分片字段
                 sharding-algorithm-name: t-order-algorithm
 #  datasource:
 #    type: com.alibaba.druid.pool.DruidDataSource

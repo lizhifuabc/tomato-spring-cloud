@@ -40,7 +40,7 @@ public class OrderInfoService {
         BeanUtils.copyProperties(merchantRateRep, orderInfoDO);
         // TODO 订单号生成-分布式id生成策略
         // 订单号：  全局唯一ID + 分库下标 + 分表下标 + 时间戳
-//        orderInfoDO.setOrderNo(System.currentTimeMillis());
+        orderInfoDO.setOrderNo(System.currentTimeMillis()+orderCreateReq.getMerchantNo().substring(orderCreateReq.getMerchantNo().length()-4));
         orderInfoDO.setMerchantRate(merchantRateRep.getRate());
         orderInfoDO.setMachineIp(IpUtils.getHostIp());
         orderInfoDO.setMerchantFee(BigDecimalUtils.multiply(merchantRateRep.getRate(),orderCreateReq.getRequestAmount()));

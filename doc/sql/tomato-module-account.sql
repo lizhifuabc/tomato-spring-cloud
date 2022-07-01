@@ -1,4 +1,3 @@
-use tomato_account;
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',

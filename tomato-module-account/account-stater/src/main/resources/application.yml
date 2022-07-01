@@ -1,12 +1,47 @@
 server:
   port: 8080
 spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/tomato_account?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
-    username: tomato
-    password: tomato
+  shardingsphere:
+    # Proxy 属性 配置
+    props:
+      sql-show: true # 开启sql日志打印
+    mode:
+      type: Memory # 内存模式，无需持久化
+    datasource:
+      names: tomato_account_01, tomato_account_00 # 配置库的名字
+      tomato_account_01:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/tomato_account_01?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+        username: tomato
+        password: tomato
+      tomato_account_00:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/tomato_account_00?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+        username: tomato
+        password: tomato
+    rules:
+      sharding:
+        default-data-source-name: tomato_account_00 # 未配置分片规则的表将通过默认数据源定位
+        sharding-algorithms:
+          t-account-algorithm: # 算法名称
+            type: MOD # 分片算法
+            props:
+              sharding-count: 2 # 分片数量
+        tables: # 数据分片规则配置
+          account: # 逻辑表名称
+            database-strategy: # 分库策略
+              standard:
+                sharding-column: account_id # 分片字段
+                sharding-algorithm-name: t-account-algorithm
+
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/tomato_account?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+#    username: tomato
+#    password: tomato
 mybatis:
   type-aliases-package: com.tomato.account.database.dataobject
   mapper-locations: classpath:mapper/*Mapper.xml

@@ -32,7 +32,7 @@ public class PayInfoService {
         payInfoDO.setOrderNo(orderInfoDO.getOrderNo());
         payInfoDO.setPayType(orderInfoDO.getPayType());
         // TODO 订单号生成-分布式id生成策略
-        payInfoDO.setPayNo(System.currentTimeMillis() + "");
+        payInfoDO.setPayNo(System.currentTimeMillis() + orderInfoDO.getMerchantNo().substring(orderInfoDO.getMerchantNo().length()-4));
         // 发送通道请求
         ChannelSendRep channelSendRep = channelService.send(orderInfoDO, payInfoDO);
 
