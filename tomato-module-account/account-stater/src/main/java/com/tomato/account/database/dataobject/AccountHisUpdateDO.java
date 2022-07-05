@@ -13,6 +13,10 @@ import java.math.BigDecimal;
 @Data
 public class AccountHisUpdateDO {
     /**
+     * 账号编号
+     */
+    private String accountNo;
+    /**
      * 账户历史表ID
      */
     private Long accountHisId;

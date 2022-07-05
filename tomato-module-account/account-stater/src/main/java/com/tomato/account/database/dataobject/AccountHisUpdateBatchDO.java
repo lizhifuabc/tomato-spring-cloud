@@ -14,6 +14,10 @@ import java.util.List;
 @Data
 public class AccountHisUpdateBatchDO {
     /**
+     * 账号编号
+     */
+    private String accountNo;
+    /**
      * 账户历史表ID
      */
     private List accountHisId;

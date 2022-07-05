@@ -16,11 +16,11 @@ import java.util.List;
 @Mapper
 public interface AccountHisMapper {
     /**
-     * 查询账户历史表
+     * 查询账户历史表  分库分表，需要增加 accountNo,或者定制 accountHisId 也作为分表字段
      * @param accountHisId
      * @return
      */
-    AccountHisDO selectByAccountHisId(@Param("accountHisId") Long accountHisId);
+    AccountHisDO selectByAccountHisId(@Param("accountHisId") Long accountHisId,@Param("accountNo") String accountNo);
 
     /**
      * 查询账户历史表
@@ -47,14 +47,14 @@ public interface AccountHisMapper {
     int insert(AccountHisInsertDO accountHisInsertDO);
 
     /**
-     * 更新账户历史状态
+     * 更新账户历史状态  分库分表，需要增加 accountNo,或者定制 accountHisId 也作为分表字段
      * @param accountHisUpdateDO
      * @return
      */
     int updateAccountStatus(AccountHisUpdateDO accountHisUpdateDO);
 
     /**
-     * 批量更新账户历史状态
+     * 批量更新账户历史状态  分库分表，需要增加 accountNo,或者定制 accountHisId 也作为分表字段
      * @param accountHisUpdateBatchDO
      * @return
      */

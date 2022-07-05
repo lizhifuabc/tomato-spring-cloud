@@ -4,7 +4,7 @@
 
 <mapper namespace="com.tomato.account.database.AccountHisMapper">
     <select id="selectByAccountHisId" parameterType="map" resultType="accountHisDO">
-        select * from account_his where account_his_id = #{accountHisId}
+        select * from account_his where account_his_id = #{accountHisId} and account_no = #{accountNo}
     </select>
 
     <insert id="insert" parameterType="accountHisInsertDO">
@@ -14,7 +14,7 @@
 
     <update id="updateAccountStatus" parameterType="accountHisUpdateDO">
         UPDATE account_his set account_status = #{accountStatus},version = version + 1,before_balance = #{beforeBalance},after_balance = #{afterBalance}
-                           WHERE account_his_id = #{accountHisId} and version = #{version} and account_status = 100
+                           WHERE account_his_id = #{accountHisId} and version = #{version} and account_status = 100 and account_no = #{accountNo}
     </update>
 
     <select id="selectByThirdNo" parameterType="map" resultType="accountHisDO">
@@ -27,7 +27,7 @@
         <foreach collection="accountHisId" item="id" index="index" open="(" close=")" separator=",">
             #{id}
         </foreach>
-         and version = #{version} and account_status = 100
+         and version = #{version} and account_status = 100 and account_no = #{accountNo}
     </update>
 
     <select id="selectDeal" parameterType = "map" resultType = "accountHisDealDO">

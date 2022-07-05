@@ -44,12 +44,13 @@ public class AccountService {
      * @param accountHisId
      */
     @Transactional(rollbackFor = Exception.class)
-    public void exe(Long accountHisId) {
-        AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(accountHisId);
+    public void exe(Long accountHisId,String accountNo) {
+        AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(accountHisId,accountNo);
         AccountDO accountDO = accountMapper.selectByAccountNo(accountHisDO.getAccountNo());
         log.info("账户余额操作开始 accountDO:{},accountHisDO:{}", accountDO,accountHisDO);
 
         AccountHisUpdateDO accountHisUpdateDO = new AccountHisUpdateDO();
+        accountHisUpdateDO.setAccountNo(accountHisDO.getAccountNo());
         accountHisUpdateDO.setAccountHisId(accountHisDO.getAccountHisId());
         accountHisUpdateDO.setAccountStatus(AccountStatusEnum.SUCCESS.getCode());
         accountHisUpdateDO.setBeforeBalance(accountDO.getBalance());
@@ -89,6 +90,7 @@ public class AccountService {
         AccountHisUpdateBatchDO accountHisUpdateBatchDO = new AccountHisUpdateBatchDO();
         accountHisUpdateBatchDO.setAccountHisId(Arrays.asList(accountHisDealDO.getAccountHisIds().split(",")));
         accountHisUpdateBatchDO.setAccountStatus(AccountStatusEnum.SUCCESS.getCode());
+        accountHisUpdateBatchDO.setAccountNo(accountNo);
         accountHisUpdateBatchDO.setVersion(0);
         accountHisUpdateBatchDO.setBeforeBalance(accountDO.getBalance());
         accountHisUpdateBatchDO.setAfterBalance(accountDO.getBalance().add(accountHisDealDO.getSum()));
