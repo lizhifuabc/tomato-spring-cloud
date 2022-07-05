@@ -28,7 +28,7 @@ public class Snowflake {
      */
     private final long workerId;
     /**
-     * 时间起始标记点，作为基准，一般取系统的最近时间，默认2022-07-05
+     * 时间起始标记点，作为基准，一般取系统的最近时间，默认2022-07-05（一旦确定不能变动）
      */
     private final long epoch = 1656950400000L;
     /**

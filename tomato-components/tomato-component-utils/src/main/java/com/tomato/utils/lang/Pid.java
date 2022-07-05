@@ -1,0 +1,54 @@
+package com.tomato.utils.lang;
+
+import com.tomato.utils.StringPool;
+import com.tomato.utils.StringUtils;
+
+import java.lang.management.ManagementFactory;
+
+/**
+ * 进程ID单例封装<br>
+ * 第一次访问时调用{@link ManagementFactory#getRuntimeMXBean()}获取PID信息，之后直接使用缓存值
+ *
+ * @author looly
+ * @since 5.8.0
+ */
+public enum Pid {
+	/**
+	 * 单例对象
+	 */
+	INSTANCE;
+
+	private final int pid;
+
+	Pid() {
+		this.pid = getPid();
+	}
+
+	/**
+	 * 获取PID值
+	 *
+	 * @return pid
+	 */
+	public int get() {
+		return this.pid;
+	}
+
+	/**
+	 * 获取当前进程ID，首先获取进程名称，读取@前的ID值，如果不存在，则读取进程名的hash值
+	 *
+	 * @return 进程ID
+	 * @throws RuntimeException 进程名称为空
+	 */
+	private static int getPid() throws RuntimeException {
+		final String processName = ManagementFactory.getRuntimeMXBean().getName();
+		if (StringUtils.isBlank(processName)) {
+			throw new RuntimeException("Process name is blank!");
+		}
+		final int atIndex = processName.indexOf(StringPool.AT);
+		if (atIndex > 0) {
+			return Integer.parseInt(processName.substring(0, atIndex));
+		} else {
+			return processName.hashCode();
+		}
+	}
+}
