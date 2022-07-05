@@ -36,9 +36,9 @@ public class MerchantInfoService {
         MerchantInfoDO merchantInfoDO = new MerchantInfoDO();
         BeanUtils.copyProperties(merchantCreateReq, merchantInfoDO);
         // TODO 商编生成唯一ID
-        // 前缀2位:商户类型
+        // 前缀1位:商户类型 @link MerchantTypeEnum
         // 时间戳:20220701145449
-        merchantInfoDO.setMerchantNo(merchantCreateReq.getMerchantType()+System.currentTimeMillis()+"");
+        merchantInfoDO.setMerchantNo(merchantCreateReq.getMerchantType() + System.currentTimeMillis()+"");
         int i = merchantInfoMapper.insert(merchantInfoDO);
         if (i == 1) {
             // 商户创建成功

@@ -26,6 +26,7 @@ create table `order_info`  (
     `notice_web` varchar(128)  comment '页面通知地址',
     `notice_sys` varchar(128)  comment '系统通知地址',
     `order_type` tinyint(1) not null comment '订单类型：标准版或专业版',
+    `ext_param` VARCHAR(128) default null COMMENT '商户扩展参数',
     `pay_no` varchar(50)  comment '支付号',
 
     primary key (id),

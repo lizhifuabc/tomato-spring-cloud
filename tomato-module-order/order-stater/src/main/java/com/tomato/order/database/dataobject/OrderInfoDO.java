@@ -110,12 +110,12 @@ public class OrderInfoDO extends BaseDO {
     private String remark;
 
     /**
-     * 页面通知地址
+     * 跳转通知地址
      */
     private String noticeWeb;
 
     /**
-     * 系统通知地址
+     * 异步通知地址
      */
     private String noticeSys;
 
@@ -128,4 +128,8 @@ public class OrderInfoDO extends BaseDO {
      * 支付号
      */
     private String payNo;
+    /**
+     * 商户扩展参数
+     */
+    private String extParam;
 }

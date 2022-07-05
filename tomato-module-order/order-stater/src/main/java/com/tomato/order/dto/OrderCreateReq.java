@@ -59,4 +59,7 @@ public class OrderCreateReq extends Req {
      */
     @NotNull(message = "支付方式不能为空")
     private Integer payType;
+    /** 商户扩展参数 **/
+    @Length(max = 128, message = "商户扩展参数长度不能大于128")
+    private String extParam;
 }
