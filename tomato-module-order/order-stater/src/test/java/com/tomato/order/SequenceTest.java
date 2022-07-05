@@ -20,7 +20,7 @@ public class SequenceTest {
     private InetUtils inetUtils;
     @Test
     public void test(){
-        Snowflake snowflake = Snowflake.create(1L);
+        Snowflake snowflake = Snowflake.create(1013L);
         Sequence sequence = new Sequence(inetUtils.findFirstNonLoopbackAddress());
         for (int i = 0; i < 100; i++) {
             System.out.println(sequence.nextId());

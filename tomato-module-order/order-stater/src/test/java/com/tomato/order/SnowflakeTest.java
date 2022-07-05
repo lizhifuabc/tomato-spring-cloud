@@ -1,5 +1,7 @@
 package com.tomato.order;
 
+import com.tomato.utils.lang.Snowflake;
+
 /**
  * Snowflake
  *
@@ -11,6 +13,9 @@ public class SnowflakeTest {
     private final static long datacenterIdBits = 5L;
     private final static long maxWorkerId = -1L ^ (-1L << workerIdBits);
     public static void main(String[] args) {
-        System.out.println(maxWorkerId);
+        Snowflake snowflake = Snowflake.create(1013L);
+        for (int i = 0; i < 1; i++) {
+            System.out.println(snowflake.nextId());
+        }
     }
 }
