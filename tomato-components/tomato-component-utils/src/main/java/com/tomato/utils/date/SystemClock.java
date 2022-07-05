@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
  * System.currentTimeMillis()之所以慢是因为去跟系统打了一次交道
  * 后台定时更新时钟，JVM退出时，线程自动回收
  *
- * see： http://git.oschina.net/yu120/sequence
- * @author lry,looly
+ * see： <a href="http://git.oschina.net/yu120/sequence">sequence</a>
+ * @author lry, looly
  */
 public class SystemClock {
 
