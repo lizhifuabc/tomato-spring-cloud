@@ -44,4 +44,8 @@ public class OrderRabbitService {
                 .build();
         rabbitTemplate.convertAndSend("order.callback.exchange", null, accountReq,correlationData);
     }
+    public void notice(String orderNo) {
+        log.info("通知订单：{}", orderNo);
+        rabbitTemplate.convertAndSend("order.notice.exchange", null, orderNo);
+    }
 }

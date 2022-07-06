@@ -11,7 +11,7 @@ create table `order_info`  (
     `order_status` int default 100 comment '订单状态',
     `account_status` varchar(36)  comment '入账状态',
     `refund_status` varchar(36)  comment '退款状态',
-    `notice_status` varchar(36)  comment '通知状态',
+    `notice_status` tinyint(1) default 0 comment '通知系统发送状态, 0-未发送,  1-已发送',
     `create_time` datetime not null default current_timestamp comment '创建时间',
     `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
     `complete_date` datetime comment '完成时间',

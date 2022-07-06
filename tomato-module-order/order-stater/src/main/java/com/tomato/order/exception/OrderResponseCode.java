@@ -14,6 +14,10 @@ public enum OrderResponseCode implements IResponseCode {
      */
     ORDER_ALREADY_COMPLETE("ORDER201", "订单已经完成"),
     /**
+     * 订单已经完成
+     */
+    ORDER_NOT_COMPLETE("ORDER201", "订单尚未完成"),
+    /**
      * 支付已经完成
      */
     PAY_ALREADY_COMPLETE("ORDER203", "支付已经完成"),

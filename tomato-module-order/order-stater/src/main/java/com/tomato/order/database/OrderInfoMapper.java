@@ -41,4 +41,11 @@ public interface OrderInfoMapper {
 
     @Update("update order_info set order_status = 400,version = version +1 where order_no = #{orderNo} and order_status = 200 and version = #{version}")
     int refund(@Param("orderNo") String orderNo,@Param("version") Integer version);
+
+    /**
+     * 更新通知状态为已发送
+     * @param orderNo
+     */
+    @Update("update order_info set notice_status = 1 where order_no = #{orderNo}")
+    void updateNoticeStatus(@Param("orderNo") String orderNo);
 }

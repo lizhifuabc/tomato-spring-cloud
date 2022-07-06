@@ -7,17 +7,22 @@ package com.tomato.order.enums;
  * @date 2022/6/18
  */
 public enum OrderStatusEnum {
-
-    DEAL(100, "处理中"),
-
-    SUCCESS(200, "成功"),
-
-    FAIL_CANCEL(300, "系统自动关闭"),
-    FAIL_CHANNEL(301, "通道获取失败"),
     /**
-     * 转入退款
+     * 处理中
      */
-    REFUND(400, "转入退款");
+    DEAL(100, "处理中"),
+    /**
+     * 终态-成功
+     */
+    SUCCESS(200, "成功"),
+    /**
+     * 终态-失败
+     */
+    FAIL_CANCEL(300, "系统自动关闭"),
+    /**
+     * 终态-失败
+     */
+    FAIL_CHANNEL(301, "通道获取失败");
     /**
      * 状态码
      */

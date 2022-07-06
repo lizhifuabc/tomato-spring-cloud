@@ -1,4 +1,4 @@
-package com.tomato.order;
+package com.tomato.notify;
 
 import com.tomato.utils.lang.Snowflake;
 import org.junit.jupiter.api.Test;

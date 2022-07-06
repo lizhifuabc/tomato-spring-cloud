@@ -1,6 +1,8 @@
 package com.tomato.order.service;
 
 import com.tomato.order.database.OrderInfoMapper;
+import com.tomato.order.database.dataobject.OrderInfoDO;
+import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.order.exception.OrderException;
 import com.tomato.order.exception.OrderResponseCode;
 import lombok.extern.slf4j.Slf4j;
@@ -34,4 +36,18 @@ public class OrderCheckService {
             throw new OrderException(OrderResponseCode.MERCHANT_ORDER_EXIST);
         }
     }
+
+    /**
+     * 校验订单是否已经终态
+     * @param orderNo
+     * @return
+     */
+    public OrderInfoDO checkOrderStatusFinal(String orderNo) {
+        OrderInfoDO orderInfoDO = orderInfoMapper.selectByOrderNo(orderNo);
+        if (orderInfoDO.getOrderStatus() > OrderStatusEnum.DEAL.getCode()) {
+            return orderInfoDO;
+        }
+        throw new OrderException(OrderResponseCode.ORDER_NOT_COMPLETE);
+    }
+
 }
