@@ -1,5 +1,8 @@
 package com.tomato.utils.lang;
 
+import com.tomato.utils.RandomUtil;
+import com.tomato.utils.date.SystemClock;
+
 import java.util.Random;
 
 /**
@@ -24,21 +27,46 @@ import java.util.Random;
  */
 public class Snowflake {
     /**
+     * 是否使用{@link SystemClock} 获取当前时间戳
+     */
+    private final boolean useSystemClock = false;
+    /**
+     * sequence随机种子（兼容低并发下，sequence均为0的情况）
+     * 当在低频模式下时，序号始终为0，导致生成ID始终为偶数<br>
+     * 此属性用于限定一个随机上限，在不同毫秒下生成序号时，给定一个随机数，避免偶数问题。<br>
+     * 注意次数必须小于{@link #sequenceMask}，{@code 0}表示不使用随机数。<br>
+     * 这个上限不包括值本身。
+     */
+    private final long randomSequenceLimit = 100;
+    /**
+     * 允许的时钟回拨毫秒数
+     */
+    private final long timeOffset = 5;
+    /**
      * 机器ID
      */
     private final long workerId;
+    /**
+     * 数据标识 ID 部分
+     */
+    private final long datacenterId;
     /**
      * 时间起始标记点，作为基准，一般取系统的最近时间，默认2022-07-05（一旦确定不能变动）
      */
     private final long epoch = 1656950400000L;
     /**
-     * 机器id所占的位数（源设计为5位，这里取消dataCenterId，采用10位，既1024台）
+     * 机器id所占的位数（5位）
      */
-    private final long workerIdBits = 10L;
+    private final long workerIdBits = 5L;
     /**
-     * 机器ID最大值: 1023 (从0开始)
+     * 最大支持机器节点数0~31，一共32个节点
+     */
+    private final long datacenterIdBits = 5L;
+    /**
+     * 最大支持数据中心节点数0~31，一共32个
      */
     private final long maxWorkerId = -1L ^ -1L << workerIdBits;
+    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
     /**
      * 序列在id中占的位数
      */
@@ -52,9 +80,13 @@ public class Snowflake {
      */
     private final long workerIdShift = sequenceBits;
     /**
+     * 机器ID向左移 24位
+     */
+    private final long datacenterIdShift = sequenceBits + workerIdBits;
+    /**
      * 时间戳向左移22位(5+5+12)
      */
-    private final long timestampLeftShift = sequenceBits + workerIdBits;
+    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
     /**
      * 并发控制，毫秒内序列(0~4095)
      */
@@ -68,18 +100,19 @@ public class Snowflake {
      */
     private final int HUNDRED_K = 100_000;
     /**
-     * sequence随机种子（兼容低并发下，sequence均为0的情况）
-     */
-    private static final Random RANDOM = new Random();
-    /**
+     * 实例化一个Snowflake ID生成器
      * @param workerId 机器Id
+     * @param datacenterId 数据中心Id
      */
-    private Snowflake(long workerId) {
-        if (workerId > maxWorkerId || workerId < 0) {
-            String message = String.format("worker Id can't be greater than %d or less than 0", maxWorkerId);
-            throw new IllegalArgumentException(message);
-        }
+    private Snowflake(long workerId,long datacenterId) {
+        Assert.isFalse(workerId > maxWorkerId || workerId < 0, ()->{
+            throw  new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+        });
+        Assert.isFalse(datacenterId > maxDatacenterId || datacenterId < 0, ()->{
+            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+        });
         this.workerId = workerId;
+        this.datacenterId = datacenterId;
     }
     /**
      * Snowflake Builder
@@ -87,8 +120,8 @@ public class Snowflake {
      * @param workerId 机器Id
      * @return Snowflake Instance
      */
-    public static Snowflake create(long workerId) {
-        return new Snowflake(workerId);
+    public static Snowflake create(long workerId,long datacenterId) {
+        return new Snowflake(workerId,datacenterId);
     }
     /**
      * 批量获取ID
@@ -121,22 +154,40 @@ public class Snowflake {
             // 毫秒内序列溢出
             if (sequence == 0) {
                 // 阻塞到下一个毫秒,获得新的时间戳
-                sequence = RANDOM.nextInt(100);
+                sequence = RandomUtil.randomLong(randomSequenceLimit);
                 timestamp = tilNextMillis(lastTimestamp);
             }
         } else {
             // 时间戳改变，毫秒内序列重置
-            sequence = RANDOM.nextInt(100);
+            sequence = RandomUtil.randomLong(randomSequenceLimit);
         }
+
         // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
-            String message = String.format("Clock moved backwards. Refusing to generate id for %d milliseconds.",
-                    (lastTimestamp - timestamp));
-            throw new RuntimeException(message);
+            if (this.lastTimestamp - timestamp < timeOffset) {
+                // 容忍指定的回拨，避免NTP校时造成的异常
+                timestamp = lastTimestamp;
+            } else {
+                // 如果服务器时间有问题(时钟后退) 报错。
+                String message = String.format("Clock moved backwards. Refusing to generate id for %d milliseconds.",(lastTimestamp - timestamp));
+                throw new IllegalStateException(message);
+            }
         }
         lastTimestamp = timestamp;
         // 移位并通过或运算拼到一起组成64位的ID
-        return timestamp - epoch << timestampLeftShift | workerId << workerIdShift | sequence;
+        // 时间戳部分 | 数据中心部分 | 机器标识部分 | 序列号部分
+        return ((timestamp - epoch) << timestampLeftShift)
+                | (datacenterId << datacenterIdShift)
+                | (workerId << workerIdShift)
+                | sequence;
+    }
+    /**
+     * 下一个ID（字符串形式）
+     *
+     * @return ID 字符串形式
+     */
+    public String nextIdStr() {
+        return Long.toString(nextId());
     }
     /**
      * 等待下一个毫秒的到来, 保证返回的毫秒数在参数lastTimestamp之后
@@ -146,6 +197,7 @@ public class Snowflake {
      */
     private long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
+        // 循环直到操作系统时间戳变化
         while (timestamp <= lastTimestamp) {
             timestamp = timeGen();
         }
@@ -157,6 +209,6 @@ public class Snowflake {
      * @return 获得系统当前毫秒数
      */
     private long timeGen() {
-        return System.currentTimeMillis();
+        return this.useSystemClock ? SystemClock.now() : System.currentTimeMillis();
     }
 }

@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 随机工具类
- *
+ * 部分代码参考：<a href="https://gitee.com/dromara/hutool">hutool</a>
  * @author lizhifu
  * @date 2022/7/5
  */
@@ -34,5 +34,15 @@ public class RandomUtil {
      */
     public static int randomInt(int limit) {
         return getRandom().nextInt(limit);
+    }
+    /**
+     * 获得指定范围内的随机数 [0,limit)
+     *
+     * @param limit 限制随机数的范围，不包括这个数
+     * @return 随机数
+     * @see ThreadLocalRandom#nextLong(long)
+     */
+    public static long randomLong(long limit) {
+        return getRandom().nextLong(limit);
     }
 }

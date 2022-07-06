@@ -5,8 +5,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 
 /**
- * TODO
- *
+ * 网络相关工具
+ * copy from <a href="https://gitee.com/dromara/hutool">hutool</a>
  * @author lizhifu
  * @date 2022/7/5
  */
