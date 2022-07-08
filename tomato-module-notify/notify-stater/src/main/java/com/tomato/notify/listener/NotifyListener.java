@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.tomato.notify.config.ThreadPoolTaskConfig;
 import com.tomato.notify.exception.NotifyException;
 import com.tomato.notify.pojo.NoticeReceiveReq;
+import com.tomato.notify.service.NotifyRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -23,8 +24,14 @@ import java.util.Map;
 @Slf4j
 @Component
 public class NotifyListener {
+    private final NotifyRecordService notifyRecordService;
+
+    public NotifyListener(NotifyRecordService notifyRecordService) {
+        this.notifyRecordService = notifyRecordService;
+    }
+
     @Async(ThreadPoolTaskConfig.TASK_EXECUTOR_POOL)
-//    @RabbitListener(queues = "order.callback.notice.queue",ackMode = "MANUAL")
+    @RabbitListener(queues = "order.callback.notice.queue",ackMode = "MANUAL")
     public void account(NoticeReceiveReq noticeReceiveReq, Message message, Channel channel, @Headers Map<String, Object> headers) throws IOException {
         log.info("支付回调：商户通知 {}",noticeReceiveReq);
         try {

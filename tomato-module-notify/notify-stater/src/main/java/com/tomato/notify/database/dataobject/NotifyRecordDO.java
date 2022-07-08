@@ -55,7 +55,7 @@ public class NotifyRecordDO {
     /**
      * 通知状态，0-通知中，1-通知成功，2-通知失败
      */
-    private Integer noticeStatus;
+    private Integer notifyStatus;
 
     /**
      * 创建时间

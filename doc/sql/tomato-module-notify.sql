@@ -10,7 +10,7 @@ create table `notify_record` (
    `res_result` text default null comment '通知响应结果',
    `notify_count` int(11) not null default '0' comment '通知次数',
    `notify_count_limit` int(11) not null default '6' comment '最大通知次数, 默认6次',
-   `notice_status` tinyint(1) default 0 comment '通知状态,0-通知中,1-通知成功,2-通知失败',
+   `notify_status` tinyint(1) default 0 comment '通知状态,0-通知中,1-通知成功,2-通知失败',
    `create_time` datetime not null default current_timestamp comment '创建时间',
    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
    `complete_date` datetime comment '完成时间',

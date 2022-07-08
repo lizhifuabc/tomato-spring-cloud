@@ -8,15 +8,15 @@ package com.tomato.notify.enums;
  */
 public enum NoticeStatusEnum {
     /**
-     * 未发送
+     * 通知中
      */
     DEAL(0, "通知中"),
     /**
-     * 未发送
+     * 通知失败
      */
     FAIL(1, "通知失败"),
     /**
-     * 已发送
+     * 通知成功
      */
     SUCCESS(2, "通知成功");
     private final Integer code;

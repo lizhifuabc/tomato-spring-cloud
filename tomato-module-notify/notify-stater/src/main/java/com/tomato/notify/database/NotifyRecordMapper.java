@@ -2,6 +2,9 @@ package com.tomato.notify.database;
 
 import com.tomato.notify.database.dataobject.NotifyRecordDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 商户通知记录表
@@ -17,4 +20,13 @@ public interface NotifyRecordMapper {
      * @return
      */
     int insert(NotifyRecordDO notifyRecordDO);
+    @Update("update notify_record set notify_status = #{notifyStatus},res_result = #{resResult},notify_count = notify_count +1 where notify_id = #{orderNo}")
+    void updateNotifyStatus(@Param("notifyId") Long notifyId,@Param("notifyStatus") Integer notifyStatus,@Param("resResult") String resResult);
+
+    /**
+     * 主键查询
+     * @param notifyId
+     * @return
+     */
+    NotifyRecordDO selectByNotifyId(@Param("notifyId") Long notifyId);
 }
