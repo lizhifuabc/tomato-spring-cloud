@@ -5,6 +5,7 @@ import com.tomato.merchant.database.dataobject.MerchantInfoDO;
 import com.tomato.merchant.dto.MerchantCreateReq;
 import com.tomato.merchant.exception.MerchantException;
 import com.tomato.merchant.exception.MerchantResponseCode;
+import com.tomato.utils.RandomUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class MerchantInfoService {
         // 前缀1位:商户类型 @link MerchantTypeEnum
         // 时间戳:20220701145449
         merchantInfoDO.setMerchantNo(merchantCreateReq.getMerchantType() + System.currentTimeMillis()+"");
+        merchantInfoDO.setSecret(RandomUtil.randomString(128));
         int i = merchantInfoMapper.insert(merchantInfoDO);
         if (i == 1) {
             // 商户创建成功

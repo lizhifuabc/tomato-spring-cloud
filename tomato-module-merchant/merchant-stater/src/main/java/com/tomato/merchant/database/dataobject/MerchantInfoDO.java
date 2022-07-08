@@ -20,6 +20,10 @@ public class MerchantInfoDO extends BaseDO {
      */
     private String merchantName;
     /**
+     * 秘钥
+     */
+    private String secret;
+    /**
      * 注册邮箱
      */
     private String mail;

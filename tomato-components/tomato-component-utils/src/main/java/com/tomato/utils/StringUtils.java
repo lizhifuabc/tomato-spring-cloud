@@ -11,6 +11,20 @@ import java.nio.charset.StandardCharsets;
  */
 public class StringUtils {
     /**
+     * <p>字符串是否为空，空的定义如下：</p>
+     * <ol>
+     *     <li>{@code null}</li>
+     *     <li>空字符串：{@code ""}</li>
+     * </ol>
+     *
+     * @param str 被检测的字符串
+     * @return 是否为空
+     * @see #isBlank(CharSequence)
+     */
+    public static boolean isEmpty(CharSequence str) {
+        return str == null || str.length() == 0;
+    }
+    /**
      * @see #isBlank(CharSequence)
      */
     public static boolean isNotBlank(CharSequence cs) {

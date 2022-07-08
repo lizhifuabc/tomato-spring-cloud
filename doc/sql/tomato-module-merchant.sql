@@ -9,6 +9,7 @@ create table merchant_info (
    `merchant_no`  varchar(50) not null comment '商户编号',
    `merchant_type`  tinyint(1) not null comment '商户类型',
    `merchant_name`  varchar(256) not null comment '商户名称',
+   `secret` VARCHAR(128) NOT NULL COMMENT '秘钥',
    `mail`   varchar(50) not null comment '注册邮箱',
    `status` tinyint(1) null default 0 comment '状态【0->正常；1->关闭】',
    `audit_status` tinyint(1) null default 1 comment '状态【0->审核通过；1->审核中；2->审核拒绝】',
