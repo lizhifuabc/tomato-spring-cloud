@@ -20,9 +20,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NotifyRecordService {
     private final NotifyRecordMapper notifyRecordMapper;
+    private final NotifyRecordMqService notifyRecordMqService;
+
     private final Snowflake snowflake;
-    public NotifyRecordService(NotifyRecordMapper notifyRecordMapper, Snowflake snowflake) {
+    public NotifyRecordService(NotifyRecordMapper notifyRecordMapper, NotifyRecordMqService notifyRecordMqService, Snowflake snowflake) {
         this.notifyRecordMapper = notifyRecordMapper;
+        this.notifyRecordMqService = notifyRecordMqService;
         this.snowflake = snowflake;
     }
     public NotifyRecordDO create(NoticeReceiveReq noticeReceiveReq) {
@@ -48,9 +51,11 @@ public class NotifyRecordService {
             // TODO: 2020/7/6 发送通知
             Long sign = System.currentTimeMillis();
             if(sign % 2 == 0){
+                // 商户返回成功
                 res = "success";
             }else {
-                throw new RuntimeException("发送失败");
+                // 商户返回失败
+                res = "fail";
             }
         } catch (Exception e) {
             log.error("http error", e);
@@ -59,23 +64,21 @@ public class NotifyRecordService {
 
         //通知成功
         if(SendResBackEnum.SUCCESS.name().equalsIgnoreCase(res)){
-            notifyRecordMapper.updateNotifyStatus(notifyRecordDO.getNotifyId(), NoticeStatusEnum.SUCCESS.getCode(), res);
+            notifyRecordMapper.completeNotify(notifyRecordDO.getNotifyId(), NoticeStatusEnum.SUCCESS.getCode(), res);
             return notifyRecordDO;
         }
         // 通知失败
         // 通知次数 >= 最大通知次数时， 更新响应结果为失败， 不在继续延迟发送消息
         if((notifyRecordDO.getNotifyCount() +1) >= notifyRecordDO.getNotifyCountLimit() ){
-            notifyRecordMapper.updateNotifyStatus(notifyRecordDO.getNotifyId(), NoticeStatusEnum.FAIL.getCode(), res);
+            notifyRecordMapper.completeNotify(notifyRecordDO.getNotifyId(), NoticeStatusEnum.FAIL.getCode(), res);
             return notifyRecordDO;
         }
-
         // 继续发送MQ 延迟发送
-        // mchNotifyRecordService.updateNotifyStatus(notifyRecordDO.getNotifyId(), NoticeStatusEnum.DEAL.getCode(), res);
+        notifyRecordMapper.updateNotifyStatus(notifyRecordDO.getNotifyId(), NoticeStatusEnum.DEAL.getCode(), res);
         // 通知延时次数
         //        1   2  3  4   5   6
         //        0  30 60 90 120 150
-        // mqSender.send(PayOrderMchNotifyMQ.build(notifyId), currentCount * 30);
-
+        notifyRecordMqService.sendNotify(notifyId,notifyRecordDO.getNotifyCount() * 30);
         return notifyRecordDO;
     }
 }

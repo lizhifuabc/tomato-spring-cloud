@@ -1,6 +1,7 @@
 package com.tomato.notify.service;
 
 import com.tomato.notify.database.NotifyRecordMapper;
+import com.tomato.notify.database.dataobject.NotifyRecordDO;
 import com.tomato.notify.dto.NoticeReceiveReq;
 import com.tomato.notify.exception.NotifyException;
 import com.tomato.notify.exception.NotifyResponseCode;
@@ -23,8 +24,8 @@ public class NotifyRecordCheckService {
     }
     public void check(NoticeReceiveReq noticeReceiveReq) {
         // TODO 唯一性流水号校验 redis
-        boolean checkOrderNo = notifyRecordMapper.checkOrderNo(noticeReceiveReq.getOrderNo());
-        if (checkOrderNo) {
+        NotifyRecordDO notifyRecordDO = notifyRecordMapper.selectByOrderNo(noticeReceiveReq.getOrderNo());
+        if (notifyRecordDO != null) {
             log.warn("订单号已存在：{}",noticeReceiveReq);
             throw new NotifyException(NotifyResponseCode.MERCHANT_ORDER_EXIST);
         }

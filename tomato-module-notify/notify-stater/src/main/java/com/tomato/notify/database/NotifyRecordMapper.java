@@ -20,8 +20,6 @@ public interface NotifyRecordMapper {
      * @return
      */
     int insert(NotifyRecordDO notifyRecordDO);
-    @Update("update notify_record set notify_status = #{notifyStatus},res_result = #{resResult},notify_count = notify_count +1 where notify_id = #{orderNo}")
-    void updateNotifyStatus(@Param("notifyId") Long notifyId,@Param("notifyStatus") Integer notifyStatus,@Param("resResult") String resResult);
 
     /**
      * 主键查询
@@ -30,6 +28,24 @@ public interface NotifyRecordMapper {
      */
     NotifyRecordDO selectByNotifyId(@Param("notifyId") Long notifyId);
 
+    /**
+     * 通知完成或者失败后更新通知记录
+     * @param notifyId
+     * @param notifyStatus
+     * @param resResult
+     */
+    @Update("update notify_record set complete_date = now(),notify_status = #{notifyStatus},res_result = #{resResult},notify_count = notify_count +1 where notify_id = #{notifyId}")
+    void completeNotify(@Param("notifyId") Long notifyId, @Param("notifyStatus") Integer notifyStatus, @Param("resResult") String resResult);
+
     @Select("select count(*) from notify_record where order_no = #{orderNo} limit 1")
-    boolean checkOrderNo(@Param("orderNo") String orderNo);
+    NotifyRecordDO selectByOrderNo(@Param("orderNo") String orderNo);
+
+    /**
+     * 更新通知次数
+     * @param notifyId
+     * @param notifyStatus
+     * @param resResult
+     */
+    @Update("update notify_record set notify_status = #{notifyStatus},res_result = #{resResult},notify_count = notify_count +1 where notify_id = #{notifyId}")
+    void updateNotifyStatus(@Param("notifyId") Long notifyId, @Param("notifyStatus") Integer notifyStatus, @Param("resResult") String resResult);
 }
