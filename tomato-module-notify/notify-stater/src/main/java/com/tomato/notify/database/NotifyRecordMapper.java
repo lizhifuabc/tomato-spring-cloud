@@ -29,4 +29,7 @@ public interface NotifyRecordMapper {
      * @return
      */
     NotifyRecordDO selectByNotifyId(@Param("notifyId") Long notifyId);
+
+    @Select("select count(*) from notify_record where order_no = #{orderNo} limit 1")
+    boolean checkOrderNo(@Param("orderNo") String orderNo);
 }

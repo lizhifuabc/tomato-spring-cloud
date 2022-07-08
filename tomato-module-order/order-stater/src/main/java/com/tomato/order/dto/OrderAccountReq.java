@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 @Data
 @Builder
-public class AccountReq extends Rep {
+public class OrderAccountReq extends Rep {
     /**
      * 商户编号
      */

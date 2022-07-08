@@ -15,7 +15,7 @@ public enum NotifyResponseCode implements IResponseCode {
     ACCOUNT_NOT_EXIST("ACCOUNT100", "账户不存在"),
     ACCOUNT_EXIST("ACCOUNT105", "账户已经存在"),
     ACCOUNT_BALANCE_NOT_ENOUGH("ACCOUNT101", "账户余额不足"),
-    ACCOUNT_HIS_EXIST("ACCOUNT102", "第三方流水号重复"),
+    MERCHANT_ORDER_EXIST("NOTIFY102", "第三方流水号重复"),
 
     ACCOUNT_UPDATE_FAIL("ACCOUNT103", "账户余额更新失败"),
 

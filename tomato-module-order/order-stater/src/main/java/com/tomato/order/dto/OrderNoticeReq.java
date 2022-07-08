@@ -1,16 +1,18 @@
-package com.tomato.notify.pojo;
+package com.tomato.order.dto;
 
 import com.tomato.data.dto.Req;
+import lombok.Builder;
 import lombok.Data;
 
 /**
- * 商户通知记录表
+ * 通知请求
  *
  * @author lizhifu
- * @date 2022/7/6
+ * @date 2022/7/8
  */
 @Data
-public class NoticeReceiveReq extends Req {
+@Builder
+public class OrderNoticeReq extends Req {
     /**
      * 订单号
      */

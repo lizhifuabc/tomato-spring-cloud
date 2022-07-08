@@ -4,7 +4,7 @@ import com.tomato.notify.database.NotifyRecordMapper;
 import com.tomato.notify.database.dataobject.NotifyRecordDO;
 import com.tomato.notify.enums.NoticeStatusEnum;
 import com.tomato.notify.enums.SendResBackEnum;
-import com.tomato.notify.pojo.NoticeReceiveReq;
+import com.tomato.notify.dto.NoticeReceiveReq;
 import com.tomato.utils.lang.Snowflake;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -32,15 +32,16 @@ public class NotifyRecordService {
         notifyRecordMapper.insert(notifyRecordDO);
         return notifyRecordDO;
     }
-    public void sendNotify(NotifyRecordDO notifyRecordDO) {
+    public NotifyRecordDO sendNotify(Long notifyId) {
+        NotifyRecordDO notifyRecordDO = notifyRecordMapper.selectByNotifyId(notifyId);
         log.info("发送商户通知MQ, msg={}", notifyRecordDO);
         if(notifyRecordDO.getNotifyStatus() > NoticeStatusEnum.DEAL.getCode()) {
             log.info("查询通知记录不存在或状态不是通知中:{}",notifyRecordDO.getNotifyId());
-            return;
+            return notifyRecordDO;
         }
         if( notifyRecordDO.getNotifyCount() >= notifyRecordDO.getNotifyCountLimit() ){
             log.info("已达到最大发送次数:{}",notifyRecordDO.getNotifyId());
-            return;
+            return notifyRecordDO;
         }
         String res = "";
         try {
@@ -59,13 +60,13 @@ public class NotifyRecordService {
         //通知成功
         if(SendResBackEnum.SUCCESS.name().equalsIgnoreCase(res)){
             notifyRecordMapper.updateNotifyStatus(notifyRecordDO.getNotifyId(), NoticeStatusEnum.SUCCESS.getCode(), res);
-            return;
+            return notifyRecordDO;
         }
         // 通知失败
         // 通知次数 >= 最大通知次数时， 更新响应结果为失败， 不在继续延迟发送消息
         if((notifyRecordDO.getNotifyCount() +1) >= notifyRecordDO.getNotifyCountLimit() ){
             notifyRecordMapper.updateNotifyStatus(notifyRecordDO.getNotifyId(), NoticeStatusEnum.FAIL.getCode(), res);
-            return;
+            return notifyRecordDO;
         }
 
         // 继续发送MQ 延迟发送
@@ -75,6 +76,6 @@ public class NotifyRecordService {
         //        0  30 60 90 120 150
         // mqSender.send(PayOrderMchNotifyMQ.build(notifyId), currentCount * 30);
 
-        return;
+        return notifyRecordDO;
     }
 }

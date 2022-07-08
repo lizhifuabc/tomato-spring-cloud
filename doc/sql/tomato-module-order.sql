@@ -19,7 +19,7 @@ create table `order_info`  (
     `pay_type` int not null comment '支付方式',
     `merchant_order_no` varchar(36) not null  comment '商户订单号',
     `merchant_fee` decimal(14,4)  not null comment '手续费',
-    `merchant_rate` decimal(14,4)  not null comment '费率',
+    `merchant_rate` decimal(14,4)  not null comment '费率快照',
     `merchant_no` varchar(16)  not null comment '商户编号',
     `merchant_name` varchar(256)  comment '商户名称',
     `remark` varchar(256)  comment '备注',

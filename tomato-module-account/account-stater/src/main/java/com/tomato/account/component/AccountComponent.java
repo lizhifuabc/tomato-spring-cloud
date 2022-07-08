@@ -30,6 +30,6 @@ public class AccountComponent {
         accountService.receive(accountHisInsertDO);
     }
     public void exe(String accountNo,Long accountHisId){
-        accountService.exe(accountHisId);
+        accountService.exe(accountHisId,accountNo);
     }
 }

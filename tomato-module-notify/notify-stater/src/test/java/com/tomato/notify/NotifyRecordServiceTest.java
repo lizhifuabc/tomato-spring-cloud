@@ -1,6 +1,6 @@
 package com.tomato.notify;
 
-import com.tomato.notify.pojo.NoticeReceiveReq;
+import com.tomato.notify.dto.NoticeReceiveReq;
 import com.tomato.notify.service.NotifyRecordService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,13 +1,13 @@
 package com.tomato.order.service;
 
 import com.tomato.order.database.dataobject.OrderInfoDO;
-import com.tomato.order.dto.AccountReq;
+import com.tomato.order.dto.OrderAccountReq;
+import com.tomato.order.dto.OrderNoticeReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
@@ -36,16 +36,25 @@ public class OrderRabbitService {
         log.info("入账mq：{}", orderInfoDO);
         // TODO 消息唯一ID生成
         CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-        AccountReq accountReq = AccountReq.builder()
+        OrderAccountReq orderAccountReq = OrderAccountReq.builder()
                 .merchantNo(orderInfoDO.getMerchantNo())
                 .thirdNo(orderInfoDO.getOrderNo())
-                .amount(orderInfoDO.getRequestAmount())
+                .amount(orderInfoDO.getRequestAmount().subtract(orderInfoDO.getMerchantFee()))
                 .accountHisType("支付")
                 .build();
-        rabbitTemplate.convertAndSend("order.callback.exchange", null, accountReq,correlationData);
+        rabbitTemplate.convertAndSend("order.callback.exchange", null, orderAccountReq,correlationData);
     }
-    public void notice(String orderNo) {
-        log.info("通知订单：{}", orderNo);
-        rabbitTemplate.convertAndSend("order.notice.exchange", null, orderNo);
+    public void notice(OrderInfoDO orderInfoDO) {
+        log.info("通知订单：{}", orderInfoDO);
+        // TODO 消息唯一ID生成
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        OrderNoticeReq orderNoticeReq = OrderNoticeReq.builder()
+                .orderNo(orderInfoDO.getOrderNo())
+                .merchantOrderNo(orderInfoDO.getMerchantOrderNo())
+                .merchantNo(orderInfoDO.getMerchantNo())
+                // TODO 通知地址参数拼接
+                .notifyUrl(orderInfoDO.getNoticeSys())
+                .build();
+        rabbitTemplate.convertAndSend("order.callback.notice.exchange", "order.callback.notice.routing.key", orderNoticeReq,correlationData);
     }
 }

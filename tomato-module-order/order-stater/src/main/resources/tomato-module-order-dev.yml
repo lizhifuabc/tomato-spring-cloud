@@ -65,11 +65,12 @@ spring:
         exchange:
           name: order.callback.exchange
           type: FANOUT
-      - queue:
+      - routing-key: order.callback.notice.routing.key
+        queue:
           name: order.callback.notice.queue
         exchange:
-          name: order.callback.exchange
-          type: FANOUT
+          name: order.callback.notice.exchange
+          type: DIRECT
       ## 延迟队列配置
       - routing-key: order.delay.routing.key
         queue:

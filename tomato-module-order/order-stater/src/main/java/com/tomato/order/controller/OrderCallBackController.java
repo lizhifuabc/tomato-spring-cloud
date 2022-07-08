@@ -6,7 +6,6 @@ import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.order.enums.PayStatusEnum;
 import com.tomato.order.service.OrderRabbitService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022/6/20
  */
 @RestController
-@RequestMapping("/callback")
+@RequestMapping("/order/callback")
 @Slf4j
-public class CallBackController {
+public class OrderCallBackController {
     private final OrderRabbitService orderRabbitService;
     private final OrderCompleteComponent orderCompleteComponent;
-    public CallBackController(OrderRabbitService orderRabbitService, OrderCompleteComponent orderCompleteComponent) {
+    public OrderCallBackController(OrderRabbitService orderRabbitService, OrderCompleteComponent orderCompleteComponent) {
         this.orderRabbitService = orderRabbitService;
         this.orderCompleteComponent = orderCompleteComponent;
     }
@@ -32,5 +31,6 @@ public class CallBackController {
         log.info("支付回调：微信支付 {}",payNo);
         OrderInfoDO orderInfoDO = orderCompleteComponent.complete(payNo, OrderStatusEnum.SUCCESS, PayStatusEnum.SUCCESS, "支付成功");
         orderRabbitService.account(orderInfoDO);
+        orderRabbitService.notice(orderInfoDO);
     }
 }
