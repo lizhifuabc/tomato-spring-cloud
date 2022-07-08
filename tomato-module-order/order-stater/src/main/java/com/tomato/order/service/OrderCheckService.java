@@ -1,12 +1,19 @@
 package com.tomato.order.service;
 
+import com.tomato.merchant.dto.MerchantRateRep;
 import com.tomato.order.database.OrderInfoMapper;
 import com.tomato.order.database.dataobject.OrderInfoDO;
+import com.tomato.order.dto.OrderCreateReq;
 import com.tomato.order.enums.OrderStatusEnum;
 import com.tomato.order.exception.OrderException;
 import com.tomato.order.exception.OrderResponseCode;
+import com.tomato.utils.crypto.SignUtil;
+import com.tomato.utils.crypto.digest.HmacAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 订单相关校验服务
@@ -49,5 +56,14 @@ public class OrderCheckService {
         }
         throw new OrderException(OrderResponseCode.ORDER_NOT_COMPLETE);
     }
-
+    public void checkSign(OrderCreateReq orderCreateReq, MerchantRateRep merchantRateRep){
+        Map<String,Object> map = new HashMap<>(16);
+        map.put("merchantNo",merchantRateRep.getMerchantNo());
+        map.put("merchantOrderNo",orderCreateReq.getMerchantOrderNo());
+        map.put("requestAmount",orderCreateReq.getRequestAmount());
+        String sign = SignUtil.sign(map, merchantRateRep.getSecret(), HmacAlgorithm.HmacSHA256);
+        if(!orderCreateReq.getSign().equals(sign)){
+            throw new OrderException(OrderResponseCode.MERCHANT_SIGN_ERROR);
+        }
+    }
 }

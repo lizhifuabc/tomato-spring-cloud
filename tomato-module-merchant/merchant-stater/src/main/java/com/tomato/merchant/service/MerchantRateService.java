@@ -45,6 +45,7 @@ public class MerchantRateService {
         merchantRateRep.setRate(merchantRateDO.getRate());
         merchantRateRep.setMerchantName(merchantInfoDO.getMerchantName());
         merchantRateRep.setMerchantNo(merchantInfoDO.getMerchantNo());
+        merchantRateRep.setSecret(merchantInfoDO.getSecret());
         return merchantRateRep;
     }
 }

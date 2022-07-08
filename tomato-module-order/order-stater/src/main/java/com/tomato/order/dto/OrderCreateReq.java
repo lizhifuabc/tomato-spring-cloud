@@ -62,4 +62,9 @@ public class OrderCreateReq extends Req {
     /** 商户扩展参数 **/
     @Length(max = 128, message = "商户扩展参数长度不能大于128")
     private String extParam;
+    /**
+     * 签名
+     */
+    @NotBlank(message = "签名不能为空")
+    private String sign;
 }

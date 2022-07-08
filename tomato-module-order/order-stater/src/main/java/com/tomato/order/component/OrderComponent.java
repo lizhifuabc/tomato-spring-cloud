@@ -35,6 +35,8 @@ public class OrderComponent {
 
     public OrderCreateRep createOrder(OrderCreateReq orderCreateReq, MerchantRateRep merchantRateRep) {
         log.info("创建订单：{},{}", orderCreateReq,merchantRateRep);
+        // 签名校验
+        orderCheckService.checkSign(orderCreateReq, merchantRateRep);
         // 订单校验
         orderCheckService.checkMerchantOrderNo(orderCreateReq.getMerchantNo(), orderCreateReq.getMerchantOrderNo());
         // 订单入库

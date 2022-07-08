@@ -32,7 +32,11 @@ public enum OrderResponseCode implements IResponseCode {
     /**
      * 失败
      */
-    MERCHANT_ORDER_EXIST("ORDER100", "订单已存在");
+    MERCHANT_ORDER_EXIST("ORDER100", "订单已存在"),
+    /**
+     * 签名错误
+     */
+    MERCHANT_SIGN_ERROR("ORDER101", "签名错误");
     /**
      * 返回码
      */

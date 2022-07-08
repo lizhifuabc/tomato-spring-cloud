@@ -26,4 +26,8 @@ public class MerchantRateRep extends Rep {
      * 商户名称
      */
     private String merchantName;
+    /**
+     * 秘钥
+     */
+    private String secret;
 }
