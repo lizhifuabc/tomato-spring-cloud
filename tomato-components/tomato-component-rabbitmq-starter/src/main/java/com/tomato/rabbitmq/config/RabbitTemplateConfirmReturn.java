@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
- * 消息发送成功的回调
+ * 消息发送成功的回调,确认消息到达MQ服务器
  * 需要开启发送确认
  * 生产者 ==>> Exchange 的回调确认
  * publisher-confirm-type 配置为 CORRELATED 或者 SIMPLE 时都会在此处进行回调。

@@ -52,6 +52,8 @@ spring:
     username: guest  # 设置RabbitMQ用户名
     password: guest  # 设置RabbitMQ密码
     # 如果没有抵达队列,以异步发送优先回调returns确认
+    publisher-confirms: true # 消息成功确认
+    publisher-returns: true # 消息失败确认
     template:
       mandatory: true
     publisher-confirm-type: simple
