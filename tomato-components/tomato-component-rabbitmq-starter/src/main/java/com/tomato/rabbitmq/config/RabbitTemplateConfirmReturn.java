@@ -1,5 +1,6 @@
 package com.tomato.rabbitmq.config;
 
+import com.tomato.rabbitmq.service.RabbitConfirmCallbackService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,9 +20,10 @@ import javax.annotation.Resource;
 @Slf4j
 public class RabbitTemplateConfirmReturn implements RabbitTemplate.ConfirmCallback {
     private final RabbitTemplate rabbitTemplate;
-
-    public RabbitTemplateConfirmReturn(RabbitTemplate rabbitTemplate) {
+    private final RabbitConfirmCallbackService rabbitConfirmCallbackService;
+    public RabbitTemplateConfirmReturn(RabbitTemplate rabbitTemplate,RabbitConfirmCallbackService rabbitConfirmCallbackService) {
         this.rabbitTemplate = rabbitTemplate;
+        this.rabbitConfirmCallbackService = rabbitConfirmCallbackService;
     }
 
     @PostConstruct
@@ -38,10 +40,6 @@ public class RabbitTemplateConfirmReturn implements RabbitTemplate.ConfirmCallba
      */
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-        if (ack) {
-            log.info("确认ack:{} 消息correlationDataID:{}消息发送到交换机成功", ack, correlationData.getId());
-            return;
-        }
-        log.error("确认ack:{} 消息correlationDataID:{}发送到交换机失败 case:{}", ack, correlationData.getId(), cause);
+        rabbitConfirmCallbackService.confirm(correlationData, ack, cause);
     }
 }

@@ -1,11 +1,16 @@
 package com.tomato.rabbitmq.config;
 
 import com.tomato.rabbitmq.init.RabbitInitializer;
+import com.tomato.rabbitmq.service.RabbitConfirmCallbackService;
+import com.tomato.rabbitmq.service.RabbitReturnsCallbackService;
+import com.tomato.rabbitmq.service.impl.RabbitConfirmCallbackServiceImpl;
+import com.tomato.rabbitmq.service.impl.RabbitReturnsCallbackServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,11 +44,21 @@ public class RabbitConfig {
         return new RabbitInitializer(amqpAdmin, rabbitProperties);
     }
     @Bean
-    public RabbitTemplateConfirmReturn rabbitTemplateConfirmReturn(RabbitTemplate rabbitTemplate){
-        return new RabbitTemplateConfirmReturn(rabbitTemplate);
+    public RabbitTemplateConfirmReturn rabbitTemplateConfirmReturn(RabbitTemplate rabbitTemplate, RabbitConfirmCallbackService rabbitConfirmCallbackService){
+        return new RabbitTemplateConfirmReturn(rabbitTemplate,rabbitConfirmCallbackService);
     }
     @Bean
-    public RabbitTemplateReturnsCallback rabbitTemplateReturnsCallback(RabbitTemplate rabbitTemplate){
-        return new RabbitTemplateReturnsCallback(rabbitTemplate);
+    @ConditionalOnMissingBean(RabbitConfirmCallbackService.class)
+    public RabbitConfirmCallbackService rabbitConfirmCallbackService(){
+        return new RabbitConfirmCallbackServiceImpl();
+    }
+    @Bean
+    @ConditionalOnMissingBean(RabbitReturnsCallbackService.class)
+    public RabbitReturnsCallbackService rabbitReturnsCallbackService(){
+        return new RabbitReturnsCallbackServiceImpl();
+    }
+    @Bean
+    public RabbitTemplateReturnsCallback rabbitTemplateReturnsCallback(RabbitTemplate rabbitTemplate,RabbitReturnsCallbackService rabbitReturnsCallbackService){
+        return new RabbitTemplateReturnsCallback(rabbitTemplate,rabbitReturnsCallbackService);
     }
 }
