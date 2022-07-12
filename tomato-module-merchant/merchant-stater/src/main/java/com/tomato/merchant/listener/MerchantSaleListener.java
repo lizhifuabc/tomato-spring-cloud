@@ -3,6 +3,7 @@ package com.tomato.merchant.listener;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ import java.io.IOException;
 @Component
 public class MerchantSaleListener {
     @RabbitListener(queues = "merchant.queue",ackMode = "MANUAL")
+    @RabbitHandler
     public void closeOrder(String merchantNo, Message message, Channel channel) {
         log.info("通知销售运营商户创建完成监听器，发送邮件，商户编号：{}",merchantNo);
         // RabbitMQ的ack机制中，第二个参数返回true，表示需要将这条消息投递给其他的消费者重新消费
