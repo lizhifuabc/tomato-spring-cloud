@@ -12,6 +12,13 @@ spring:
     port: 5672       # 设置RabbitMQ服务端口
     username: guest  # 设置RabbitMQ用户名
     password: guest  # 设置RabbitMQ密码
+    connection-timeout: 5000
+    listener:
+      simple:
+        concurrency: 5 # 每个listener在初始化的时候设置的并发消费者的个数
+        max-concurrency: 10 # 最大并发数量
+        acknowledge-mode: manual # 开启手动签收
+        prefetch: 1 # 每次一次性从broker里面取的待消费的消息的个数
     # 如果没有抵达队列,以异步发送优先回调returns确认
     template:
       mandatory: true

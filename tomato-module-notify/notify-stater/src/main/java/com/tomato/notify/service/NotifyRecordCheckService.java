@@ -24,8 +24,8 @@ public class NotifyRecordCheckService {
     }
     public void check(NoticeReceiveReq noticeReceiveReq) {
         // TODO 唯一性流水号校验 redis
-        NotifyRecordDO notifyRecordDO = notifyRecordMapper.selectByOrderNo(noticeReceiveReq.getOrderNo());
-        if (notifyRecordDO != null) {
+        boolean res = notifyRecordMapper.selectByOrderNo(noticeReceiveReq.getOrderNo());
+        if (res) {
             log.warn("订单号已存在：{}",noticeReceiveReq);
             throw new NotifyException(NotifyResponseCode.MERCHANT_ORDER_EXIST);
         }

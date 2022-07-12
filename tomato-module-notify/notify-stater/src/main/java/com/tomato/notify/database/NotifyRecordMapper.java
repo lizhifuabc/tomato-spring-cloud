@@ -38,7 +38,7 @@ public interface NotifyRecordMapper {
     void completeNotify(@Param("notifyId") Long notifyId, @Param("notifyStatus") Integer notifyStatus, @Param("resResult") String resResult);
 
     @Select("select count(*) from notify_record where order_no = #{orderNo} limit 1")
-    NotifyRecordDO selectByOrderNo(@Param("orderNo") String orderNo);
+    boolean selectByOrderNo(@Param("orderNo") String orderNo);
 
     /**
      * 更新通知次数
