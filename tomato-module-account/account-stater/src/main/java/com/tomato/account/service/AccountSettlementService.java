@@ -8,6 +8,7 @@ import com.tomato.account.database.dataobject.AccountDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectRepDO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -27,7 +28,7 @@ public class AccountSettlementService {
         this.accountMapper = accountMapper;
         this.accountHisMapper = accountHisMapper;
     }
-
+    @Transactional(rollbackFor = Exception.class)
     public void dailyCollect(String accountNo, LocalDate collectDate) {
         AccountDO accountDO = accountMapper.selectByAccountNo(accountNo);
         AccountDailyCollectDO accountDailyCollectDO = accountDailyCollectMapper.selectByAccountNoAndCollectDate(accountNo, collectDate);
@@ -47,6 +48,14 @@ public class AccountSettlementService {
             accountDailyCollectDO.setRiskDay(accountDO.getRiskDay());
 
             accountDailyCollectMapper.insert(accountDailyCollectDO);
+
+            // 更新日汇总账户待结算历史记录
+            int res = accountHisMapper.updateDailyCollect(accountHisDailyCollectDO);
+            // 更新条数 汇总条数 必须一致
+            if (res != accountDailyCollectDO.getTotalCount()){
+                // TODO 自定义异常
+                throw new RuntimeException("结算失败");
+            }
         }
     }
 }

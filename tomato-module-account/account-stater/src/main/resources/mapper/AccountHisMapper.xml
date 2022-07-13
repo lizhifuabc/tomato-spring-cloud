@@ -48,4 +48,16 @@
             and allow_sett = 0
             and <![CDATA[date(create_time) <= date_add(#{collectDate}, INTERVAL -#{riskDay} DAY)]]>
     </select>
+    <!-- 更新账户风险预存期外的账户历史记录记为结算完成 -->
+    <update id="updateDailyCollect" parameterType="accountHisDailyCollectDO" >
+        UPDATE
+            account_his
+        set
+            complete_sett = 0,version = version + 1
+        WHERE
+            account_no = #{accountNo}
+            and complete_sett = 1
+            and allow_sett = 0
+            and <![CDATA[date(create_time) <= date_add(#{collectDate}, INTERVAL -#{riskDay} DAY)]]>
+    </update>
 </mapper>

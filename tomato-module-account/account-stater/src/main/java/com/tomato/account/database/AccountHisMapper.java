@@ -74,4 +74,10 @@ public interface AccountHisMapper {
      * @return
      */
     AccountHisDailyCollectRepDO dailyCollect(AccountHisDailyCollectDO accountHisDailyCollectDO);
+    /**
+     * 更新日汇总账户待结算历史记录
+     * @param accountHisDailyCollectDO
+     * @return
+     */
+    int updateDailyCollect(AccountHisDailyCollectDO accountHisDailyCollectDO);
 }
