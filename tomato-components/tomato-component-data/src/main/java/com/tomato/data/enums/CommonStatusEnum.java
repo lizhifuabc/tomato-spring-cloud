@@ -6,7 +6,7 @@ package com.tomato.data.enums;
  * @author lizhifu
  * @date 2022/6/25
  */
-public enum StatusCommonEnum {
+public enum CommonStatusEnum {
     /**
      * 成功
      */
@@ -27,7 +27,7 @@ public enum StatusCommonEnum {
         return msg;
     }
 
-    StatusCommonEnum(Integer code, String msg) {
+    CommonStatusEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

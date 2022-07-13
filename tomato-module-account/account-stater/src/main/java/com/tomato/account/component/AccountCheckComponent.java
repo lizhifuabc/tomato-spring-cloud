@@ -7,7 +7,7 @@ import com.tomato.account.database.dataobject.AccountHisDO;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
 import com.tomato.account.dto.AccountReceiveReq;
-import com.tomato.data.enums.StatusCommonEnum;
+import com.tomato.data.enums.CommonStatusEnum;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class AccountCheckComponent {
     }
 
     public AccountDO checkReceive(AccountReceiveReq accountReceiveReq) {
-        AccountDO accountDO = accountMapper.selectByMerchantNo(accountReceiveReq.getMerchantNo(), StatusCommonEnum.OPEN.getCode());
+        AccountDO accountDO = accountMapper.selectByMerchantNo(accountReceiveReq.getMerchantNo(), CommonStatusEnum.OPEN.getCode());
         if (accountDO == null) {
             throw new AccountException(AccountResponseCode.ACCOUNT_NOT_EXIST);
         }
