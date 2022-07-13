@@ -28,8 +28,4 @@ public class AccountServiceTest {
         accountHisInsertDO.setAccountHisType("支付测试");
         accountService.receive(accountHisInsertDO);
     }
-    @Test
-    public void exe() {
-        accountService.exe(1654598080126L);
-    }
 }

@@ -6,6 +6,8 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisDO;
 import com.tomato.account.database.dataobject.AccountHisInsertDO;
 import com.tomato.account.database.dataobject.AccountHisUpdateDO;
+import com.tomato.account.dto.AccountCreateReq;
+import com.tomato.account.service.AccountCreateService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,9 +24,26 @@ import java.util.UUID;
 @SpringBootTest
 public class AccountMapperTest {
     @Resource
-    AccountMapper accountMapper;
+    private AccountCreateService accountCreateService;
     @Resource
-    AccountHisMapper accountHisMapper;
+    private AccountMapper accountMapper;
+    @Resource
+    private AccountHisMapper accountHisMapper;
+    @Test
+    public void create() {
+        AccountCreateReq accountCreateReq = new AccountCreateReq();
+        accountCreateReq.setMerchantNo("1656659426508");
+        accountCreateService.create(accountCreateReq);
+    }
+    @Test
+    // 冻结账户
+    public void freeze() {
+        AccountDO accountDO = accountMapper.selectByAccountNo("16576924079066508");
+        BigDecimal amount = new BigDecimal(100);
+        System.out.println(accountMapper.freeze(accountDO.getAccountNo(), amount, accountDO.getVersion()));
+        accountDO = accountMapper.selectByAccountNo("16576924079066508");
+        System.out.println(accountMapper.unfreeze(accountDO.getAccountNo(), amount, accountDO.getVersion()));
+    }
     @Test
     public void test1(){
         accountMapper.selectByAccountNo("100000L");
@@ -41,7 +60,7 @@ public class AccountMapperTest {
         insertDO.setAccountHisType("test");
         accountHisMapper.insert(insertDO);
 
-        AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(12L);
+        AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(12L,accountDO.getAccountNo());
 
         AccountHisUpdateDO accountHisUpdateDO = new AccountHisUpdateDO();
         accountHisUpdateDO.setAccountHisId(accountHisDO.getAccountHisId());
