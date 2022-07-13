@@ -22,6 +22,8 @@ CREATE TABLE `account_his` (
    `before_balance` decimal(16,2)   COMMENT '发生前余额',
    `after_balance` decimal(16,2)    COMMENT '发生后余额',
    `amount` decimal(16,2) NOT NULL  COMMENT '发生金额',
+   `allow_sett` tinyint(1) not null default 0 comment '是否允许结算【0->是；1->否】',
+   `complete_sett` tinyint(1) not null default 1 comment '是否完成结算【0->是；1->否】',
    `third_no` varchar(36) NOT NULL  COMMENT '第三方流水号',
    `account_his_type` varchar(36) NOT NULL  COMMENT '类型',
    `account_status` tinyint unsigned NOT NULL default 100 COMMENT '入账状态',

@@ -49,4 +49,12 @@ public class AccountHisDO extends BaseDO {
      * 版本号
      */
     private Integer version;
+    /**
+     * 是否允许结算【0->是；1->否】
+     */
+    private Integer allowSett;
+    /**
+     * 是否完成结算【0->是；1->否】
+     */
+    private Integer completeSett;
 }
