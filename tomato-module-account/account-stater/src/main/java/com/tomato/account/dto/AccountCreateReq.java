@@ -4,6 +4,7 @@ import com.tomato.data.dto.Req;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -20,4 +21,10 @@ public class AccountCreateReq extends Req {
     @NotBlank(message = "商户编号不能为空")
     @Length(min = 4, message = "商户编号长度不能低于4位")
     private String merchantNo;
+
+    /**
+     * 风险预存期天数
+     */
+    @Min(value = 0, message = "风险预存期天数不能小于0")
+    private Integer riskDay;
 }
