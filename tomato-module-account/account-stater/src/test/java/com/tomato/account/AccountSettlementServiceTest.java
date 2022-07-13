@@ -20,6 +20,6 @@ public class AccountSettlementServiceTest {
     // 测试
     @Test
     public void dailyCollect() {
-        accountSettlementService.dailyCollect("16577115829826508", LocalDate.now());
+        accountSettlementService.dailyCollect("16577270537276508", LocalDate.now().plusDays(1));
     }
 }

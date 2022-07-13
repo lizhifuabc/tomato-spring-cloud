@@ -34,20 +34,20 @@ CREATE TABLE `account_his` (
    UNIQUE KEY `uniq_account_third_no` (account_no,third_no)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '账户历史表';
 
-DROP TABLE IF EXISTS tomato_account_00.`account_daily_collect`;
-create table tomato_account_00.`account_daily_collect`
+DROP TABLE IF EXISTS `account_daily_collect`;
+create table `account_daily_collect`
 (
-    `id`                    bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-    `account_no`            varchar(36) NOT NULL COMMENT '账户编号',
-    `version`               int NOT NULL DEFAULT '0' COMMENT '版本号',
-    `create_time`           datetime not null default current_timestamp comment '创建时间',
-    `update_time`           datetime not null default current_timestamp on update current_timestamp comment '修改时间',
-    `collect_date`          date not null comment '汇总日期',
-    `total_amount`          decimal(16,2) not null comment '交易总金额',
-    `total_count`           int not null comment '交易总笔数',
-    `sett_status`           tinyint(1) not null default 1 comment '结算状态【0->已结算；1->未结算】',
-    `remark`                varchar(300) comment '备注',
-    `risk_day`              int  not null comment '风险预存期天数',
-    PRIMARY KEY (`id`),
+    `account_daily_collect_id`              bigint(20) NOT NULL  COMMENT '主键',
+    `account_no`                            varchar(36) NOT NULL COMMENT '账户编号',
+    `version`                               int NOT NULL DEFAULT '0' COMMENT '版本号',
+    `create_time`                           datetime not null default current_timestamp comment '创建时间',
+    `update_time`                           datetime not null default current_timestamp on update current_timestamp comment '修改时间',
+    `collect_date`                          date not null comment '汇总日期',
+    `total_amount`                          decimal(16,2) not null comment '交易总金额',
+    `total_count`                           int not null comment '交易总笔数',
+    `sett_status`                           tinyint(1) not null default 1 comment '结算状态【0->已结算；1->未结算】',
+    `remark`                                varchar(300) comment '备注',
+    `risk_day`                              int  not null comment '风险预存期天数',
+    PRIMARY KEY (`account_daily_collect_id`),
     UNIQUE KEY `uniq_account_collect_date` (account_no,collect_date)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '每日待结算汇总';
