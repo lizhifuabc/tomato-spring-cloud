@@ -25,6 +25,6 @@ public class AccountCreateReq extends Req {
     /**
      * 风险预存期天数
      */
-    @Min(value = 0, message = "风险预存期天数不能小于0")
+    @Min(value = 1, message = "风险预存期天数不能小于1")
     private Integer riskDay;
 }
