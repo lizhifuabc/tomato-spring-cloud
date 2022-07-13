@@ -1,20 +1,20 @@
 package com.tomato.data.enums;
 
 /**
- * 开关状态枚举
+ * 0 1 通用枚举类
  *
  * @author lizhifu
  * @date 2022/6/25
  */
 public enum CommonStatusEnum {
     /**
-     * 成功
+     * YES
      */
-    OPEN(0, "正常"),
+    YES(0, "YES"),
     /**
-     * 处理中
+     * NO
      */
-    CLOSED(1, "关闭");
+    NO(1, "NO");
     private final Integer code;
 
     private final String msg;

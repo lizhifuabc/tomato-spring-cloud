@@ -28,7 +28,7 @@ public class AccountCheckComponent {
     }
 
     public AccountDO checkReceive(AccountReceiveReq accountReceiveReq) {
-        AccountDO accountDO = accountMapper.selectByMerchantNo(accountReceiveReq.getMerchantNo(), CommonStatusEnum.OPEN.getCode());
+        AccountDO accountDO = accountMapper.selectByMerchantNo(accountReceiveReq.getMerchantNo(), CommonStatusEnum.YES.getCode());
         if (accountDO == null) {
             throw new AccountException(AccountResponseCode.ACCOUNT_NOT_EXIST);
         }
