@@ -7,6 +7,8 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectRepDO;
+import com.tomato.account.exception.AccountException;
+import com.tomato.account.exception.AccountResponseCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,8 +55,7 @@ public class AccountSettlementService {
             int res = accountHisMapper.updateDailyCollect(accountHisDailyCollectDO);
             // 更新条数 汇总条数 必须一致
             if (res != accountDailyCollectDO.getTotalCount()){
-                // TODO 自定义异常
-                throw new RuntimeException("结算失败");
+                throw new AccountException(AccountResponseCode.ACCOUNT_DAILY_COLLECT_FAIL);
             }
         }
     }
