@@ -67,4 +67,11 @@ public interface AccountHisMapper {
      * @return
      */
     AccountHisDealDO selectDeal(@Param("accountNo") String accountNo);
+
+    /**
+     * 日汇总账户待结算金额
+     * @param accountHisDailyCollectDO
+     * @return
+     */
+    AccountHisDailyCollectRepDO dailyCollect(AccountHisDailyCollectDO accountHisDailyCollectDO);
 }

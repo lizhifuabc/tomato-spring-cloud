@@ -3,6 +3,7 @@ package com.tomato.account;
 import com.tomato.account.database.AccountHisMapper;
 import com.tomato.account.database.AccountMapper;
 import com.tomato.account.database.dataobject.AccountDO;
+import com.tomato.account.database.dataobject.AccountHisDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDealDO;
 import com.tomato.account.database.dataobject.AccountHisUpdateBatchDO;
 import com.tomato.account.enums.AccountStatusEnum;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -27,6 +29,14 @@ public class AccountHisMapperTest {
     private AccountHisMapper accountHisMapper;
     @Resource
     private AccountMapper accountMapper;
+    @Test
+    public void dailyCollect(){
+        AccountHisDailyCollectDO accountHisDailyCollectDO = new AccountHisDailyCollectDO();
+        accountHisDailyCollectDO.setAccountNo("111111111111");
+        accountHisDailyCollectDO.setRiskDay(0);
+        accountHisDailyCollectDO.setStatDate(LocalDate.now());
+        System.out.println(accountHisMapper.dailyCollect(accountHisDailyCollectDO));
+    }
     @Test
     public void test(){
         String accountNo = "1L";

@@ -35,4 +35,17 @@
         from account_his
         where account_no = #{accountNo} and account_status = 100 and version = 0 and amount >0
     </select>
+
+    <!-- 日汇总账户待结算金额  -->
+    <select id="dailyCollect" parameterType="accountHisDailyCollectDO" resultType="AccountHisDailyCollectRepDO">
+        select
+            sum(amount) as "totalAmount",
+            count(1) as "totalNum"
+        from account_his
+        where
+            account_no = #{accountNo}
+            and complete_sett = 1
+            and allow_sett = 0
+            and <![CDATA[date(create_time) <= date_add(#{statDate}, INTERVAL -#{riskDay} DAY)]]>
+    </select>
 </mapper>
