@@ -11,7 +11,7 @@
         SELECT * FROM account WHERE account_no = #{accountNo} and status = 0  LIMIT 1
     </select>
     <update id="deduct" parameterType="map">
-        UPDATE account set balance = balance - #{amount},version = version +1
+        UPDATE account set balance = balance - unbalance - #{amount},version = version +1
                        WHERE account_no = #{accountNo}  and balance >=  #{amount} and version = #{version}
     </update>
     <update id="add" parameterType="map">
