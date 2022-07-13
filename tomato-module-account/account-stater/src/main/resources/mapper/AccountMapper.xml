@@ -18,4 +18,14 @@
         UPDATE account set balance = balance + #{amount},version = version +1
                        WHERE account_no = #{accountNo} and version = #{version}
     </update>
+
+    <update id="freeze" parameterType="map">
+        UPDATE account set unbalance = unbalance + #{amount},version = version +1
+        WHERE account_no = #{accountNo} and version = #{version} and balance - unbalance >= #{amount}
+    </update>
+
+    <update id="unfreeze" parameterType="map">
+        UPDATE account set unbalance = unbalance - #{amount},version = version +1
+        WHERE account_no = #{accountNo} and version = #{version} and unbalance >= #{amount}
+    </update>
 </mapper>

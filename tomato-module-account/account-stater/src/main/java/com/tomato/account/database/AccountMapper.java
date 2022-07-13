@@ -59,6 +59,23 @@ public interface AccountMapper {
     int add(@Param("accountNo") String accountNo, @Param("amount") BigDecimal amount,@Param("version") Integer version);
 
     /**
+     * 冻结金额
+     * @param accountNo
+     * @param amount
+     * @param version
+     * @return
+     */
+    int freeze(@Param("accountNo") String accountNo, @Param("amount") BigDecimal amount,@Param("version") Integer version);
+
+    /**
+     * 解冻金额
+     * @param accountNo
+     * @param amount
+     * @param version
+     * @return
+     */
+    int unfreeze(@Param("accountNo") String accountNo, @Param("amount") BigDecimal amount,@Param("version") Integer version);
+    /**
      * 插入
      * @param accountDO
      */

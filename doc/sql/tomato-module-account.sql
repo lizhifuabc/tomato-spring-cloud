@@ -4,6 +4,7 @@ CREATE TABLE `account` (
   `account_no` varchar(36) NOT NULL COMMENT '账户编号',
   `merchant_no`  varchar(50) not null comment '商户编号',
   `balance` decimal(16,2) NOT NULL DEFAULT '0' COMMENT '余额',
+  `unbalance` decimal(16,2) NOT NULL DEFAULT '0' COMMENT '不可用余额',
   `status` tinyint(1) null default 0 comment '状态【0->正常；1->关闭】',
   `create_time` timestamp NOT NULL DEFAULT '2010-01-01 00:00:00' COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT '2010-01-01 00:00:00' COMMENT '更新时间',
