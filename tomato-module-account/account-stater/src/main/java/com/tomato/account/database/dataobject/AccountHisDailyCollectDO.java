@@ -19,7 +19,7 @@ public class AccountHisDailyCollectDO {
     /**
      * 汇总日期
      */
-    private LocalDate statDate;
+    private LocalDate collectDate;
     /**
      * 风险时间
      */

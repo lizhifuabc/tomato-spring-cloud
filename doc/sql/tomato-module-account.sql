@@ -45,7 +45,7 @@ create table tomato_account_00.`account_daily_collect`
     `collect_date`          date not null comment '汇总日期',
     `total_amount`          decimal(16,2) not null comment '交易总金额',
     `total_count`           int not null comment '交易总笔数',
-    `sett_status`           tinyint(1) not null default 0 comment '结算状态【0->已结算；1->未结算】',
+    `sett_status`           tinyint(1) not null default 1 comment '结算状态【0->已结算；1->未结算】',
     `remark`                varchar(300) comment '备注',
     `risk_day`              int  not null comment '风险预存期天数',
     PRIMARY KEY (`id`),

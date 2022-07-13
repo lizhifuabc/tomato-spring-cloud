@@ -19,4 +19,8 @@
             #{riskDay}
         )
     </insert>
+
+    <select id="selectByAccountNoAndCollectDate" parameterType="map" resultType="accountDailyCollectDO">
+        SELECT * FROM account_daily_collect WHERE account_no = #{accountNo} and collect_date = #{collectDate}
+    </select>
 </mapper>

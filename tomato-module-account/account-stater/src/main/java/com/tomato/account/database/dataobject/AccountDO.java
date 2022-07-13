@@ -29,4 +29,8 @@ public class AccountDO extends BaseDO {
      * 商户编号
      */
     private String merchantNo;
+    /**
+     * 风险预存期天数
+     */
+    private Integer riskDay;
 }

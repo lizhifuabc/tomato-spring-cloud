@@ -22,6 +22,7 @@ public class AccountCreateServiceTest {
     public void create() {
         AccountCreateReq accountCreateReq = new AccountCreateReq();
         accountCreateReq.setMerchantNo("1656659426508");
+        accountCreateReq.setRiskDay(1);
         accountCreateService.create(accountCreateReq);
     }
 }

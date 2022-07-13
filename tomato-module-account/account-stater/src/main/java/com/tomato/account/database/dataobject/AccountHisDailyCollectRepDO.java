@@ -3,8 +3,6 @@ package com.tomato.account.database.dataobject;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * 日汇总账户待结算金额
@@ -21,5 +19,5 @@ public class AccountHisDailyCollectRepDO {
     /**
      * 总笔数
      */
-    private Integer totalNum;
+    private Integer totalCount;
 }

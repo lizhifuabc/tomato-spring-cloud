@@ -34,7 +34,7 @@ public class AccountHisMapperTest {
         AccountHisDailyCollectDO accountHisDailyCollectDO = new AccountHisDailyCollectDO();
         accountHisDailyCollectDO.setAccountNo("111111111111");
         accountHisDailyCollectDO.setRiskDay(0);
-        accountHisDailyCollectDO.setStatDate(LocalDate.now());
+        accountHisDailyCollectDO.setCollectDate(LocalDate.now());
         System.out.println(accountHisMapper.dailyCollect(accountHisDailyCollectDO));
     }
     @Test

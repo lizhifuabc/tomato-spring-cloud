@@ -39,13 +39,13 @@
     <!-- 日汇总账户待结算金额  -->
     <select id="dailyCollect" parameterType="accountHisDailyCollectDO" resultType="AccountHisDailyCollectRepDO">
         select
-            sum(amount) as "totalAmount",
-            count(1) as "totalNum"
+            ifnull(sum(amount),0) as "totalAmount",
+            count(1) as "totalCount"
         from account_his
         where
             account_no = #{accountNo}
             and complete_sett = 1
             and allow_sett = 0
-            and <![CDATA[date(create_time) <= date_add(#{statDate}, INTERVAL -#{riskDay} DAY)]]>
+            and <![CDATA[date(create_time) <= date_add(#{collectDate}, INTERVAL -#{riskDay} DAY)]]>
     </select>
 </mapper>
