@@ -27,7 +27,7 @@ public class RemitBatchInfoDO extends BaseDO {
     /**
      * 打款渠道
      */
-    private String remitChannelCode;
+    private String channelCode;
 
     /**
      * 打款状态【0->打款中；1->打款完成】

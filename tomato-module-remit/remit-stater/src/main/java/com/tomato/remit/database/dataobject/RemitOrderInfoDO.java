@@ -103,6 +103,6 @@ public class RemitOrderInfoDO extends BaseDO {
     /**
      * 打款渠道
      */
-    private String remitChannelCode;
+    private String channelCode;
     public RemitOrderInfoDO() {}
 }

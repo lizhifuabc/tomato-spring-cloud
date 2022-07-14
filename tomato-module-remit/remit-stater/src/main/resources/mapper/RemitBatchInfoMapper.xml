@@ -8,8 +8,8 @@
             <if test="null != batchNo and '' != batchNo">
                 batch_no,
             </if>
-            <if test="null != remitChannelCode and '' != remitChannelCode">
-                remit_channel_code,
+            <if test="null != channelCode and '' != channelCode">
+                channel_code,
             </if>
             <if test="null != remitStatus">
                 remit_status,
@@ -25,8 +25,8 @@
             <if test="null != batchNo and '' != batchNo">
                 #{batchNo},
             </if>
-            <if test="null != remitChannelCode and '' != remitChannelCode">
-                #{remitChannelCode},
+            <if test="null != channelCode and '' != channelCode">
+                #{channelCode},
             </if>
             <if test="null != remitStatus">
                 #{remitStatus},
