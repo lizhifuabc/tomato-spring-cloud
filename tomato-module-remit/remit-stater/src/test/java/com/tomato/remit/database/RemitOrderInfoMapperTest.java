@@ -34,7 +34,7 @@ public class RemitOrderInfoMapperTest {
         remitOrderInfoDO.setCity("city");
         remitOrderInfoDO.setBranchBankName("bankBranch");
         remitOrderInfoDO.setRequestAmount(new BigDecimal(100));
-        remitOrderInfoDO.setRemitChannelCode("remitChannelCode");
+        remitOrderInfoDO.setChannelCode("remitChannelCode");
         remitOrderInfoMapper.insert(remitOrderInfoDO);
     }
 }
