@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 直接操作金额
@@ -49,6 +50,7 @@ public class AccountBalanceDirectService {
         accountHisDO.setAccountStatus(AccountStatusEnum.SUCCESS.getCode());
         accountHisDO.setBeforeBalance(accountDO.getBalance());
         accountHisDO.setAfterBalance(accountDO.getBalance().add(accountReceiveReq.getAmount()));
+        accountHisDO.setCompleteTime(LocalDateTime.now());
         accountHisService.create(accountHisDO);
         // 金额操作
         int i;

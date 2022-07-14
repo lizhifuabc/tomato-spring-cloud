@@ -1,9 +1,12 @@
 package com.tomato.account.database.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tomato.data.dataobject.BaseDO;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 账户历史表
@@ -61,4 +64,10 @@ public class AccountHisDO extends BaseDO {
      * 入账状态
      */
     private Integer accountStatus;
+    /**
+     * 入账完成时间
+     */
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime completeTime;
 }

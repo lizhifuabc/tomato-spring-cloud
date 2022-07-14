@@ -70,8 +70,13 @@
     </insert>
 
     <update id="updateAccountStatus" parameterType="accountHisUpdateDO">
-        UPDATE account_his set account_status = #{accountStatus},version = version + 1,before_balance = #{beforeBalance},after_balance = #{afterBalance}
-                           WHERE account_his_id = #{accountHisId} and version = #{version} and account_status = 100 and account_no = #{accountNo}
+        UPDATE
+            account_his
+        set
+            account_status = #{accountStatus},version = version + 1,before_balance = #{beforeBalance},
+            after_balance = #{afterBalance},complete_time = now()
+        WHERE
+            account_his_id = #{accountHisId} and version = #{version} and account_status = 100 and account_no = #{accountNo}
     </update>
 
     <select id="selectByThirdNo" parameterType="map" resultType="accountHisDO">
@@ -79,7 +84,10 @@
     </select>
 
     <update id="updateAccountStatusBatch" parameterType="AccountHisUpdateBatchDO">
-        UPDATE account_his set account_status = #{accountStatus},version = version + 1,before_balance = #{beforeBalance},after_balance = #{afterBalance}
+        UPDATE
+            account_his
+        set
+            account_status = #{accountStatus},version = version + 1,before_balance = #{beforeBalance},after_balance = #{afterBalance},complete_time = now()
         WHERE account_his_id in
         <foreach collection="accountHisId" item="id" index="index" open="(" close=")" separator=",">
             #{id}

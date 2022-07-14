@@ -27,6 +27,7 @@ CREATE TABLE `account_his` (
    `complete_sett` tinyint(1) not null default 1 comment '是否完成结算【0->是；1->否】',
    `third_no` varchar(36) NOT NULL  COMMENT '第三方流水号',
    `account_his_type` varchar(36) NOT NULL  COMMENT '类型',
+   `complete_time` datetime comment '入账完成时间',
    `account_status` tinyint unsigned NOT NULL default 100 COMMENT '入账状态',
    `create_time` datetime not null default current_timestamp comment '创建时间',
    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
