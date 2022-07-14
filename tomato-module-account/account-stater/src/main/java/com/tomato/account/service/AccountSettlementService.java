@@ -7,6 +7,7 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectRepDO;
+import com.tomato.account.dto.AccountReceiveReq;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
 import com.tomato.data.enums.CommonStatusEnum;
@@ -29,10 +30,12 @@ public class AccountSettlementService {
     private final AccountDailyCollectMapper accountDailyCollectMapper;
     private final AccountMapper accountMapper;
     private final AccountHisMapper accountHisMapper;
-    public AccountSettlementService(AccountDailyCollectMapper accountDailyCollectMapper, AccountMapper accountMapper, AccountHisMapper accountHisMapper) {
+    private final AccountBalanceDirectService accountBalanceDirectService;
+    public AccountSettlementService(AccountDailyCollectMapper accountDailyCollectMapper, AccountMapper accountMapper, AccountHisMapper accountHisMapper, AccountBalanceDirectService accountBalanceDirectService) {
         this.accountDailyCollectMapper = accountDailyCollectMapper;
         this.accountMapper = accountMapper;
         this.accountHisMapper = accountHisMapper;
+        this.accountBalanceDirectService = accountBalanceDirectService;
     }
 
     /**
@@ -84,19 +87,26 @@ public class AccountSettlementService {
             return;
         }
         log.info("发起结算 accountNo={}, collectDate={}, accountDailyCollectDO={}", accountNo, collectDate, accountDailyCollectDO);
+        if (accountDailyCollectDO.getSettStatus().equals(CommonStatusEnum.YES.getCode())) {
+            return;
+        }
         if (accountDailyCollectDO.getTotalCount() == 0 || accountDailyCollectDO.getTotalAmount().compareTo(new BigDecimal(0)) == 0) {
+            // 日汇总账户待结算记录为空 或者 日汇总账户待结算记录总金额为0,不需要结算，更新状态即可
+            // 不用判断乐观锁
             accountDailyCollectMapper.updateSettStatus(accountNo, collectDate, accountDailyCollectDO.getVersion());
             return;
         }
-        if (accountDailyCollectDO.getSettStatus().equals(CommonStatusEnum.NO.getCode())) {
-            return;
-        }
-        // 更新账户余额 TODO 创建账户历史记录
+        // 更新账户余额
         AccountDO accountDO = accountMapper.selectByAccountNo(accountNo);
-        int deduct = accountMapper.deduct(accountNo, accountDailyCollectDO.getTotalAmount(), accountDO.getVersion());
-        if (deduct != 1) {
-            throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
-        }
+
+        AccountReceiveReq accountReceiveReq = new AccountReceiveReq();
+        accountReceiveReq.setMerchantNo(accountDO.getMerchantNo());
+        accountReceiveReq.setAccountHisType("结算扣款");
+        accountReceiveReq.setAmount(accountDailyCollectDO.getTotalAmount().negate());
+        accountReceiveReq.setThirdNo(accountDailyCollectDO.getAccountDailyCollectId().toString());
+
+        accountBalanceDirectService.balanceDirect(accountReceiveReq);
+
         // 更新结算状态
         int i = accountDailyCollectMapper.updateSettStatus(accountNo, collectDate, accountDailyCollectDO.getVersion());
         if (i != 1) {

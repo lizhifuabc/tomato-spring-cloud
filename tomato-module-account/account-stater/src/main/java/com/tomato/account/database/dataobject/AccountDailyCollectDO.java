@@ -15,6 +15,10 @@ import java.time.LocalDate;
 @Data
 public class AccountDailyCollectDO extends BaseDO {
     /**
+     * ID
+     */
+    private Long accountDailyCollectId;
+    /**
      * 账户编号
      */
     private String accountNo;

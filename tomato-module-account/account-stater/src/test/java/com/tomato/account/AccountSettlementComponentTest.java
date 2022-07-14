@@ -1,6 +1,9 @@
 package com.tomato.account;
 
 import com.tomato.account.component.AccountSettlementComponent;
+import com.tomato.account.database.AccountMapper;
+import com.tomato.account.database.dataobject.AccountDO;
+import com.tomato.data.enums.CommonStatusEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,8 +20,12 @@ import java.time.LocalDate;
 public class AccountSettlementComponentTest {
     @Resource
     private AccountSettlementComponent accountSettlementComponent;
+    @Resource
+    private AccountMapper accountMapper;
     @Test
     public void test() {
-        accountSettlementComponent.settlement("16577270537276508", LocalDate.now());
+        AccountDO accountDO = accountMapper.selectByMerchantNo("1656659426508", CommonStatusEnum.YES.getCode());
+        accountSettlementComponent.dailyCollect(accountDO.getAccountNo(), LocalDate.now());
+        accountSettlementComponent.settlement(accountDO.getAccountNo(), LocalDate.now());
     }
 }

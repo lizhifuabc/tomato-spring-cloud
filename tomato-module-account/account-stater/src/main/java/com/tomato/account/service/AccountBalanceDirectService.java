@@ -5,6 +5,8 @@ import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisDO;
 import com.tomato.account.dto.AccountReceiveReq;
 import com.tomato.account.enums.AccountStatusEnum;
+import com.tomato.account.exception.AccountException;
+import com.tomato.account.exception.AccountResponseCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,10 +51,14 @@ public class AccountBalanceDirectService {
         accountHisDO.setAfterBalance(accountDO.getBalance().add(accountReceiveReq.getAmount()));
         accountHisService.create(accountHisDO);
         // 金额操作
+        int i;
         if (accountReceiveReq.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-            accountMapper.add(accountDO.getAccountNo(),accountReceiveReq.getAmount(),accountDO.getVersion());
+            i = accountMapper.add(accountDO.getAccountNo(),accountReceiveReq.getAmount(),accountDO.getVersion());
         } else {
-            accountMapper.deduct(accountDO.getAccountNo(),accountReceiveReq.getAmount(),accountDO.getVersion());
+            i = accountMapper.deduct(accountDO.getAccountNo(),accountReceiveReq.getAmount(),accountDO.getVersion());
+        }
+        if (i != 1) {
+            throw new AccountException(AccountResponseCode.ACCOUNT_UPDATE_FAIL);
         }
     }
 }
