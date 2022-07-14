@@ -37,5 +37,8 @@ public class AccountSettlementComponent {
         }catch (Exception e) {
             accountSettlementService.updateRemark(accountNo, collectDate, e.getMessage());
         }
+        // TODO 发起打款中间状态
+        // TODO 发起打款
+
     }
 }

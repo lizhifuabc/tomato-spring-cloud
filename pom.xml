@@ -24,6 +24,7 @@
         <module>tomato-module-merchant</module>
         <module>tomato-module-channel</module>
         <module>tomato-module-notify</module>
+        <module>tomato-module-remit</module>
     </modules>
 
 

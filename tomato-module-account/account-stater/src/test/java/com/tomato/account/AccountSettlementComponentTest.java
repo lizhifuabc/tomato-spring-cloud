@@ -25,7 +25,8 @@ public class AccountSettlementComponentTest {
     @Test
     public void test() {
         AccountDO accountDO = accountMapper.selectByMerchantNo("1656659426508", CommonStatusEnum.YES.getCode());
-        accountSettlementComponent.dailyCollect(accountDO.getAccountNo(), LocalDate.now());
-        accountSettlementComponent.settlement(accountDO.getAccountNo(), LocalDate.now());
+        LocalDate collectDate = LocalDate.now().plusDays(1);
+        accountSettlementComponent.dailyCollect(accountDO.getAccountNo(), collectDate);
+        accountSettlementComponent.settlement(accountDO.getAccountNo(), collectDate);
     }
 }

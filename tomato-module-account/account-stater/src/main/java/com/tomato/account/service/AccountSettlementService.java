@@ -8,6 +8,7 @@ import com.tomato.account.database.dataobject.AccountDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectDO;
 import com.tomato.account.database.dataobject.AccountHisDailyCollectRepDO;
 import com.tomato.account.dto.AccountReceiveReq;
+import com.tomato.account.enums.AccountHisTypeEnum;
 import com.tomato.account.exception.AccountException;
 import com.tomato.account.exception.AccountResponseCode;
 import com.tomato.data.enums.CommonStatusEnum;
@@ -101,7 +102,7 @@ public class AccountSettlementService {
 
         AccountReceiveReq accountReceiveReq = new AccountReceiveReq();
         accountReceiveReq.setMerchantNo(accountDO.getMerchantNo());
-        accountReceiveReq.setAccountHisType("结算扣款");
+        accountReceiveReq.setAccountHisType(AccountHisTypeEnum.SETTLEMENT.getCode());
         accountReceiveReq.setAmount(accountDailyCollectDO.getTotalAmount().negate());
         accountReceiveReq.setThirdNo(accountDailyCollectDO.getAccountDailyCollectId().toString());
 
