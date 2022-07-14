@@ -50,6 +50,9 @@
             <if test="null != requestAmount">
                 request_amount,
             </if>
+            <if test="null != remitChannelCode and '' != remitChannelCode">
+                remit_channel_code,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="null != remitRequestNo and '' != remitRequestNo">
@@ -96,6 +99,9 @@
             </if>
             <if test="null != requestAmount">
                 #{requestAmount},
+            </if>
+            <if test="null != remitChannelCode and '' != remitChannelCode">
+                #{remitChannelCode},
             </if>
         </trim>
     </insert>

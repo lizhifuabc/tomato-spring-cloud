@@ -4,6 +4,7 @@ import com.tomato.data.dataobject.BaseDO;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 打款订单表
@@ -17,7 +18,10 @@ public class RemitOrderInfoDO extends BaseDO {
      * 版本号
      */
     private Integer version;
-
+    /**
+     * 批次号
+     */
+    private String batchNo;
     /**
      * 打款请求流水号
      */
@@ -92,5 +96,13 @@ public class RemitOrderInfoDO extends BaseDO {
      * 打款金额
      */
     private BigDecimal requestAmount;
+    /**
+     * 完成时间
+     */
+    private LocalDateTime completeTime;
+    /**
+     * 打款渠道
+     */
+    private String remitChannelCode;
     public RemitOrderInfoDO() {}
 }

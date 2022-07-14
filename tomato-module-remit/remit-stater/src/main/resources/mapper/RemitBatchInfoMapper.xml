@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomato.remit.database.RemitBatchInfoMapper">
+    <insert id="insert" parameterType="remitBatchInfoDO">
+        INSERT INTO remit_batch_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != batchNo and '' != batchNo">
+                batch_no,
+            </if>
+            <if test="null != remitChannelCode and '' != remitChannelCode">
+                remit_channel_code,
+            </if>
+            <if test="null != remitStatus">
+                remit_status,
+            </if>
+            <if test="null != remitCount">
+                remit_count,
+            </if>
+            <if test="null != remitSumAmount">
+                remit_sum_amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != batchNo and '' != batchNo">
+                #{batchNo},
+            </if>
+            <if test="null != remitChannelCode and '' != remitChannelCode">
+                #{remitChannelCode},
+            </if>
+            <if test="null != remitStatus">
+                #{remitStatus},
+            </if>
+            <if test="null != remitCount">
+                #{remitCount},
+            </if>
+            <if test="null != remitSumAmount">
+                #{remitSumAmount},
+            </if>
+        </trim>
+    </insert>
+</mapper>
