@@ -54,7 +54,6 @@
         <dependency>
             <groupId>com.tomato.cloud</groupId>
             <artifactId>tomato-component-utils</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
