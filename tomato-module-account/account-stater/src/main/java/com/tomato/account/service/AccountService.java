@@ -30,13 +30,6 @@ public class AccountService {
         this.accountMapper = accountMapper;
         this.accountHisMapper = accountHisMapper;
     }
-    public void receive (AccountHisInsertDO accountHisInsertDO) {
-        if (accountHisMapper.checkThirdNo(accountHisInsertDO.getAccountNo(),accountHisInsertDO.getThirdNo())){
-            log.error("账户历史表已存在，不能重复插入:{}",accountHisInsertDO);
-            throw new AccountException(AccountResponseCode.ACCOUNT_HIS_EXIST);
-        }
-        accountHisMapper.insert(accountHisInsertDO);
-    }
     /**
      * TODO 批量入账
      * 账户余额操作，将数据库操作放在服务中，便于后面重试；

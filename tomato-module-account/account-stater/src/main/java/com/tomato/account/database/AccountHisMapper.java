@@ -41,10 +41,10 @@ public interface AccountHisMapper {
     /**
      * 新增账户历史表
      *
-     * @param accountHisInsertDO 账户历史表
+     * @param accountHisDO 账户历史表
      * @return 新增账户历史表数量
      */
-    int insert(AccountHisInsertDO accountHisInsertDO);
+    int insert(AccountHisDO accountHisDO);
 
     /**
      * 更新账户历史状态  分库分表，需要增加 accountNo,或者定制 accountHisId 也作为分表字段

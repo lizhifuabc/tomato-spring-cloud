@@ -1,7 +1,7 @@
 package com.tomato.account.listener;
 
 import com.rabbitmq.client.Channel;
-import com.tomato.account.component.AccountCheckComponent;
+import com.tomato.account.service.AccountCheckService;
 import com.tomato.account.component.AccountComponent;
 import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.dto.AccountReceiveReq;
@@ -26,18 +26,18 @@ import java.util.Map;
 public class AccountListener {
     private final AccountComponent accountComponent;
 
-    private final AccountCheckComponent accountCheckComponent;
+    private final AccountCheckService accountCheckService;
 
-    public AccountListener(AccountComponent accountComponent, AccountCheckComponent accountCheckComponent) {
+    public AccountListener(AccountComponent accountComponent, AccountCheckService accountCheckService) {
         this.accountComponent = accountComponent;
-        this.accountCheckComponent = accountCheckComponent;
+        this.accountCheckService = accountCheckService;
     }
 
     @RabbitListener(queues = "order.callback.account.queue",ackMode = "MANUAL")
     public void account(AccountReceiveReq accountReceiveReq, Message message, Channel channel,@Headers Map<String, Object> headers) throws IOException {
         log.info("支付回调：账号入账 {}",accountReceiveReq);
         try {
-            AccountDO accountDO = accountCheckComponent.checkReceive(accountReceiveReq);
+            AccountDO accountDO = accountCheckService.checkReceive(accountReceiveReq);
             accountComponent.receive(accountReceiveReq,accountDO);
             // deliveryTag（唯一标识 ID）
             // multiple：为了减少网络流量，手动确认可以被批处理，当该参数为 true 时，则可以一次性确认 delivery_tag 小于等于传入值的所有消息

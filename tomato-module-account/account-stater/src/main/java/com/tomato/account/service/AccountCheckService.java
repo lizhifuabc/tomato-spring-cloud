@@ -1,4 +1,4 @@
-package com.tomato.account.component;
+package com.tomato.account.service;
 
 import com.tomato.account.database.AccountHisMapper;
 import com.tomato.account.database.AccountMapper;
@@ -9,6 +9,7 @@ import com.tomato.account.exception.AccountResponseCode;
 import com.tomato.account.dto.AccountReceiveReq;
 import com.tomato.data.enums.CommonStatusEnum;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
@@ -18,15 +19,20 @@ import java.math.BigDecimal;
  * @author lizhifu
  * @date 2022/6/7
  */
-@Component
-public class AccountCheckComponent {
+@Service
+public class AccountCheckService {
     private final AccountMapper accountMapper;
     private final AccountHisMapper accountHisMapper;
-    public AccountCheckComponent(AccountMapper accountMapper, AccountHisMapper accountHisMapper) {
+    public AccountCheckService(AccountMapper accountMapper, AccountHisMapper accountHisMapper) {
         this.accountMapper = accountMapper;
         this.accountHisMapper = accountHisMapper;
     }
 
+    /**
+     * 账户校验
+     * @param accountReceiveReq
+     * @return
+     */
     public AccountDO checkReceive(AccountReceiveReq accountReceiveReq) {
         AccountDO accountDO = accountMapper.selectByMerchantNo(accountReceiveReq.getMerchantNo(), CommonStatusEnum.YES.getCode());
         if (accountDO == null) {

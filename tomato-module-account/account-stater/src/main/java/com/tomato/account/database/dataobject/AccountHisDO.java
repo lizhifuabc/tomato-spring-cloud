@@ -57,4 +57,8 @@ public class AccountHisDO extends BaseDO {
      * 是否完成结算【0->是；1->否】
      */
     private Integer completeSett;
+    /**
+     * 入账状态
+     */
+    private Integer accountStatus;
 }

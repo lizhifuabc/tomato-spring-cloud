@@ -7,9 +7,66 @@
         select * from account_his where account_his_id = #{accountHisId} and account_no = #{accountNo}
     </select>
 
-    <insert id="insert" parameterType="accountHisInsertDO">
-        INSERT INTO account_his (account_no, amount, third_no, account_his_type)
-        VALUES (#{accountNo},#{amount},#{thirdNo},#{accountHisType})
+    <insert id="insert" parameterType="accountHisDO">
+        INSERT INTO account_his
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != accountNo and '' != accountNo">
+                account_no,
+            </if>
+            <if test="null != beforeBalance">
+                before_balance,
+            </if>
+            <if test="null != afterBalance">
+                after_balance,
+            </if>
+            <if test="null != amount">
+                amount,
+            </if>
+            <if test="null != allowSett">
+                allow_sett,
+            </if>
+            <if test="null != completeSett">
+                complete_sett,
+            </if>
+            <if test="null != thirdNo and '' != thirdNo">
+                third_no,
+            </if>
+            <if test="null != accountHisType and '' != accountHisType">
+                account_his_type,
+            </if>
+            <if test="null != accountStatus">
+                account_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != accountNo and '' != accountNo">
+                #{accountNo},
+            </if>
+            <if test="null != beforeBalance">
+                #{beforeBalance},
+            </if>
+            <if test="null != afterBalance">
+                #{afterBalance},
+            </if>
+            <if test="null != amount">
+                #{amount},
+            </if>
+            <if test="null != allowSett">
+                #{allowSett},
+            </if>
+            <if test="null != completeSett">
+                #{completeSett},
+            </if>
+            <if test="null != thirdNo and '' != thirdNo">
+                #{thirdNo},
+            </if>
+            <if test="null != accountHisType and '' != accountHisType">
+                #{accountHisType},
+            </if>
+            <if test="null != accountStatus">
+                #{accountStatus},
+            </if>
+        </trim>
     </insert>
 
     <update id="updateAccountStatus" parameterType="accountHisUpdateDO">

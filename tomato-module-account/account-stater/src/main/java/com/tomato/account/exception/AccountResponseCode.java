@@ -19,10 +19,12 @@ public enum AccountResponseCode implements IResponseCode {
 
     ACCOUNT_UPDATE_FAIL("ACCOUNT103", "账户余额更新失败"),
 
-    ACCOUNT_HIS_UPDATE_FAIL("ACCOUNT104", "账户余额更新失败"),
+    ACCOUNT_HIS_UPDATE_FAIL("ACCOUNT104", "账户历史更新失败"),
 
-    ACCOUNT_DAILY_COLLECT_FAIL("ACCOUNT105", "日汇总账户待结算金额"),
-    ;
+    ACCOUNT_DAILY_COLLECT_FAIL("ACCOUNT105", "日汇总账户待结算金额失败"),
+
+//    ACCOUNT_DAILY_COLLECT_NOT_EXIST("ACCOUNT106", "日汇总账户待结算记录为空"),
+    ACCOUNT_DAILY_COLLECT_UPDATE_FAIL("ACCOUNT107", "更新日汇总账户待结算记录失败");
     /**
      * 返回码
      */

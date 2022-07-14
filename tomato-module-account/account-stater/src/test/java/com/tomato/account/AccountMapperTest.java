@@ -4,7 +4,6 @@ import com.tomato.account.database.AccountHisMapper;
 import com.tomato.account.database.AccountMapper;
 import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.database.dataobject.AccountHisDO;
-import com.tomato.account.database.dataobject.AccountHisInsertDO;
 import com.tomato.account.database.dataobject.AccountHisUpdateDO;
 import com.tomato.account.dto.AccountCreateReq;
 import com.tomato.account.service.AccountCreateService;
@@ -52,13 +51,13 @@ public class AccountMapperTest {
     public void test() {
         AccountDO accountDO = accountMapper.selectByAccountNo("1L");
 
-        AccountHisInsertDO insertDO = new AccountHisInsertDO();
-        insertDO.setAccountNo(accountDO.getAccountNo());
-        insertDO.setAmount(new BigDecimal(-100));
+        AccountHisDO insert = new AccountHisDO();
+        insert.setAccountNo(accountDO.getAccountNo());
+        insert.setAmount(new BigDecimal(-100));
 //        insertDO.setAccountHisId(System.currentTimeMillis());
-        insertDO.setThirdNo(UUID.randomUUID().toString());
-        insertDO.setAccountHisType("test");
-        accountHisMapper.insert(insertDO);
+        insert.setThirdNo(UUID.randomUUID().toString());
+        insert.setAccountHisType("test");
+        accountHisMapper.insert(insert);
 
         AccountHisDO accountHisDO = accountHisMapper.selectByAccountHisId(12L,accountDO.getAccountNo());
 

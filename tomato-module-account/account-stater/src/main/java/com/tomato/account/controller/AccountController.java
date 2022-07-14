@@ -1,6 +1,6 @@
 package com.tomato.account.controller;
 
-import com.tomato.account.component.AccountCheckComponent;
+import com.tomato.account.service.AccountCheckService;
 import com.tomato.account.component.AccountComponent;
 import com.tomato.account.database.dataobject.AccountDO;
 import com.tomato.account.dto.AccountReceiveReq;
@@ -23,15 +23,15 @@ import javax.validation.Valid;
 public class AccountController {
     private final AccountComponent accountComponent;
 
-    public AccountController(AccountComponent accountComponent, AccountCheckComponent accountCheckComponent) {
+    public AccountController(AccountComponent accountComponent, AccountCheckService accountCheckService) {
         this.accountComponent = accountComponent;
-        this.accountCheckComponent = accountCheckComponent;
+        this.accountCheckService = accountCheckService;
     }
 
-    private final AccountCheckComponent accountCheckComponent;
+    private final AccountCheckService accountCheckService;
     @PostMapping("/receive")
     public Response receive(@Valid @RequestBody AccountReceiveReq accountReceiveReq){
-        AccountDO accountDO = accountCheckComponent.checkReceive(accountReceiveReq);
+        AccountDO accountDO = accountCheckService.checkReceive(accountReceiveReq);
         accountComponent.receive(accountReceiveReq,accountDO);
         return Response.buildSuccess();
     }
