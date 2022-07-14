@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomato.remit.database.RemitOrderInfoMapper">
+    <insert id="insert" parameterType="remitOrderInfoDO">
+        INSERT INTO remit_order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != remitRequestNo and '' != remitRequestNo">
+                remit_request_no,
+            </if>
+            <if test="null != remitOrderNo and '' != remitOrderNo">
+                remit_order_no,
+            </if>
+            <if test="null != merchantNo and '' != merchantNo">
+                merchant_no,
+            </if>
+            <if test="null != merchantName and '' != merchantName">
+                merchant_name,
+            </if>
+            <if test="null != urgent">
+                urgent,
+            </if>
+            <if test="null != accountName and '' != accountName">
+                account_name,
+            </if>
+            <if test="null != accountNo and '' != accountNo">
+                account_no,
+            </if>
+            <if test="null != bankNo and '' != bankNo">
+                bank_no,
+            </if>
+            <if test="null != bankName and '' != bankName">
+                bank_name,
+            </if>
+            <if test="null != branchBankName and '' != branchBankName">
+                branch_bank_name,
+            </if>
+            <if test="null != province and '' != province">
+                province,
+            </if>
+            <if test="null != city and '' != city">
+                city,
+            </if>
+            <if test="null != notifyAddress and '' != notifyAddress">
+                notify_address,
+            </if>
+            <if test="null != createBatch">
+                create_batch,
+            </if>
+            <if test="null != requestAmount">
+                request_amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != remitRequestNo and '' != remitRequestNo">
+                #{remitRequestNo},
+            </if>
+            <if test="null != remitOrderNo and '' != remitOrderNo">
+                #{remitOrderNo},
+            </if>
+            <if test="null != merchantNo and '' != merchantNo">
+                #{merchantNo},
+            </if>
+            <if test="null != merchantName and '' != merchantName">
+                #{merchantName},
+            </if>
+            <if test="null != urgent">
+                #{urgent},
+            </if>
+            <if test="null != accountName and '' != accountName">
+                #{accountName},
+            </if>
+            <if test="null != accountNo and '' != accountNo">
+                #{accountNo},
+            </if>
+            <if test="null != bankNo and '' != bankNo">
+                #{bankNo},
+            </if>
+            <if test="null != bankName and '' != bankName">
+                #{bankName},
+            </if>
+            <if test="null != branchBankName and '' != branchBankName">
+                #{branchBankName},
+            </if>
+            <if test="null != province and '' != province">
+                #{province},
+            </if>
+            <if test="null != city and '' != city">
+                #{city},
+            </if>
+            <if test="null != notifyAddress and '' != notifyAddress">
+                #{notifyAddress},
+            </if>
+            <if test="null != createBatch">
+                #{createBatch},
+            </if>
+            <if test="null != requestAmount">
+                #{requestAmount},
+            </if>
+        </trim>
+    </insert>
+</mapper>

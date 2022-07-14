@@ -17,7 +17,7 @@ create table `remit_order_info`(
       `branch_bank_name` varchar(128) default '' comment '分行名称',
       `province` varchar(32) not null comment '省份编码',
       `city` varchar(32) not null comment '城市编码',
-      `notifyAddress` varchar(256) default '' comment '通知地址',
+      `notify_address` varchar(256) default '' comment '通知地址',
       `create_batch` tinyint(1) not null default 0 comment '是否创建了批次【0->是；1->否】',
       `request_amount` decimal(14,4)  not null  comment '打款金额',
       `create_time` datetime not null default current_timestamp comment '创建时间',
