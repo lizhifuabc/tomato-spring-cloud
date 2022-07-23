@@ -29,12 +29,12 @@ public class ChannelStrategy {
      * @param remitOrderReq
      * @return
      */
-    public ChannelService getChannel(RemitOrderReq remitOrderReq) {
+    public RemitChannelInfoDO getChannel(RemitOrderReq remitOrderReq) {
         List<RemitChannelInfoDO> channel = remitChannelService.getChannel(remitOrderReq);
         if (channel.isEmpty()) {
             throw new RemitException(RemitResponseCode.REMIT_FAILURE);
         }
         // TODO 通道筛选，金额，限流等等
-        return ChannelHandle.getChannelService(channel.get(0).getChannelCode());
+        return channel.get(0);
     }
 }

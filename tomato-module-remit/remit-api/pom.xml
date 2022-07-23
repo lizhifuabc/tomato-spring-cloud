@@ -17,6 +17,16 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- validator 参数校验 -->
+        <dependency>
+            <groupId>com.tomato.cloud</groupId>
+            <artifactId>tomato-component-validator-starter</artifactId>
+        </dependency>
+        <!-- lombok 依赖 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.tomato.cloud</groupId>
             <artifactId>tomato-component-data</artifactId>

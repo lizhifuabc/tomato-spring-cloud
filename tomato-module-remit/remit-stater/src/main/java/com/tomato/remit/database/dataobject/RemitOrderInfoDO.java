@@ -42,7 +42,7 @@ public class RemitOrderInfoDO extends BaseDO {
     /**
      * 是否加急【0->是；1->否】
      */
-    private int urgent;
+    private Integer urgent;
 
     /**
      * 银行卡账户名称
