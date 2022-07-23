@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2022/7/23
  */
 public class ChannelHandle {
-    private static final ConcurrentHashMap<String, ChannelService> channelServiceMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, ChannelService> CHANNEL_SERVICE_MAP = new ConcurrentHashMap<>();
 
     /**
      * 添加通道
@@ -21,7 +21,7 @@ public class ChannelHandle {
      * @param value
      */
     public static void add(String channelCode, ChannelService value){
-        channelServiceMap.putIfAbsent(channelCode, value);
+        CHANNEL_SERVICE_MAP.putIfAbsent(channelCode, value);
     }
     /**
      * 获取通道服务
@@ -29,7 +29,7 @@ public class ChannelHandle {
      * @return
      */
     public static ChannelService getChannelService(String channelFlag) {
-        return channelServiceMap.get(channelFlag);
+        return CHANNEL_SERVICE_MAP.get(channelFlag);
     }
 
     /**
@@ -38,7 +38,7 @@ public class ChannelHandle {
      */
     public static Map getChannelMap() {
         Map<String, String> map = new HashMap<>(16);
-        channelServiceMap.forEach((key, value) -> {
+        CHANNEL_SERVICE_MAP.forEach((key, value) -> {
             map.put(key, value.channelName());
         });
         return map;
