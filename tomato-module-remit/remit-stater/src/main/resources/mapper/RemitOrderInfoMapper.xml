@@ -105,4 +105,40 @@
             </if>
         </trim>
     </insert>
+
+    <update id="manualProcess" parameterType="completeOrderDO">
+        update
+            remit_order_info
+        set
+            remit_status = 1,
+            exception_code = #{exceptionCode},
+            version = version + 1,
+            exception_info = #{exceptionInfo}
+        where
+            remit_order_no = #{remitOrderNo} and remit_status = 0 and version = #{version}
+    </update>
+    <update id="remitSuccess" parameterType="completeOrderDO">
+        update
+            remit_order_info
+        set
+            remit_status = 2,
+            complete_time = now(),
+            exception_code = #{exceptionCode},
+            version = version + 1,
+            exception_info = #{exceptionInfo}
+        where
+            remit_order_no = #{remitOrderNo} and remit_status <![CDATA[<=]]> 1 and version = #{version}
+    </update>
+    <update id="remitFail" parameterType="completeOrderDO">
+        update
+            remit_order_info
+        set
+            remit_status = 3,
+            complete_time = now(),
+            exception_code = #{exceptionCode},
+            version = version + 1,
+            exception_info = #{exceptionInfo}
+        where
+            remit_order_no = #{remitOrderNo} and remit_status <![CDATA[<=]]> 2 and version = #{version}
+    </update>
 </mapper>

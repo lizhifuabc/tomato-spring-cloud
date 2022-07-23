@@ -4,6 +4,7 @@ import com.tomato.remit.channel.ChannelService;
 import com.tomato.remit.channel.ChannelStrategy;
 import com.tomato.remit.channel.dto.SendRemitResult;
 import com.tomato.remit.channel.handle.ChannelHandle;
+import com.tomato.remit.database.dataobject.CompleteOrderDO;
 import com.tomato.remit.database.dataobject.RemitChannelInfoDO;
 import com.tomato.remit.database.dataobject.RemitOrderInfoDO;
 import com.tomato.remit.dto.RemitOrderReq;
@@ -40,5 +41,12 @@ public class RemitOrderComponent {
 
         SendRemitResult remit = ChannelHandle.getChannelService(channel.getChannelCode()).remit(remitOrderReq);
         log.info("打款下单返回：remit: {}", remit);
+
+        CompleteOrderDO completeOrderDO = new CompleteOrderDO();
+        completeOrderDO.setRemitOrderNo(remitOrderInfoDO.getRemitOrderNo());
+        completeOrderDO.setRemitStatus(remit.getRemitStatus());
+        completeOrderDO.setExceptionCode(remit.getExceptionCode());
+        completeOrderDO.setExceptionInfo(remit.getExceptionInfo());
+        remitOrderService.completeOrder(completeOrderDO);
     }
 }
