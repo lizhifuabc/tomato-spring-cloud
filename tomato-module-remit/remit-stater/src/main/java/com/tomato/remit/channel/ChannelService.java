@@ -23,8 +23,8 @@ public interface ChannelService {
 
     /**
      * 打款下单
-     * @param req
+     * @param remitOrderReq
      * @return
      */
-    SendRemitResult remit(RemitOrderReq req);
+    SendRemitResult remit(RemitOrderReq remitOrderReq);
 }

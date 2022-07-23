@@ -24,7 +24,7 @@ public class RemitOrderComponentTest {
         // 初始化
         remitOrderReq.setMerchantNo("M000001");
         remitOrderReq.setMerchantName("商户名称");
-        remitOrderReq.setRemitRequestNo("R00200021");
+        remitOrderReq.setRemitRequestNo("R0022000221");
         remitOrderReq.setAccountName("张三");
         remitOrderReq.setAccountNo("62220231234567890123");
         remitOrderReq.setRequestAmount(new BigDecimal("100"));

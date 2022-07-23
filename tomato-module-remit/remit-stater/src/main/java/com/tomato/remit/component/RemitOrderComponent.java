@@ -2,6 +2,8 @@ package com.tomato.remit.component;
 
 import com.tomato.remit.channel.ChannelService;
 import com.tomato.remit.channel.ChannelStrategy;
+import com.tomato.remit.channel.dto.SendRemitResult;
+import com.tomato.remit.channel.handle.ChannelHandle;
 import com.tomato.remit.database.dataobject.RemitChannelInfoDO;
 import com.tomato.remit.database.dataobject.RemitOrderInfoDO;
 import com.tomato.remit.dto.RemitOrderReq;
@@ -28,12 +30,15 @@ public class RemitOrderComponent {
     }
 
     public void createOrder(RemitOrderReq remitOrderReq) {
-        log.info("createOrder: {}", remitOrderReq);
+        log.info("打款下单：createOrder: {}", remitOrderReq);
         RemitChannelInfoDO channel = channelStrategy.getChannel(remitOrderReq);
 
         RemitOrderInfoDO remitOrderInfoDO = new RemitOrderInfoDO();
         BeanUtils.copyProperties(remitOrderReq, remitOrderInfoDO);
         BeanUtils.copyProperties(channel, remitOrderInfoDO);
         remitOrderService.createOrder(remitOrderInfoDO);
+
+        SendRemitResult remit = ChannelHandle.getChannelService(channel.getChannelCode()).remit(remitOrderReq);
+        log.info("打款下单返回：remit: {}", remit);
     }
 }
