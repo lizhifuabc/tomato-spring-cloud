@@ -1,4 +1,4 @@
-package com.tomato.remit.channel;
+package com.tomato.remit.channel.dto;
 
 /**
  * 查询打款结果

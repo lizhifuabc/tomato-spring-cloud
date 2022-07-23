@@ -1,5 +1,6 @@
 package com.tomato.remit.channel;
 
+import com.tomato.remit.channel.handle.ChannelHandle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ChannelInit {
     private final ApplicationContext applicationContext;
-    private ConcurrentHashMap<String,ChannelService> channelServiceMap = new ConcurrentHashMap<>();
     public ChannelInit(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
@@ -27,16 +27,7 @@ public class ChannelInit {
         // 初始化通道
         applicationContext.getBeansOfType(ChannelService.class).forEach((key, value) -> {
             log.info("初始化通道：{},通道名称：{}", value.channelCode(), value.channelName());
-            channelServiceMap.putIfAbsent(value.channelCode(), value);
+            ChannelHandle.add(value.channelCode(), value);
         });
-    }
-
-    /**
-     * 获取通道服务
-     * @param channelFlag
-     * @return
-     */
-    public ChannelService getChannelService(String channelFlag) {
-        return channelServiceMap.get(channelFlag);
     }
 }
