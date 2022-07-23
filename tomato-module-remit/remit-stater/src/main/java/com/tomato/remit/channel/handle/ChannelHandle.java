@@ -2,6 +2,8 @@ package com.tomato.remit.channel.handle;
 
 import com.tomato.remit.channel.ChannelService;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,5 +30,17 @@ public class ChannelHandle {
      */
     public static ChannelService getChannelService(String channelFlag) {
         return channelServiceMap.get(channelFlag);
+    }
+
+    /**
+     * 获取所有通道服务
+     * @return
+     */
+    public static Map getChannelMap() {
+        Map<String, String> map = new HashMap<>(16);
+        channelServiceMap.forEach((key, value) -> {
+            map.put(key, value.channelName());
+        });
+        return map;
     }
 }
