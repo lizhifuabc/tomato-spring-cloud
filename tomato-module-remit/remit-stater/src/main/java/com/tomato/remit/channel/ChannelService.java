@@ -1,5 +1,8 @@
 package com.tomato.remit.channel;
 
+import com.tomato.remit.channel.dto.SendRemitResult;
+import com.tomato.remit.dto.RemitOrderReq;
+
 /**
  * 打款接口
  *
@@ -17,4 +20,11 @@ public interface ChannelService {
      * @return
      */
     String channelName();
+
+    /**
+     * 打款下单
+     * @param req
+     * @return
+     */
+    SendRemitResult remit(RemitOrderReq req);
 }

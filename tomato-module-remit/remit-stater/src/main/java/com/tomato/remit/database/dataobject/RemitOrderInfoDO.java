@@ -18,10 +18,7 @@ public class RemitOrderInfoDO extends BaseDO {
      * 版本号
      */
     private Integer version;
-    /**
-     * 批次号
-     */
-    private String batchNo;
+
     /**
      * 打款请求流水号
      */
@@ -93,6 +90,36 @@ public class RemitOrderInfoDO extends BaseDO {
     private Integer createBatch;
 
     /**
+     * 打款渠道
+     */
+    private String channelCode;
+
+    /**
+     * 批次号
+     */
+    private String batchNo;
+
+    /**
+     * 打款状态【0->打款中；1->打款完成】
+     */
+    private Integer remitStatus;
+
+    /**
+     * 是否直接打款【0->是；1->否】
+     */
+    private Integer directRemit;
+
+    /**
+     * 异常码
+     */
+    private String exceptionCode;
+
+    /**
+     * 异常信息
+     */
+    private String exceptionInfo;
+
+    /**
      * 打款金额
      */
     private BigDecimal requestAmount;
@@ -100,9 +127,5 @@ public class RemitOrderInfoDO extends BaseDO {
      * 完成时间
      */
     private LocalDateTime completeTime;
-    /**
-     * 打款渠道
-     */
-    private String channelCode;
     public RemitOrderInfoDO() {}
 }

@@ -24,6 +24,11 @@ public class ChannelStrategy {
         this.remitChannelService = remitChannelService;
     }
 
+    /**
+     * 通道策略
+     * @param remitOrderReq
+     * @return
+     */
     public ChannelService getChannel(RemitOrderReq remitOrderReq) {
         List<RemitChannelInfoDO> channel = remitChannelService.getChannel(remitOrderReq);
         if (channel.isEmpty()) {
