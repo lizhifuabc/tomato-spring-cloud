@@ -78,11 +78,12 @@ drop table if exists `remit_merchant_info`;
 create table  `remit_merchant_info`(
        `id` bigint not null auto_increment comment 'id',
        `version` int not null default '0' comment '版本号',
-       `channel_code` varchar(32) NOT NULL default '' comment '渠道编码',
+       `channel_code` varchar(32) not null comment '渠道编码',
        `merchant_no` varchar(16)  not null comment '商户编号',
-       `merchant_name` varchar(256)  comment '商户名称',
+       `merchant_name` varchar(256)  not null comment '商户名称',
        `bind_status`  tinyint(1) not null default 0 comment '绑定状态【0->开；1->关】',
        `create_time` datetime not null default current_timestamp comment '创建时间',
        `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
-       primary key (id)
+       primary key (id),
+       unique key ti_txp_order_mno (merchant_no,channel_code)
 )engine=innodb auto_increment=1 default charset=utf8mb4 collate=utf8mb4_bin comment='商户绑定打款渠道表';
