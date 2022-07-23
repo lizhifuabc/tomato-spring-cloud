@@ -8,7 +8,7 @@ create table `remit_order_info`(
       `remit_request_no` varchar(64) not null comment '打款请求流水号',
       `remit_order_no` varchar(36) not null  comment '打款系统唯一流水号',
       `merchant_no` varchar(16)  not null comment '商户编号',
-      `merchant_name` varchar(256)  comment '商户名称',
+      `merchant_name` varchar(256) not null comment '商户名称',
       `urgent` tinyint(1) not null default 1 comment '是否加急【0->是；1->否】',
       `account_name` varchar(64) not null comment '银行卡账户名称',
       `account_no` varchar(64) not null comment '银行卡号',
