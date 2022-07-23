@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomato.remit.database.RemitChannelInfoMapper">
+    <select id="selectByMerchantNo" parameterType="remitChannelInfoQueryDO" resultType="remitChannelInfoDO">
+        select ch.*
+        from remit_channel_info ch join remit_merchant_info rmi on ch.channel_code = rmi.channel_code
+        where rmi.merchant_no = #{merchantNo} and ch.channel_status = 0 and rmi.bind_status = 0 and ch.channel_speed = #{channelSpeed}
+    </select>
+</mapper>

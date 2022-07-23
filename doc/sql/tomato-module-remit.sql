@@ -60,15 +60,16 @@ drop table if exists `remit_channel_info`;
 create table `remit_channel_info`(
      `id` bigint not null auto_increment comment 'id',
      `version` int not null default '0' comment '版本号',
-     `channel_code` varchar(32) NOT NULL default '' comment '渠道编码',
-     `channel_name` varchar(64) NOT NULL default '' comment '渠道名称',
+     `channel_code` varchar(32) not null comment '渠道编码',
+     `channel_name` varchar(64) not null comment '渠道名称',
      `channel_status`      tinyint(1) not null default 0 comment '渠道状态【0->开；1->关】',
      `channel_cost` decimal(14,4) not null default 0 comment '渠道成本',
-     `bank_account_no` varchar(64) NOT NULL default '' comment '所在银行账号',
+     `bank_account_no` varchar(64) not null default '' comment '所在银行账号',
      `channel_speed`      tinyint(1) not null default 0 comment '渠道速度【0->快；1->慢】',
      `create_time` datetime not null default current_timestamp comment '创建时间',
      `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
-     primary key (id)
+     primary key (id),
+     unique key ti_txp_channel_code (channel_code)
 )engine=innodb auto_increment=1 default charset=utf8mb4 collate=utf8mb4_bin comment='打款渠道表';
 
 -- ----------------------------
