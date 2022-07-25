@@ -52,31 +52,26 @@ public class RemitOrderReq extends Req {
     /**
      * 银行名称
      */
-    @NotBlank(message = "银行名称不能为空")
     private String bankName;
 
     /**
      * 分行名称
      */
-    @NotBlank(message = "分行名称不能为空")
     private String branchBankName;
 
     /**
      * 省份编码
      */
-    @NotBlank(message = "省份编码不能为空")
     private String province;
 
     /**
      * 城市编码
      */
-    @NotBlank(message = "城市编码不能为空")
     private String city;
 
     /**
      * 通知地址
      */
-    @NotBlank(message = "通知地址不能为空")
     private String notifyAddress;
     /**
      * 打款金额

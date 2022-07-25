@@ -34,11 +34,15 @@ public class DefaultChannelServiceImpl implements ChannelService {
         SendRemitResult result = new SendRemitResult();
         // TODO 打款下单，模拟打款结果
         result.setRemitStatus(RemitStatusEnum.REMIT_ING.getCode());
+        result.setExceptionCode("200");
+        result.setExceptionInfo("打款处理中");
         int random = RandomUtil.randomInt(10);
         // 模拟打款各种情况
         if (random < 2) {
             // 直连类型：打款成功
             result.setRemitStatus(RemitStatusEnum.REMIT_SUCCESS.getCode());
+            result.setExceptionCode("200");
+            result.setExceptionInfo("打款成功");
         }else if (random < 4) {
             // 直连类型：打款失败-->据单
             result.setRemitStatus(RemitStatusEnum.REMIT_FAIL.getCode());

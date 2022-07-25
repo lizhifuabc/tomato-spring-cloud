@@ -7,6 +7,7 @@ import com.tomato.remit.channel.handle.ChannelHandle;
 import com.tomato.remit.database.dataobject.CompleteOrderDO;
 import com.tomato.remit.database.dataobject.RemitChannelInfoDO;
 import com.tomato.remit.database.dataobject.RemitOrderInfoDO;
+import com.tomato.remit.dto.RemitOrderRep;
 import com.tomato.remit.dto.RemitOrderReq;
 import com.tomato.remit.service.RemitOrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class RemitOrderComponent {
         this.channelStrategy = channelStrategy;
     }
 
-    public void createOrder(RemitOrderReq remitOrderReq) {
+    public RemitOrderRep createOrder(RemitOrderReq remitOrderReq) {
         log.info("打款下单：createOrder: {}", remitOrderReq);
         RemitChannelInfoDO channel = channelStrategy.getChannel(remitOrderReq);
 
@@ -38,7 +39,7 @@ public class RemitOrderComponent {
         BeanUtils.copyProperties(remitOrderReq, remitOrderInfoDO);
         BeanUtils.copyProperties(channel, remitOrderInfoDO);
         remitOrderService.createOrder(remitOrderInfoDO);
-
+        // TODO 据单是否创建订单数据
         SendRemitResult remit = ChannelHandle.getChannelService(channel.getChannelCode()).remit(remitOrderReq);
         log.info("打款下单返回：remit: {}", remit);
 
@@ -48,5 +49,12 @@ public class RemitOrderComponent {
         completeOrderDO.setExceptionCode(remit.getExceptionCode());
         completeOrderDO.setExceptionInfo(remit.getExceptionInfo());
         remitOrderService.completeOrder(completeOrderDO);
+
+        RemitOrderRep remitOrderRep = new RemitOrderRep();
+        BeanUtils.copyProperties(remit, remitOrderRep);
+        BeanUtils.copyProperties(remitOrderReq, remitOrderRep);
+        remitOrderRep.setRemitOrderNo(remitOrderInfoDO.getRemitOrderNo());
+
+        return remitOrderRep;
     }
 }

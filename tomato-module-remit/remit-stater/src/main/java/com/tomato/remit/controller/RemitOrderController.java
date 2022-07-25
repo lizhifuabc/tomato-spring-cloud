@@ -1,6 +1,7 @@
 package com.tomato.remit.controller;
 
 import com.tomato.data.response.SingleResponse;
+import com.tomato.remit.component.RemitOrderComponent;
 import com.tomato.remit.dto.RemitOrderRep;
 import com.tomato.remit.dto.RemitOrderReq;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,15 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/remit/order")
 public class RemitOrderController {
+    private final RemitOrderComponent remitOrderComponent;
+
+    public RemitOrderController(RemitOrderComponent remitOrderComponent) {
+        this.remitOrderComponent = remitOrderComponent;
+    }
+
     @PostMapping("/create")
     public SingleResponse<RemitOrderRep> createOrder(@Valid @RequestBody RemitOrderReq remitOrderReq) {
-        return SingleResponse.of(new RemitOrderRep());
+        RemitOrderRep order = remitOrderComponent.createOrder(remitOrderReq);
+        return SingleResponse.of(order);
     }
 }
