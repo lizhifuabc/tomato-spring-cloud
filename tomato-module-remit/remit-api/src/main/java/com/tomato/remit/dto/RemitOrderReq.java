@@ -71,6 +71,7 @@ public class RemitOrderReq extends Req {
 
     /**
      * 通知地址
+     * TODO 对接通知系统，暂时不用
      */
     private String notifyAddress;
     /**
