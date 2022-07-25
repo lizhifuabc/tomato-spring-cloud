@@ -46,14 +46,18 @@ public class AccountSettlementService {
      */
     @Transactional(rollbackFor = Exception.class)
     public void dailyCollect(String accountNo, LocalDate collectDate) {
+        // 查询账户信息
         AccountDO accountDO = accountMapper.selectByAccountNo(accountNo);
+        // 查询当日汇总信息
         AccountDailyCollectDO accountDailyCollectDO = accountDailyCollectMapper.selectByAccountNoAndCollectDate(accountNo, collectDate);
+        // 如果当日汇总信息不存在，则新增当日汇总信息
         if (accountDailyCollectDO == null) {
             AccountHisDailyCollectDO accountHisDailyCollectDO = new AccountHisDailyCollectDO();
             accountHisDailyCollectDO.setAccountNo(accountNo);
             accountHisDailyCollectDO.setRiskDay(accountDO.getRiskDay());
             accountHisDailyCollectDO.setCollectDate(collectDate);
 
+            // 汇总账户历史流水
             AccountHisDailyCollectRepDO accountHisDailyCollectRepDO = accountHisMapper.dailyCollect(accountHisDailyCollectDO);
 
             accountDailyCollectDO = new AccountDailyCollectDO();
@@ -63,6 +67,7 @@ public class AccountSettlementService {
             accountDailyCollectDO.setTotalCount(accountHisDailyCollectRepDO.getTotalCount());
             accountDailyCollectDO.setRiskDay(accountDO.getRiskDay());
 
+            // 新增当日汇总信息
             accountDailyCollectMapper.insert(accountDailyCollectDO);
 
             // 更新日汇总账户待结算历史记录
@@ -71,6 +76,9 @@ public class AccountSettlementService {
             if (res != accountDailyCollectDO.getTotalCount()){
                 throw new AccountException(AccountResponseCode.ACCOUNT_DAILY_COLLECT_FAIL);
             }
+        }else {
+            // 汇总已经存在，打印错误日志
+            log.error("汇总已经存在，accountNo={}, collectDate={}", accountNo, collectDate);
         }
     }
 
