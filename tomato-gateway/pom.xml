@@ -45,13 +45,13 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        <!--客户端负载均衡loadbalancer-->
+        <!-- SpringCloud 2021 ,负载均衡组件的Ribbon弃用，服务间调用 loadbalancer-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
-        <!-- 配置中心 -->
+        <!-- Nacos 配置中心：实现配置的动态变更 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>

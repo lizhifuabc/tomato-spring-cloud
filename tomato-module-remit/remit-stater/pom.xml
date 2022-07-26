@@ -12,6 +12,11 @@
     <artifactId>remit-stater</artifactId>
 
     <dependencies>
+        <!-- Nacos 配置中心：实现配置的动态变更 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
         <!--   数据库连接池 druid 依赖     -->
         <dependency>
             <groupId>com.alibaba</groupId>
