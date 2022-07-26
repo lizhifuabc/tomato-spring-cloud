@@ -16,8 +16,9 @@
         <revision>1.0-SNAPSHOT</revision>
         <!-- 统一依赖管理 -->
         <!--  spring 相关版本控制  -->
-        <spring-boot.version>2.7.1</spring-boot.version>
-        <spring-cloud.version>2021.0.2</spring-cloud.version>
+        <spring-boot.version>2.7.2</spring-boot.version>
+        <spring-boot-admin.version>2.7.3</spring-boot-admin.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <spring-boot.mybatis.version>2.2.2</spring-boot.mybatis.version>
         <!-- shardingsphere 分库分表依赖 -->
@@ -36,6 +37,8 @@
         <captcha.version>1.6.2</captcha.version>
         <!--  MyBatis的脚本语言配置功能  -->
         <mybatis-freemarker.version>1.2.3</mybatis-freemarker.version>
+        <!--  分布式任务调度中心xxl-job  -->
+        <xxl-job.version>2.3.1</xxl-job.version>
     </properties>
     <!--      声明依赖，非引入      -->
     <dependencyManagement>
@@ -63,6 +66,17 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!--监控-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+            </dependency>
+            <!--监控客户端-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
             </dependency>
             <!-- knife4j 依赖配置 -->
             <dependency>
@@ -110,6 +124,12 @@
                 <groupId>org.mybatis.scripting</groupId>
                 <artifactId>mybatis-freemarker</artifactId>
                 <version>${mybatis-freemarker.version}</version>
+            </dependency>
+            <!-- xxl-job-core -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
             </dependency>
             <!--   数据库连接池 druid 依赖     -->
             <dependency>

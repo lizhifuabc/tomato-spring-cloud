@@ -25,6 +25,7 @@
         <module>tomato-module-channel</module>
         <module>tomato-module-notify</module>
         <module>tomato-module-remit</module>
+        <module>tomato-module-xxl</module>
     </modules>
 
 
