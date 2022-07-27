@@ -1,7 +1,7 @@
 package com.tomato.thread.executor;
 
 import com.tomato.thread.proxy.RejectedProxyUtil;
-import com.tomato.thread.wrapper.RunnableWrapper;
+import com.tomato.thread.support.wrapper.RunnableWrapper;
 import com.tomato.utils.date.SystemClock;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,15 +41,11 @@ public class DynamicThreadPoolExecutor extends AbstractDynamicThreadPoolExecutor
     /**
      * 运行超时任务数量
      */
-    @Getter
-    @Setter
     private final AtomicInteger runTimeoutCount = new AtomicInteger();
 
     /**
      * 队列等待超时任务数量
      */
-    @Getter
-    @Setter
     private final AtomicInteger queueTimeoutCount = new AtomicInteger();
     /**
      * 拒绝策略执行之后的处理策略
@@ -61,7 +57,7 @@ public class DynamicThreadPoolExecutor extends AbstractDynamicThreadPoolExecutor
      * 记录拒绝策略执行次数
      */
     @Getter
-    private final AtomicLong rejectCount = new AtomicLong();
+    private final AtomicInteger rejectCount = new AtomicInteger();
     /**
      * 记录执行开始时间
      */
@@ -122,11 +118,17 @@ public class DynamicThreadPoolExecutor extends AbstractDynamicThreadPoolExecutor
         command = new RunnableWrapper(command);
         super.execute(command);
     }
+    public int getQueueTimeoutCount() {
+        return queueTimeoutCount.get();
+    }
+    public int getRunTimeoutCount() {
+        return runTimeoutCount.get();
+    }
     /**
      * 获取拒绝策略执行次数
      * @return
      */
-    public Long getRejectCountNum() {
+    public int getRejectCount() {
         return rejectCount.get();
     }
 

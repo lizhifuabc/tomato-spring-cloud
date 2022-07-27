@@ -2,6 +2,7 @@ package com.tomato.thread.proxy;
 
 import java.lang.reflect.Proxy;
 import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -18,7 +19,7 @@ public class RejectedProxyUtil {
      * @param rejectedNum
      * @return
      */
-    public static RejectedExecutionHandler createProxy(RejectedExecutionHandler rejectedExecutionHandler, String threadPoolId, AtomicLong rejectedNum) {
+    public static RejectedExecutionHandler createProxy(RejectedExecutionHandler rejectedExecutionHandler, String threadPoolId, AtomicInteger rejectedNum) {
         RejectedExecutionHandler rejectedProxy = (RejectedExecutionHandler) Proxy
                 .newProxyInstance(
                         rejectedExecutionHandler.getClass().getClassLoader(),

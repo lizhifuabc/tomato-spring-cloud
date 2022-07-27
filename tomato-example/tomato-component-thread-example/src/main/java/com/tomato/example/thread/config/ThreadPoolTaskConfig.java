@@ -1,6 +1,8 @@
 package com.tomato.example.thread.config;
 
+import com.tomato.thread.dto.ThreadPoolInfoRep;
 import com.tomato.thread.executor.DynamicThreadPoolExecutor;
+import com.tomato.thread.support.convert.ThreadPoolInfoConvert;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -51,5 +53,7 @@ public class ThreadPoolTaskConfig {
         executor.execute(() -> {
             System.out.println(Thread.currentThread().getName());
         });
+        ThreadPoolInfoRep convert = ThreadPoolInfoConvert.convert(executor);
+        System.out.println(convert);
     }
 }
