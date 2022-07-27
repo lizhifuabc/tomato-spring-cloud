@@ -23,7 +23,7 @@ public class DynamicThreadPoolExecutor extends AbstractDynamicThreadPoolExecutor
      * 预先启动所有核心线程
      */
     @Setter
-    private boolean preStartAllCoreThreads;
+    private boolean preStartAllCoreThreads = false;
     /**
      * 运行超时
      */
