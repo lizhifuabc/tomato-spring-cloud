@@ -39,22 +39,17 @@ public class ThreadPoolTaskConfig {
                 maxPoolSize,
                 keepAliveTime,
                 TimeUnit.SECONDS,
-                1L,
-                true,
-                5L,
                 new LinkedBlockingQueue<>(queueCapacity),
-                ThreadPoolTaskConfig.TASK_EXECUTOR_POOL,
                 Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.AbortPolicy());
+                new ThreadPoolExecutor.AbortPolicy(),
+                ThreadPoolTaskConfig.TASK_EXECUTOR_POOL);
         return executor;
     }
 
     public static void main(String[] args) {
         DynamicThreadPoolExecutor executor = taskExecutor();
-        for (int i = 0; i < 10; i++) {
-            executor.execute(() -> {
-                System.out.println(Thread.currentThread().getName());
-            });
-        }
+        executor.execute(() -> {
+            System.out.println(Thread.currentThread().getName());
+        });
     }
 }

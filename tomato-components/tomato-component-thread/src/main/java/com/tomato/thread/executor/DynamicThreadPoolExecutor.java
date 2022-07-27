@@ -1,15 +1,14 @@
 package com.tomato.thread.executor;
 
 import com.tomato.thread.proxy.RejectedProxyUtil;
+import com.tomato.thread.wrapper.RunnableWrapper;
 import com.tomato.utils.date.SystemClock;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.core.task.TaskDecorator;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -19,21 +18,39 @@ import java.util.concurrent.atomic.AtomicLong;
  * @date 2022/7/26
  */
 @Slf4j
-public class DynamicThreadPoolExecutor extends ThreadPoolExecutor implements DisposableBean {
+public class DynamicThreadPoolExecutor extends AbstractDynamicThreadPoolExecutor {
     /**
-     * 线程标识配置
+     * 预先启动所有核心线程
      */
-    @Getter
-    private final String threadPoolId;
+    @Setter
+    private boolean preStartAllCoreThreads;
     /**
-     * 执行超时时间配置
+     * 运行超时
      */
     @Getter
     @Setter
-    private Long executeTimeOut;
+    private long runTimeout;
+
+    /**
+     * 任务队列等待超时
+     */
     @Getter
     @Setter
-    private TaskDecorator taskDecorator;
+    private long queueTimeout;
+
+    /**
+     * 运行超时任务数量
+     */
+    @Getter
+    @Setter
+    private final AtomicInteger runTimeoutCount = new AtomicInteger();
+
+    /**
+     * 队列等待超时任务数量
+     */
+    @Getter
+    @Setter
+    private final AtomicInteger queueTimeoutCount = new AtomicInteger();
     /**
      * 拒绝策略执行之后的处理策略
      */
@@ -49,30 +66,16 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor implements Dis
      * 记录执行开始时间
      */
     private final ThreadLocal<Long> startTime = new ThreadLocal<>();
-    /**
-     * 等待任务完成
-     */
-    public boolean waitForTasksToCompleteOnShutdown;
-    /**
-     * 应用关闭时，如果线程池还有未执行完的任务，关闭线程池的等待时间
-     */
-    public long awaitTerminationMillis;
     public DynamicThreadPoolExecutor(int corePoolSize,
                                      int maximumPoolSize,
                                      long keepAliveTime,
                                      TimeUnit unit,
-                                     long executeTimeOut,
-                                     boolean waitForTasksToCompleteOnShutdown,
-                                     long awaitTerminationMillis,
-                                     @NonNull BlockingQueue<Runnable> workQueue,
-                                     @NonNull String threadPoolId,
-                                     @NonNull ThreadFactory threadFactory,
-                                     @NonNull RejectedExecutionHandler handler) {
-        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
+                                     BlockingQueue<Runnable> workQueue,
+                                     ThreadFactory threadFactory,
+                                     RejectedExecutionHandler handler,
+                                     String threadPoolId) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory,threadPoolId);
         this.threadPoolId = threadPoolId;
-        this.waitForTasksToCompleteOnShutdown = waitForTasksToCompleteOnShutdown;
-        this.awaitTerminationMillis = awaitTerminationMillis;
-        this.executeTimeOut = executeTimeOut;
         // 动态代理记录拒绝策略执行次数
         RejectedExecutionHandler rejectedProxy = RejectedProxyUtil.createProxy(handler, threadPoolId, rejectCount);
         setRejectedExecutionHandler(rejectedProxy);
@@ -87,15 +90,15 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor implements Dis
      */
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-        // 案例1 ：executeTimeOut ：变更前 1，变更后 0
-        // 案例2 ：executeTimeOut ：变更前 0，变更后 1
-        if (executeTimeOut == null || executeTimeOut <= 0) {
-            return;
+        RunnableWrapper runnable = (RunnableWrapper) r;
+        long currTime = SystemClock.now();
+        runnable.setExeStartTime(currTime);
+        long waitTime = currTime - runnable.getSubmitTime();
+        if (waitTime > queueTimeout) {
+            queueTimeoutCount.incrementAndGet();
+            log.warn("{} queue timeout, wait time: {}", threadPoolId, waitTime);
         }
-        // TODO 超时时间配置如果动态更改，可能会出现内存泄露
-        // 案例1 ：executeTimeOut ：变更前 1
-        // 案例2 ：executeTimeOut ：变更前 0，此时startTime空
-        this.startTime.set(SystemClock.now());
+        super.beforeExecute(t, r);
     }
 
     /**
@@ -106,27 +109,17 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor implements Dis
      */
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
-        // 案例1 ：executeTimeOut ：变更后 0，此时直接返回了，不会执行 this.startTime.remove();
-        // 案例2 ：executeTimeOut ：变更后 1， long startTime = this.startTime.get(); NPE
-        // TODO 超时时间配置如果动态更改，可能会出现内存泄露
-        if (executeTimeOut == null || executeTimeOut <= 0) {
-            return;
+        RunnableWrapper runnable = (RunnableWrapper) r;
+        long runTime = SystemClock.now() - runnable.getExeStartTime();
+        if (runTime > runTimeout) {
+            runTimeoutCount.incrementAndGet();
+            log.warn("{} run timeout, run time: {}", threadPoolId, runTime);
         }
-        try {
-            long startTime = this.startTime.get();
-            long endTime = SystemClock.now();
-            long executeTime;
-            boolean executeTimeAlarm = (executeTime = (endTime - startTime)) > executeTimeOut;
-        } finally {
-            // 清空执行开始时间
-            this.startTime.remove();
-        }
+        super.afterExecute(r, t);
     }
     @Override
-    public void execute(@NonNull Runnable command) {
-        if (taskDecorator != null) {
-            command = taskDecorator.decorate(command);
-        }
+    public void execute(Runnable command) {
+        command = new RunnableWrapper(command);
         super.execute(command);
     }
     /**
@@ -138,49 +131,9 @@ public class DynamicThreadPoolExecutor extends ThreadPoolExecutor implements Dis
     }
 
     @Override
-    public void destroy() throws Exception {
-        if (this.waitForTasksToCompleteOnShutdown) {
-            this.shutdown();
-        } else {
-            for (Runnable remainingTask : this.shutdownNow()) {
-                cancelRemainingTask(remainingTask);
-            }
-        }
-        awaitTerminationIfNecessary(this);
-    }
-    /**
-     * Cancel the given remaining task which never commended execution,
-     * as returned from {@link ExecutorService#shutdownNow()}.
-     *
-     * @param task the task to cancel (typically a {@link RunnableFuture})
-     * @see #shutdown()
-     * @see RunnableFuture#cancel(boolean)
-     * @since 5.0.5
-     */
-    protected void cancelRemainingTask(Runnable task) {
-        if (task instanceof Future) {
-            ((Future<?>) task).cancel(true);
-        }
-    }
-    /**
-     * Wait for the executor to terminate, according to the value of the.
-     */
-    private void awaitTerminationIfNecessary(ExecutorService executor) {
-        if (this.awaitTerminationMillis > 0) {
-            try {
-                if (!executor.awaitTermination(this.awaitTerminationMillis, TimeUnit.MILLISECONDS)) {
-                    if (log.isWarnEnabled()) {
-                        log.warn("Timed out while waiting for executor" +
-                                (this.threadPoolId != null ? " '" + this.threadPoolId + "'" : "") + " to terminate.");
-                    }
-                }
-            } catch (InterruptedException ex) {
-                if (log.isWarnEnabled()) {
-                    log.warn("Interrupted while waiting for executor" +
-                            (this.threadPoolId != null ? " '" + this.threadPoolId + "'" : "") + " to terminate.");
-                }
-                Thread.currentThread().interrupt();
-            }
+    protected void initialize() {
+        if (preStartAllCoreThreads) {
+            prestartAllCoreThreads();
         }
     }
 }
