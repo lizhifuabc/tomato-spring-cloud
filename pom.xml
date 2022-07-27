@@ -27,6 +27,7 @@
         <module>tomato-module-remit</module>
         <module>tomato-module-xxl</module>
         <module>tomato-module-monitor</module>
+        <module>tomato-example</module>
     </modules>
 
 

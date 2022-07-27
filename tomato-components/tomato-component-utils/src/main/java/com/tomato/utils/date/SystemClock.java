@@ -3,6 +3,7 @@ package com.tomato.utils.date;
 import java.sql.Timestamp;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 /**
  * 系统时钟<br>
@@ -20,7 +21,8 @@ public class SystemClock {
     private final long period;
     /** 现在时刻的毫秒数 */
     private volatile long now;
-
+    /** 线程名称 */
+    private static final String THREAD_NAME = "system.clock";
     /**
      * 构造
      * @param period 时钟更新间隔，单位毫秒
@@ -35,8 +37,8 @@ public class SystemClock {
      * 开启计时器线程
      */
     private void scheduleClockUpdating() {
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(runnable -> {
-            Thread thread = new Thread(runnable, "System Clock");
+        ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
+            Thread thread = new Thread(r, THREAD_NAME);
             // 设置为守护线程，保证主线程退出时，定时任务线程也退出
             thread.setDaemon(true);
             return thread;
