@@ -21,6 +21,7 @@
         <module>tomato-component-ratelimiter-starter</module>
         <module>tomato-component-rabbitmq-starter</module>
         <module>tomato-component-thread</module>
+        <module>tomato-components-oss-stater</module>
     </modules>
 
     <properties>
