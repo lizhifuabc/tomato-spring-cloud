@@ -19,7 +19,6 @@
         <module>tomato-auth</module>
         <module>tomato-module-sys</module>
         <module>tomato-module-account</module>
-        <module>tomato-demo</module>
         <module>tomato-module-order</module>
         <module>tomato-module-merchant</module>
         <module>tomato-module-channel</module>
@@ -28,6 +27,7 @@
         <module>tomato-module-xxl</module>
         <module>tomato-module-monitor</module>
         <module>tomato-example</module>
+        <module>tomato-codegen</module>
     </modules>
 
 

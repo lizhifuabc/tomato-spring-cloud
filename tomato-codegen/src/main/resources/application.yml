@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: tomato-codegen
+server:
+  port: 8102
