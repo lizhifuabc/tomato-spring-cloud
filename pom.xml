@@ -27,7 +27,7 @@
         <module>tomato-module-xxl</module>
         <module>tomato-module-monitor</module>
         <module>tomato-example</module>
-        <module>tomato-codegen</module>
+        <module>tomato-module-codegen</module>
     </modules>
 
 
