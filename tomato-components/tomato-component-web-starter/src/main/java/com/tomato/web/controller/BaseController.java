@@ -1,7 +1,6 @@
 package com.tomato.web.controller;
 
-import org.springframework.beans.BeanUtils;
-
+import com.tomato.web.utils.BeanUtilsWrapper;
 /**
  * 基础 controller
  *
@@ -18,7 +17,6 @@ public abstract class BaseController {
      * @return
      */
     protected <T, S> S copyToDo(T t, S s) {
-        BeanUtils.copyProperties(t, s);
-        return s;
+       return BeanUtilsWrapper.copyToDo(t, s);
     }
 }
