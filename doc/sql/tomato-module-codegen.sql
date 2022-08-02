@@ -1,11 +1,27 @@
+drop table if exists `codegen_datasource`;
+CREATE TABLE `codegen_datasource` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `db_type` varchar(200) COMMENT '数据库类型 MYSQL',
+    `db_type_name` varchar(200) NOT NULL COMMENT '别名',
+    `url` varchar(500) COMMENT 'URL',
+    `username` varchar(200) COMMENT '用户名',
+    `password` varchar(200) COMMENT '密码',
+    `create_time` datetime not null default current_timestamp comment '创建时间',
+    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
+    primary key (id),
+    unique key (db_type_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据源管理';
+insert into `codegen_datasource` (`db_type`, `db_type_name`, `url`, `username`, `password`)
+values ('MYSQL', 'tomato_codegen', 'jdbc:mysql://127.0.0.1:3306/tomato_codegen?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true', 'tomato', 'tomato');
+
 drop table if exists `codegen_field_type`;
 CREATE TABLE `codegen_field_type` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
     `column_type` varchar(200) COMMENT '字段类型',
     `column_java_type` varchar(200) COMMENT '属性类型',
     `column_java_pac` varchar(200) COMMENT '属性所在包',
-    `create_time` timestamp NOT NULL DEFAULT '2010-01-01 00:00:00' COMMENT '创建时间',
-    `update_time` timestamp NOT NULL DEFAULT '2010-01-01 00:00:00' COMMENT '更新时间',
+    `create_time` datetime not null default current_timestamp comment '创建时间',
+    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
     primary key (id),
     unique key (column_type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字段类型管理';

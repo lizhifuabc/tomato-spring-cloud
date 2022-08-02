@@ -27,7 +27,7 @@ public class CodegenFieldTypeController extends BaseController {
      * @return
      */
     @RequestMapping("/listAll")
-    public MultiResponse listAll() {
+    public MultiResponse<CodegenFieldTypeRep> listAll() {
         return MultiResponse.of(codegenFieldTypeService.listAll());
     }
     /**
@@ -36,7 +36,7 @@ public class CodegenFieldTypeController extends BaseController {
      * @return
      */
     @RequestMapping("/getByColumnType")
-    public SingleResponse getByColumnType(String columnType) {
+    public SingleResponse<CodegenFieldTypeRep> getByColumnType(String columnType) {
         return SingleResponse.of(codegenFieldTypeService.getByColumnType(columnType));
     }
 }

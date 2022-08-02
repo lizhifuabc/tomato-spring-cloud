@@ -7,8 +7,8 @@ CREATE TABLE `tomato_id_info` (
     `step` int(11) DEFAULT '0' COMMENT '步长',
     `delta` int(11) NOT NULL DEFAULT '1' COMMENT '每次id增量',
     `remainder` int(11) NOT NULL DEFAULT '0' COMMENT '余数',
-    `create_time` timestamp NOT NULL DEFAULT '2010-01-01 00:00:00' COMMENT '创建时间',
-    `update_time` timestamp NOT NULL DEFAULT '2010-01-01 00:00:00' COMMENT '更新时间',
+    `create_time` datetime not null default current_timestamp comment '创建时间',
+    `update_time` datetime not null default current_timestamp on update current_timestamp comment '修改时间',
     `version` bigint(20) NOT NULL DEFAULT '0' COMMENT '版本号',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_biz_type` (`biz_type`)
