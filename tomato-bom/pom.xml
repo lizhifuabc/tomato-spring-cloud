@@ -41,7 +41,7 @@
         <!--  分布式任务调度中心xxl-job  -->
         <xxl-job.version>2.3.1</xxl-job.version>
     </properties>
-    <!--      声明依赖，非引入      -->
+    <!-- 依赖版本号管理,子项目不会默认依赖 -->
     <dependencyManagement>
         <dependencies>
             <!-- Spring Cloud 微服务配置 -->
