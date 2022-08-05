@@ -12,6 +12,10 @@ import lombok.Data;
 @Data
 public class CodeGenTableFieldDO extends BaseDO {
     /**
+     * 表 | 视图所在的数据库名称
+     */
+    private String tableSchema;
+    /**
      * 表名
      */
     private String tableName;
@@ -22,66 +26,23 @@ public class CodeGenTableFieldDO extends BaseDO {
     /**
      * 类型
      */
-    private String columnType;
+    private String dataType;
     /**
      * 列说明
      */
     private String columnComment;
     /**
-     * 列说明
+     * 以字符为单位的最大长度
      */
-    @TableField(exist = false)
-    private String comment;
+    private String characterMaximumLength;
     /**
-     * 属性名
+     * 列上的索引类型 主键-->PRI  | 唯一索引 -->UNI  一般索引 -->MUL
      */
-    private String attrName;
+    private String columnKey;
     /**
-     * 属性类型
+     * 是否可以取空值
      */
-    private String attrType;
-    /**
-     * 属性包名
-     */
-    private String packageName;
-    /**
-     * 是否主键 0：否  1：是
-     */
-    private boolean isPk;
-    /**
-     * 是否必填 0：否  1：是
-     */
-    private boolean isRequired;
-    /**
-     * 是否表单字段 0：否  1：是
-     */
-    private boolean isForm;
-    /**
-     * 是否列表字段 0：否  1：是
-     */
-    private boolean isList;
-    /**
-     * 是否查询字段 0：否  1：是
-     */
-    private boolean isQuery;
-    /**
-     * 查询方式
-     */
-    private String queryType;
-    /**
-     * 表单类型
-     */
-    private String formType;
-    /**
-     * 字典名称
-     */
-    private String dictName;
-    /**
-     * 效验方式
-     */
-    private String validatorType;
-    /**
-     * 排序
-     */
-    private Integer sort;
+    private Boolean isNullAble;
+    public CodeGenTableFieldDO() {
+    }
 }

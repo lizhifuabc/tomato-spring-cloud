@@ -1,6 +1,11 @@
 package com.tomato.codegen.dbtype;
 
+import com.tomato.codegen.database.dataobject.CodeGenTableFieldDO;
+import com.tomato.codegen.database.dataobject.CodeGenTableInfoDO;
+import com.tomato.codegen.database.dataobject.CodegenDatasourceDO;
 import com.tomato.codegen.dbtype.enums.DbTypeEnums;
+
+import java.util.List;
 
 /**
  * 数据源查询接口
@@ -15,44 +20,12 @@ public interface DbSelectService {
     DbTypeEnums dbType();
 
     /**
-     * 表信息查询 SQL
-     */
-    String tablesSql(String tableName);
-
-    /**
      * 表名称
      */
-    String tableName();
-
-    /**
-     * 表注释
-     */
-    String tableComment();
+    CodeGenTableInfoDO tableInfo(String tableName, CodegenDatasourceDO codegenDatasourceDO) throws Exception;
 
     /**
      * 表字段信息查询 SQL
      */
-    String tableFieldsSql();
-
-    /**
-     * 字段名称
-     */
-    String fieldName();
-
-
-    /**
-     * 字段类型
-     */
-    String fieldType();
-
-
-    /**
-     * 字段注释
-     */
-    String fieldComment();
-
-    /**
-     * 主键字段
-     */
-    String fieldKey();
+    List<CodeGenTableFieldDO> tableFields(String tableName, CodegenDatasourceDO codegenDatasourceDO) throws Exception;
 }

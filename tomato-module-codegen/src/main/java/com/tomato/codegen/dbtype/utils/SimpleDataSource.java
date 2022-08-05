@@ -18,7 +18,7 @@ public class SimpleDataSource {
      * 连接超时时间
      */
     private static final int CONNECTION_TIMEOUTS_SECONDS = 6;
-    public Connection getConnection(CodegenDatasourceDO codegenDatasourceDO) throws SQLException, ClassNotFoundException {
+    public static Connection getConnection(CodegenDatasourceDO codegenDatasourceDO) throws Exception{
         DriverManager.setLoginTimeout(CONNECTION_TIMEOUTS_SECONDS);
         Class.forName(DbTypeEnums.MYSQL.getDriverClass());
         return DriverManager.getConnection(codegenDatasourceDO.getUrl(), codegenDatasourceDO.getUsername(), codegenDatasourceDO.getPassword());

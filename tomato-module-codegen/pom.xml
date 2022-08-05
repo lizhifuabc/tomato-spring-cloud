@@ -36,6 +36,21 @@
             <groupId>com.tomato.cloud</groupId>
             <artifactId>tomato-component-web-starter</artifactId>
         </dependency>
+        <!-- Apache Commons DbUtils 依赖 -->
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <!--  Spring boot test      -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
