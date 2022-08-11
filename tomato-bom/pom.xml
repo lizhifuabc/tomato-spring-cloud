@@ -31,6 +31,7 @@
         <druid.version>1.2.11</druid.version>
         <!-- Apache Commons DbUtils 依赖 -->
         <aliyun.oss.version>3.15.0</aliyun.oss.version>
+        <ali.fastjson2.version>2.0.11</ali.fastjson2.version>
         <apache.commons.dbutils.version>1.7</apache.commons.dbutils.version>
         <apache.commons.lang.version>2.6</apache.commons.lang.version>
         <!--  knife4j swagger 版本控制  -->
@@ -153,6 +154,12 @@
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun.oss.version}</version>
             </dependency>
+            <!--   ali fastjson2 依赖     -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${ali.fastjson2.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
@@ -197,6 +204,18 @@
             <dependency>
                 <groupId>com.tomato.cloud</groupId>
                 <artifactId>tomato-component-redis-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- reactive redis 依赖 -->
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-redis-reactive-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- reactive redis 限流 依赖 -->
+            <dependency>
+                <groupId>com.tomato.cloud</groupId>
+                <artifactId>tomato-component-ratelimiter-reactive-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
             <!-- rabbitmq 依赖 -->

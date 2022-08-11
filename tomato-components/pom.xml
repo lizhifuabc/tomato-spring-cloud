@@ -22,6 +22,8 @@
         <module>tomato-component-rabbitmq-starter</module>
         <module>tomato-component-thread</module>
         <module>tomato-components-oss-stater</module>
+        <module>tomato-component-redis-reactive-starter</module>
+        <module>tomato-component-ratelimiter-reactive-starter</module>
     </modules>
 
     <properties>
