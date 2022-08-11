@@ -28,6 +28,7 @@
         <module>tomato-module-monitor</module>
         <module>tomato-example</module>
         <module>tomato-module-codegen</module>
+        <module>tomato-spi</module>
     </modules>
 
 
